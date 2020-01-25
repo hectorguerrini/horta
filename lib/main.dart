@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreenPage(),
         '/perfil': (context) => PerfilScreenPage()
       },
+      theme: ThemeData(
+        primaryColor: Colors.green,
+      ),
     );
   }
 }
