@@ -59,33 +59,14 @@ class _MainAppState extends State<MainApp> {
                     child: Container(
                       height: size.height * 0.10,
                       alignment: Alignment.center,
-                      color: Colors.cyan,
-                      child: Text('teste'),
+                      
+                      child: Text('Meu Perfil', style: TextStyle(fontSize: 16),),
                     ),
                   )
                 ],
               ),
               Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: goLogin,
-                    icon: Icon(Icons.people),
-                    color: Colors.orange[600],
-                    iconSize: 48,
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: size.height * 0.10,
-                      alignment: Alignment.center,
-                      color: Colors.cyan,
-                      child: Text('teste'),
-                    ),
-                  )
-                ],
-              ),
+              
             ],
           ),
         ));

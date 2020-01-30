@@ -14,24 +14,19 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
   final nomeHorta = TextEditingController();
   final sobreMim = TextEditingController();
   bool edit = false;
+  TimeOfDay horaStart = TimeOfDay(hour: 8,minute: 0);
+  TimeOfDay horaEnd = TimeOfDay(hour: 18,minute: 0);
   void pressEdit() {
     setState(() {
       edit = !edit;
       print('isEdit $edit');
     });
   }
-  String sobre =
-        'parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas dui id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit';
-  void initState() {
-    idade.value = TextEditingValue(text: '50');
-    cpf.value = TextEditingValue(text: '446.847.728-88');
-    sobreMim.value = TextEditingValue(text: sobre);
-    super.initState();
-  }
+  
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
- 
+    
     
     return Scaffold(
       appBar: AppBar(
@@ -110,7 +105,6 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               ),
               controller: email,
               keyboardType: TextInputType.emailAddress,
-
             ),
             Divider(),
             Text('Informações da Horta',
@@ -135,6 +129,61 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               maxLines: null,
               keyboardType: TextInputType.multiline,
             ),
+            Divider(),
+            Text('Horario de Funcionamento',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.timer),
+                  onPressed: () => showTimePicker(
+                    context: context,
+                    initialTime: horaStart == null ? TimeOfDay.now() : horaStart,
+                    builder: (BuildContext context, Widget child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(alwaysUse24HourFormat: false),
+                        child: child,
+                      );
+                    },
+                  ).then((time) => {
+                    setState(() {
+                      debugPrint('Time:'+time.toString());                      
+                      horaStart = time == null ? horaStart : time;
+                    })
+                  }),
+                ),
+                Text(
+                  'Abre as: ' + (horaStart == null ? '' : horaStart.format(context)) ,
+                  style: TextStyle(fontSize: 18)
+                )
+              ],
+            ),
+            Divider(),
+            Row(
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.timer),
+                  onPressed: () => showTimePicker(
+                    context: context,
+                    initialTime: horaEnd,
+                    builder: (BuildContext context, Widget child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(alwaysUse24HourFormat: false),
+                        child: child,
+                      );
+                    },
+                  ),
+                ),
+                Text('Fecha as: ' + horaEnd.format(context), style: TextStyle(fontSize: 18))
+              ],
+            ),
+            Divider(),
+            Text('Formas de Pagamento',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ])),
     );
   }
