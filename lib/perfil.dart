@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flat_icons_flutter/flat_icons_flutter.dart';
+import 'package:horta/icons_app_icons.dart';
+
 
 class PerfilScreenPage extends StatefulWidget {
   @override
@@ -16,6 +17,9 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
   bool edit = false;
   TimeOfDay horaStart = TimeOfDay(hour: 8,minute: 0);
   TimeOfDay horaEnd = TimeOfDay(hour: 18,minute: 0);
+  bool dinheiro = false;
+  bool cardDebito = false;
+  bool cardCredito = false;
   void pressEdit() {
     setState(() {
       edit = !edit;
@@ -184,6 +188,66 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
             Divider(),
             Text('Formas de Pagamento',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded( flex: 1 ,child: Icon(IconsApp.money)),
+                Expanded( flex: 5 ,child: Text('Dinheiro', style: TextStyle(fontSize: 18))),                
+                Expanded(
+                  flex: 1,
+                  child: Switch(
+                    onChanged: (value) => {
+                      setState(()=>{
+                        dinheiro = value
+                      })
+                    },
+                    value: dinheiro,
+                  ),
+                )
+              ],
+            ),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded( flex: 1 ,child: Icon(IconsApp.credit_card)),
+                Expanded( flex: 5 ,child: Text('Cartao Debito', style: TextStyle(fontSize: 18))),                
+                Expanded(
+                  flex: 1,
+                  child: Switch(
+                    onChanged: (value) => {
+                      setState(()=>{
+                        cardDebito = value
+                      })
+                    },
+                    value: cardDebito,
+                  ),
+                )
+              ],
+            ),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded( flex: 1 ,child: Icon(IconsApp.credit_card_alt)),
+                Expanded( flex: 5 ,child: Text('Cartao Credito', style: TextStyle(fontSize: 18))),                
+                Expanded(
+                  flex: 1,
+                  child: Switch(
+                    onChanged: (value) => {
+                      setState(()=>{
+                        cardCredito = value
+                      })
+                    },
+                    value: cardCredito,
+                  ),
+                )
+              ],
+            ) 
           ])),
     );
   }
