@@ -8,6 +8,7 @@ class PerfilScreenPage extends StatefulWidget {
 }
 
 class _PerfilScreenState extends State<PerfilScreenPage> {
+  final nome = TextEditingController(text: 'Hector');
   final email = TextEditingController();
   final idade = TextEditingController();
   final cpf = TextEditingController();
@@ -47,29 +48,45 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
           child: ListView(children: <Widget>[
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
                   Icons.account_circle,
                   color: Colors.grey,
                   size: size.width * 0.15,
                 ),
-                ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxWidth: size.width * 0.8,
-                        maxHeight: size.height * 0.25),
-                    child: Container(
-                      child: Text(
-                        'Hector Guerrini Herrera',
-                        style: TextStyle(fontSize: 24),
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
+                Container(                  
+                  color: Colors.blue,
+                  width: size.width * 0.75,
+                  height: size.height * 0.1,
+                  alignment: Alignment.center,
+                  constraints: BoxConstraints(
+                    maxWidth: size.width * 0.8,
+                    maxHeight: size.height * 0.1,                        
+                  ),
+                  child: Container(
+                    child: Text(
+                      nome.text,
+                      style: TextStyle(fontSize: 24),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ),
               ],
             ),
             Divider(),
             Text('Informações Pessoais',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Divider(),
+            TextField(
+              style: TextStyle(fontSize: 18),
+              enabled: edit,
+              decoration: InputDecoration(
+                labelText: 'Nome Completo',
+              ),
+              controller: nome,
+              keyboardType: TextInputType.text,
+            ),
             Divider(),
             TextField(
               style: TextStyle(fontSize: 18),
@@ -194,7 +211,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded( flex: 1 ,child: Icon(IconsApp.money)),
-                Expanded( flex: 5 ,child: Text('Dinheiro', style: TextStyle(fontSize: 18))),                
+                Expanded( flex: 4 ,child: Text('Dinheiro', style: TextStyle(fontSize: 18))),                
                 Expanded(
                   flex: 1,
                   child: Switch(
@@ -214,7 +231,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded( flex: 1 ,child: Icon(IconsApp.credit_card)),
-                Expanded( flex: 5 ,child: Text('Cartao Debito', style: TextStyle(fontSize: 18))),                
+                Expanded( flex: 4 ,child: Text('Cartao Debito', style: TextStyle(fontSize: 18))),                
                 Expanded(
                   flex: 1,
                   child: Switch(
@@ -234,7 +251,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded( flex: 1 ,child: Icon(IconsApp.credit_card_alt)),
-                Expanded( flex: 5 ,child: Text('Cartao Credito', style: TextStyle(fontSize: 18))),                
+                Expanded( flex: 4 ,child: Text('Cartao Credito', style: TextStyle(fontSize: 18))),                
                 Expanded(
                   flex: 1,
                   child: Switch(
