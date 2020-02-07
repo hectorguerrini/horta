@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'perfil.dart';
+import 'package:horta/login.dart';
+import 'package:horta/perfil.dart';
 
 void main() => runApp(MyApp());
 
@@ -59,8 +59,16 @@ class _MainAppState extends State<MainApp> {
                     child: Container(
                       height: size.height * 0.10,
                       alignment: Alignment.center,
-                      
-                      child: Text('Meu Perfil', style: TextStyle(fontSize: 16),),
+                      padding: EdgeInsets.all(10),
+                      child: Column(                        
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Minha horta feliz', style: TextStyle(fontSize: 20),),
+                          Text('Bairro Santa Paula | 0.23km       ', style: TextStyle(fontSize: 14, color: Colors.grey),)
+                        ],
+                      ),
                     ),
                   )
                 ],
