@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horta/horta.dart';
 import 'package:horta/localizacacao.dart';
 import 'login.dart';
 import 'perfil.dart';
@@ -10,14 +11,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Named Routes Demo',
-      initialRoute: '/localizacao',
+      initialRoute: '/horta',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => MainApp(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/login': (context) => LoginScreenPage(),
         '/perfil': (context) => PerfilScreenPage(),
-        '/localizacao': (context) => LocalizacaoScreenPage()
+        '/localizacao': (context) => LocalizacaoScreenPage(),
+        '/horta': (context) => HortaScreenPage()
       },
       theme: ThemeData(
         primaryColor: Colors.green,
