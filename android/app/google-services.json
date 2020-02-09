@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "606622168277",
+    "firebase_url": "https://horta-9f5d2.firebaseio.com",
+    "project_id": "horta-9f5d2",
+    "storage_bucket": "horta-9f5d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606622168277:android:c8771b97069e26209e5e5c",
+        "android_client_info": {
+          "package_name": "com.mauadevteam.horta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606622168277-4264eurdp0trra377pt19jqn20m2no5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0gJYU0_VF_nlo-kRmVeg2uvsYOF-nSdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606622168277-4264eurdp0trra377pt19jqn20m2no5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
