@@ -8,8 +8,9 @@ class HortaScreenPage extends StatefulWidget {
 
 class _HortaScreenState extends State<HortaScreenPage> {
   final nome = TextEditingController(text: '');
-
+  
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('Titulo')),
@@ -20,7 +21,9 @@ class _HortaScreenState extends State<HortaScreenPage> {
               image: NetworkImage(
                   'https://thenypost.files.wordpress.com/2019/12/cat.jpg?quality=80&strip=all'),
             )),
+
             Divider(),
+
             Container(
               child: ButtonBar(
                 alignment: MainAxisAlignment.spaceAround,
@@ -42,16 +45,17 @@ class _HortaScreenState extends State<HortaScreenPage> {
                 ],
               ),
             ),
+
             Divider(),
             TextField(
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18),  
               decoration: InputDecoration(
                 labelText: 'Conheça o agricultor',
               ),
               controller: nome,
               keyboardType: TextInputType.text,
             ),
-            Divider(),
+
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(30),

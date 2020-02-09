@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreenPage(),
         '/perfil': (context) => PerfilScreenPage(),
         '/localizacao': (context) => LocalizacaoScreenPage(),
-        '/horta': (context) => HortaScreenPage()
+        '/horta': (context) => HortaScreenPage(),
+        
       },
       theme: ThemeData(
         primaryColor: Colors.green,
