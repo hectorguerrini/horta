@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class HortaScreenPage extends StatefulWidget {
   @override
@@ -14,14 +13,13 @@ class _HortaScreenState extends State<HortaScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('Titulo')),
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: <Widget>[
             Container(
                 child: const Image(
-              image: NetworkImage(
-                  'https://thenypost.files.wordpress.com/2019/12/cat.jpg?quality=80&strip=all'),
-            )),
-
+                    image: NetworkImage(
+                        'https://thenypost.files.wordpress.com/2019/12/cat.jpg?quality=80&strip=all'))),
             Divider(),
 
             Container(
@@ -55,87 +53,85 @@ class _HortaScreenState extends State<HortaScreenPage> {
               controller: nome,
               keyboardType: TextInputType.text,
             ),
-
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(30),
-                children: <Widget>[
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.tram, size: 48),
-                          Expanded(
-                            child: Container(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text('Cenoura',
-                                    style: TextStyle(fontSize: 20),
-                                    textAlign: TextAlign.center),
-                                Text(
-                                  'Disponivel',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.grey[800]),
-                                ),
-                              ],
-                            )),
-                          )
-                        ],
-                      )),
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.tram, size: 48),
-                          Expanded(
-                            child: Container(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text('Cenoura',
-                                    style: TextStyle(fontSize: 20),
-                                    textAlign: TextAlign.center),
-                                Text(
-                                  'Disponivel',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.grey[800]),
-                                ),
-                              ],
-                            )),
-                          )
-                        ],
-                      )),
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.tram, size: 48),
-                          Expanded(
-                            child: Container(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text('Cenoura',
-                                    style: TextStyle(fontSize: 20),
-                                    textAlign: TextAlign.center),
-                                Text(
-                                  'Disponivel',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.grey[800]),
-                                ),
-                              ],
-                            )),
-                          )
-                        ],
-                      )),
-                ],
-              ),
-            )
+            Divider(),
+            Column(
+              //padding: const EdgeInsets.all(30),
+              children: <Widget>[
+                Container(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.tram, size: 48),
+                        Expanded(
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('Cenoura',
+                                  style: TextStyle(fontSize: 20),
+                                  textAlign: TextAlign.center),
+                              Text(
+                                'Disponivel',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey[800]),
+                              ),
+                            ],
+                          )),
+                        )
+                      ],
+                    )),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.tram, size: 48),
+                        Expanded(
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('Cenoura',
+                                  style: TextStyle(fontSize: 20),
+                                  textAlign: TextAlign.center),
+                              Text(
+                                'Disponivel',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey[800]),
+                              ),
+                            ],
+                          )),
+                        )
+                      ],
+                    )),
+                Container(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.tram, size: 48),
+                        Expanded(
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('Cenoura',
+                                  style: TextStyle(fontSize: 20),
+                                  textAlign: TextAlign.center),
+                              Text(
+                                'Disponivel',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey[800]),
+                              ),
+                            ],
+                          )),
+                        )
+                      ],
+                    )),
+              ],
+            ),
           ],
-        ));
+        )));
   }
 }
