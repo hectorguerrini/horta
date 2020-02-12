@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Named Routes Demo',
-      initialRoute: '/horta',
+      initialRoute: '/perfil',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => MainApp(),
@@ -36,7 +36,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   void goLogin() {
-    Navigator.pushNamed(context, '/perfil');
+    Navigator.pushNamed(context, '/z');
   }
 
   @override

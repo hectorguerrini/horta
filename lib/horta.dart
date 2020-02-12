@@ -12,7 +12,7 @@ class _HortaScreenState extends State<HortaScreenPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Titulo')),
+        appBar: AppBar(title: Text('Horta')),
         body: SingleChildScrollView(
             child: Column(
           children: <Widget>[
