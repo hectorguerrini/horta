@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:horta/horta.dart';
 import 'package:horta/localizacacao.dart';
+import 'package:horta/screens/authenticate/sign_in.dart';
 import 'login.dart';
 import 'perfil.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Named Routes Demo',
-      initialRoute: '/perfil',
+      initialRoute: '/SignIn',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => MainApp(),
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
         '/perfil': (context) => PerfilScreenPage(),
         '/localizacao': (context) => LocalizacaoScreenPage(),
         '/horta': (context) => HortaScreenPage(),
+        '/SignIn': (context) => SignIn(),
+      
         
       },
       theme: ThemeData(
@@ -27,6 +30,9 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class SignInScreenPage {
 }
 
 class MainApp extends StatefulWidget {
