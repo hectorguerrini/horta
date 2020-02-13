@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horta/services/auth.dart';
 
 class LoginScreenPage extends StatefulWidget { 
   @override
@@ -6,17 +7,10 @@ class LoginScreenPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreenPage> {
-  
-  final usuarioCtrl = TextEditingController();
-  final pwCtrl = TextEditingController();
+  final _auth = AuthService();
   String usuario = '';
+  String password = '';
   
-  void goMain() {
-    Navigator.pushNamed(
-      context,
-      '/'
-    );
-  }
   @override
   Widget build(BuildContext context) {
     
@@ -31,19 +25,19 @@ class _LoginScreenState extends State<LoginScreenPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[     
-                Image(
-                  image: AssetImage('assets/logo2.png'),
-                  width: size.width * 0.50,                  
-                ),
-                TextField(                
-                  controller: usuarioCtrl,
+              children: <Widget>[                
+                TextFormField(
+                  onChanged: (val) {
+                    setState(() { usuario = val; });
+                  },                             
                   decoration: InputDecoration(
                     labelText: 'Usuario'
                   ),
                 ),
                 TextFormField(
-                  controller: pwCtrl,
+                  onChanged: (val) {
+                    setState(() { password = val; });
+                  },                  
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Senha',                    
@@ -51,7 +45,9 @@ class _LoginScreenState extends State<LoginScreenPage> {
                   validator: (val) => val.trim().isEmpty ? 'Insira sua senha' : null,
                 ),
                 RaisedButton(
-                  onPressed: goMain,
+                  onPressed: () async {
+                    print(usuario);
+                  },
                   padding: EdgeInsets.all(0.0),
                   textColor: Colors.blue,
                   color: Colors.white,

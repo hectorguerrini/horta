@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:horta/screens/authenticate/sign_in.dart';
+import 'package:horta/screens/authenticate/login.dart';
+
 
 
 class Authenticate extends StatefulWidget {
@@ -11,7 +12,7 @@ class AuthenticateState extends State <Authenticate> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: SignIn(),
+      child: LoginScreenPage(),
     );
   }
 }
