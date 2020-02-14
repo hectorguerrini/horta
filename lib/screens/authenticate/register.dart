@@ -2,41 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:horta/services/auth.dart';
 
 class Register extends StatefulWidget {
+  final Function toggleView;
+  Register({this.toggleView});
+
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-
   final _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
   String usuario = '';
   String password = '';
-
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            FlatButton.icon(
-             
-              onPressed: (){
-               
-              },
-              icon: Icon(Icons.person), 
-              label: Text('Faca o login'),
-            ),
-          ],
-          title: Text('Registro'),
-        ),
-        body: Center(
+      appBar: AppBar(
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () {
+              widget.toggleView();
+            },
+            icon: Icon(Icons.person),
+            label: Text('Faca o login'),
+          ),
+        ],
+        title: Text('Registro'),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        child: Form(
+          key: _formKey,
           child: Container(
-            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 TextFormField(
+                  validator: (val) => val.isEmpty ? 'Escreva seu email' : null,
                   onChanged: (val) {
                     setState(() {
                       usuario = val;
@@ -45,6 +49,9 @@ class _RegisterState extends State<Register> {
                   decoration: InputDecoration(labelText: 'Usuario'),
                 ),
                 TextFormField(
+                  validator: (val) => val.length < 6
+                      ? 'Escreva sua senha com mais de 6 caracteres'
+                      : null,
                   onChanged: (val) {
                     setState(() {
                       password = val;
@@ -54,12 +61,16 @@ class _RegisterState extends State<Register> {
                   decoration: InputDecoration(
                     labelText: 'Senha',
                   ),
-                  validator: (val) =>
-                      val.trim().isEmpty ? 'Insira sua senha' : null,
                 ),
                 RaisedButton(
                   onPressed: () async {
-                    print(usuario);
+                    if (_formKey.currentState.validate()) {
+                      dynamic result = await _auth.registerWithEmailAndPassword(
+                          usuario, password);
+                      if (result == null) {
+                        setState(() => error = 'insira um email valido');
+                      }
+                    }
                   },
                   padding: EdgeInsets.all(0.0),
                   textColor: Colors.blue,
@@ -68,10 +79,17 @@ class _RegisterState extends State<Register> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       side: BorderSide(color: Colors.blue)),
-                ),                    
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  error,
+                  style: TextStyle(color: Colors.red, fontSize: 14.0),
+                ),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

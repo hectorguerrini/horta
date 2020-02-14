@@ -20,9 +20,9 @@ void toggleView(){
   @override
   Widget build(BuildContext context) {
     if(showSignIn){
-      return LoginScreenPage();
+      return LoginScreenPage(toggleView: toggleView);
     }else{
-      return Register();
+      return Register(toggleView: toggleView);
     }
   }
 }
