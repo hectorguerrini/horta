@@ -20,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Welcome'),
           actions: <Widget>[
             FlatButton.icon(
-              onPressed: () async {
-                await _auth.signOut();
+              onPressed: () async { ;
+               await _auth.signOut();
               },
               icon: Icon(Icons.person),
               label: Text('Sair'),

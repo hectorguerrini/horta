@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:horta/services/auth.dart';
 
-class LoginScreenPage extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginScreenState extends State<LoginScreenPage> {
+class _RegisterState extends State<Register> {
+
   final _auth = AuthService();
   String usuario = '';
   String password = '';
 
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text('Login'),
           actions: <Widget>[
             FlatButton.icon(
              
@@ -24,9 +24,10 @@ class _LoginScreenState extends State<LoginScreenPage> {
                
               },
               icon: Icon(Icons.person), 
-              label: Text('Cadastre-se'),
+              label: Text('Faca o login'),
             ),
           ],
+          title: Text('Registro'),
         ),
         body: Center(
           child: Container(
@@ -63,28 +64,11 @@ class _LoginScreenState extends State<LoginScreenPage> {
                   padding: EdgeInsets.all(0.0),
                   textColor: Colors.blue,
                   color: Colors.white,
-                  child: Text('Entrar'),
+                  child: Text('Registro'),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       side: BorderSide(color: Colors.blue)),
-                ),
-                RaisedButton(
-                    padding: EdgeInsets.all(0.0),
-                    textColor: Colors.blue,
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        side: BorderSide(color: Colors.blue)),
-                    child: Text('Login anonimo'),
-                    onPressed: () async {
-                      dynamic result = await _auth.signInAnon();
-                      if (result == null) {
-                        print('Falha ao logar');
-                      } else {
-                        print('Sucesso ao logar');
-                        print(result.uid);
-                      }
-                    }),
+                ),                    
               ],
             ),
           ),
