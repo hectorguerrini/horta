@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreenPage> {
   final _formKey = GlobalKey<FormState>();
 
   String usuario = '';
-  String password = '';
+  String senha = '';
   String error = '';
 
   @override
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreenPage> {
                       : null,
                   onChanged: (val) {
                     setState(() {
-                      password = val;
+                      senha = val;
                     });
                   },
                   obscureText: true,
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreenPage> {
                 RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.loginWithEmailAndPassword(usuario, password);
+                      dynamic result = await _auth.loginWithEmailAndsenha(usuario, senha);
                       if (result == null) {
                         setState(() => error = 'Nao deu pra logar');
                       }

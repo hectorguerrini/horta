@@ -14,7 +14,7 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
 
   String usuario = '';
-  String password = '';
+  String senha = '';
   String error = '';
 
   @override
@@ -54,7 +54,7 @@ class _RegisterState extends State<Register> {
                       : null,
                   onChanged: (val) {
                     setState(() {
-                      password = val;
+                      senha = val;
                     });
                   },
                   obscureText: true,
@@ -65,8 +65,8 @@ class _RegisterState extends State<Register> {
                 RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWithEmailAndPassword(
-                          usuario, password);
+                      dynamic result = await _auth.registerWithEmailAndsenha(
+                          usuario, senha);
                       if (result == null) {
                         setState(() => error = 'insira um email valido');
                       }
