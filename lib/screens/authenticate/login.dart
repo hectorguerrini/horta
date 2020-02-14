@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreenPage> {
                 RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.loginWithEmailAndsenha(usuario, senha);
+                      dynamic result = await _auth.loginWithEmailAndPassword(usuario, senha);
                       if (result == null) {
                         setState(() => error = 'Nao deu pra logar');
                       }

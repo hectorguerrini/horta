@@ -29,12 +29,12 @@ class AuthService {
     }
   }
 
-//sign in email/senha
+//sign in email/password
 
-  Future loginWithEmailAndsenha(String email, String senha) async {
+  Future loginWithEmailAndPassword(String email, String senha) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndsenha(
-          email: email, senha: senha);
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: senha);
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
@@ -44,12 +44,12 @@ class AuthService {
   }
 
 
-//register with email/senha
+//register with email/password
 
-  Future registerWithEmailAndsenha(String email, String senha) async {
+  Future registerWithEmailAndPassword(String email, String senha) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndsenha(
-          email: email, senha: senha);
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: senha);
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {

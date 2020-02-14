@@ -65,7 +65,7 @@ class _RegisterState extends State<Register> {
                 RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWithEmailAndsenha(
+                      dynamic result = await _auth.registerWithEmailAndPassword(
                           usuario, senha);
                       if (result == null) {
                         setState(() => error = 'insira um email valido');
