@@ -22,6 +22,7 @@ dependencies:
   cloud_firestore: ^0.13.2+1
   provider: ^4.0.4
   flat_icons_flutter: ^1.0.2
+  json_annotation: ^3.0.1
   flutter:
     sdk: flutter
 
@@ -30,6 +31,8 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  json_serializable: ^3.2.5
+  build_runner: ^1.7.4
   flutter_test:
     sdk: flutter
 

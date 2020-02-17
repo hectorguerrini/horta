@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:horta/horta.dart';
 import 'package:horta/localizacacao.dart';
+import 'package:horta/screens/perfil/perfil.dart';
 import 'package:horta/screens/wrapper.dart';
 import 'package:horta/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'perfil.dart';
+
 
 void main() => runApp(MyApp());
 

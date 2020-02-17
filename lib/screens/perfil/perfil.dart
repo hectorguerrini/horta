@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/icons_app_icons.dart';
-
+import 'package:horta/models/perfil.dart';
+import 'package:horta/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:horta/models/user.dart';
 
 class PerfilScreenPage extends StatefulWidget {
   @override
@@ -8,13 +12,9 @@ class PerfilScreenPage extends StatefulWidget {
 }
 
 class _PerfilScreenState extends State<PerfilScreenPage> {
-  final nome = TextEditingController(text: 'Hector');
-  final email = TextEditingController();
-  final idade = TextEditingController();
-  final cpf = TextEditingController();
-  final wpp = TextEditingController();
-  final nomeHorta = TextEditingController();
-  final sobreMim = TextEditingController();
+  Perfil perfil = new Perfil();
+
+
   bool edit = false;
   TimeOfDay horaStart = TimeOfDay(hour: 8,minute: 0);
   TimeOfDay horaEnd = TimeOfDay(hour: 18,minute: 0);
@@ -31,7 +31,16 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user = Provider.of<User>(context);
     
+    DatabaseService(uid: user.uid).getUserPerfil().then((value) {
+    
+      setState(() {
+        perfil = Perfil.fromJson(value.data);  
+      });      
+
+    });
+
     
     return Scaffold(
       appBar: AppBar(
@@ -55,8 +64,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                   color: Colors.grey,
                   size: size.width * 0.15,
                 ),
-                Container(                  
-                  color: Colors.blue,
+                Container(                                    
                   width: size.width * 0.75,
                   height: size.height * 0.1,
                   alignment: Alignment.center,
@@ -66,7 +74,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                   ),
                   child: Container(
                     child: Text(
-                      nome.text,
+                      (perfil.nome ?? ''),
                       style: TextStyle(fontSize: 24),
                       textAlign: TextAlign.center,
                     ),
@@ -75,58 +83,70 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               ],
             ),
             Divider(),
+            Text(
+              perfil.email ?? '',
+              style: TextStyle(fontSize: 22)
+            ),
+            Divider(),
             Text('Informações Pessoais',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Divider(),
-            TextField(
+            TextFormField(
               style: TextStyle(fontSize: 18),
               enabled: edit,
               decoration: InputDecoration(
                 labelText: 'Nome Completo',
-              ),
-              controller: nome,
+              ),              
               keyboardType: TextInputType.text,
+              onChanged: (val) {
+                setState(() {
+                  perfil.nome = val;
+                });
+              },
             ),
             Divider(),
-            TextField(
+            TextFormField(
               style: TextStyle(fontSize: 18),
               enabled: edit,
               decoration: InputDecoration(
                 labelText: 'Idade',
-              ),
-              controller: idade,
+              ),              
               keyboardType: TextInputType.number,
+              onChanged: (val) {
+                setState(() {
+                  perfil.idade = int.parse(val);
+                });
+              },
             ),
             Divider(),
-            TextField(
+            TextFormField(
               style: TextStyle(fontSize: 18),
               enabled: edit,
               decoration: InputDecoration(
                 labelText: 'CPF',
               ),
-              controller: cpf,
               keyboardType: TextInputType.number,
+              onChanged: (val) {
+                setState(() {
+                  perfil.cpf = val;
+                });
+              },
             ),
             Divider(),
-            TextField(
+            TextFormField(
               style: TextStyle(fontSize: 18),
               enabled: edit,
               decoration: InputDecoration(
                 labelText: 'Whatsapp',
               ),
-              controller: wpp,
               keyboardType: TextInputType.phone,
+              onChanged: (val) {
+                setState(() {
+                  perfil.wpp = val;
+                });
+              },
             ),
-            Divider(),
-            TextField(
-              style: TextStyle(fontSize: 18),
-              enabled: edit,
-              decoration: InputDecoration(
-                labelText: 'Email',
-              ),
-              controller: email,
-              keyboardType: TextInputType.emailAddress,
-            ),
+                        
             Divider(),
             Text('Informações da Horta',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
@@ -137,7 +157,6 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               decoration: InputDecoration(
                 labelText: 'Nome da Horta',
               ),
-              controller: nomeHorta,
             ),
             Divider(),
             TextField(
@@ -146,7 +165,6 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               decoration: InputDecoration(
                 labelText: 'Minha Historia',
               ),
-              controller: sobreMim,
               maxLines: null,
               keyboardType: TextInputType.multiline,
             ),

@@ -7,9 +7,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void goLogin() {
-    Navigator.pushNamed(context, '/perfil');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   IconButton(
-                    onPressed: goLogin,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/perfil');
+                    },
                     icon: Icon(Icons.people),
                     color: Colors.orange[600],
                     iconSize: 48,
@@ -48,15 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: Container(
                       height: size.height * 0.10,
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       padding: EdgeInsets.all(10),
                       child: Column(                        
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('Minha horta feliz', style: TextStyle(fontSize: 20),),
-                          Text('Bairro Santa Paula | 0.23km       ', style: TextStyle(fontSize: 14, color: Colors.grey),)
+                          Text('Meu Perfil', style: TextStyle(fontSize: 20),),
+                          Text('Suas Informações gerais', style: TextStyle(fontSize: 14, color: Colors.grey),)
                         ],
                       ),
                     ),

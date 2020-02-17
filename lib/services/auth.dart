@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';
+import 'package:horta/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -36,6 +38,7 @@ class AuthService {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: senha);
       FirebaseUser user = result.user;
+          
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -51,6 +54,11 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: senha);
       FirebaseUser user = result.user;
+
+      Perfil perfil = new Perfil();
+      perfil.email = email;
+      await DatabaseService(uid: user.uid).updateUserPerfil(perfil);
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
