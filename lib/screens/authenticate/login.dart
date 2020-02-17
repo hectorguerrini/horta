@@ -28,15 +28,13 @@ class _LoginScreenState extends State<LoginScreenPage> {
             },
             icon: Icon(Icons.person),
             label: Text('Cadastre-se'),
+            textColor: Colors.white,
           ),
         ]),
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
           child: Form(
             key: _formKey,
-            
-            
-            
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
@@ -63,48 +61,53 @@ class _LoginScreenState extends State<LoginScreenPage> {
                   decoration: InputDecoration(
                     labelText: 'Senha',
                   ),
-              
                 ),
-                RaisedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.loginWithEmailAndPassword(usuario, senha);
-                      if (result == null) {
-                        setState(() => error = 'Nao deu pra logar');
-                      }
-                  }},
-                  padding: EdgeInsets.all(0.0),
-                  textColor: Colors.blue,
-                  color: Colors.white,
-                  child: Text('Entrar'),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: BorderSide(color: Colors.blue)),
-                ),
-
                 SizedBox(height: 20.0),
                 Text(
                   error,
                   style: TextStyle(color: Colors.red, fontSize: 14.0),
                 ),
-
-                RaisedButton(
-                    padding: EdgeInsets.all(0.0),
-                    textColor: Colors.blue,
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        side: BorderSide(color: Colors.blue)),
-                    child: Text('Login anonimo'),
-                    onPressed: () async {
-                      dynamic result = await _auth.signInAnon();
-                      if (result == null) {
-                        print('Falha ao logar');
-                      } else {
-                        print('Sucesso ao logar');
-                        print(result.uid);
-                      }
-                    }),
+                ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          dynamic result = await _auth
+                              .loginWithEmailAndPassword(usuario, senha);
+                          if (result == null) {
+                            setState(() => error = 'Nao deu pra logar');
+                          }
+                        }
+                      },
+                      padding: EdgeInsets.all(0.0),
+                      textColor: Colors.blue,
+                      color: Colors.white,
+                      child: Text('Entrar'),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          side: BorderSide(color: Colors.blue)),
+                    ),
+                    RaisedButton(
+                        padding: EdgeInsets.all(0.0),
+                        textColor: Colors.blue,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            side: BorderSide(color: Colors.blue)),
+                        child: Text('Login anonimo'),
+                        onPressed: () async {
+                          dynamic result = await _auth.signInAnon();
+                          if (result == null) {
+                            print('Falha ao logar');
+                          } else {
+                            print('Sucesso ao logar');
+                            print(result.uid);
+                          }
+                        }),
+                  ],
+                )
               ],
             ),
           ),
