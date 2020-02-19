@@ -15,8 +15,8 @@ Perfil _$PerfilFromJson(Map<String, dynamic> json) {
     ..email = json['email'] as String
     ..nomeHorta = json['nomeHorta'] as String
     ..minhaHistoria = json['minhaHistoria'] as String
-    ..abertura = json['abertura'] as String
-    ..fechamento = json['fechamento'] as String
+    ..abertura = json['abertura'] as Timestamp
+    ..fechamento = json['fechamento'] as Timestamp
     ..dinheiro = json['dinheiro'] as bool
     ..cartaoDebito = json['cartaoDebito'] as bool
     ..cartaoCredito = json['cartaoCredito'] as bool;

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'perfil.g.dart';
@@ -12,11 +13,11 @@ class Perfil {
   String email;
   String nomeHorta;
   String minhaHistoria;
-  String abertura;
-  String fechamento;
-  bool dinheiro;
-  bool cartaoDebito;
-  bool cartaoCredito;
+  Timestamp abertura;
+  Timestamp fechamento;
+  bool dinheiro = false;
+  bool cartaoDebito = false;
+  bool cartaoCredito = false;
   
   Perfil();
 

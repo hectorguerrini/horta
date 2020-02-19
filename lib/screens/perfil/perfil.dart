@@ -1,53 +1,59 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/icons_app_icons.dart';
 import 'package:horta/models/perfil.dart';
 import 'package:horta/services/database.dart';
-import 'package:provider/provider.dart';
-import 'package:horta/models/user.dart';
 
 class PerfilScreenPage extends StatefulWidget {
+  
   @override
   _PerfilScreenState createState() => _PerfilScreenState();
 }
 
 class _PerfilScreenState extends State<PerfilScreenPage> {
-  Perfil perfil = new Perfil();
-
+  final nomeCtrl = TextEditingController();
+  Perfil perfil;
+  FirebaseUser user;
 
   bool edit = false;
   TimeOfDay horaStart = TimeOfDay(hour: 8,minute: 0);
   TimeOfDay horaEnd = TimeOfDay(hour: 18,minute: 0);
-  bool dinheiro = false;
-  bool cardDebito = false;
-  bool cardCredito = false;
-  void pressEdit() {
-    setState(() {
-      edit = !edit;
-      print('isEdit $edit');
+  DateTime today = DateTime.now();
+  @override
+  void initState() {
+    super.initState();
+    perfil = new Perfil();
+    getPerfil();
+  }
+
+  void getPerfil() async {
+    user = await FirebaseAuth.instance.currentUser();
+    
+    DatabaseService(uid: user.uid).getUserPerfil().then((value){
+      setState(() {
+        perfil = Perfil.fromJson(value.data);
+        nomeCtrl.text = perfil.nome;        
+      });
     });
   }
   
   @override
   Widget build(BuildContext context) {
+    
     final size = MediaQuery.of(context).size;
-    final user = Provider.of<User>(context);
-    
-    DatabaseService(uid: user.uid).getUserPerfil().then((value) {
-    
-      setState(() {
-        perfil = Perfil.fromJson(value.data);  
-      });      
-
-    });
-
     
     return Scaffold(
       appBar: AppBar(
         title: Text('Meu Perfil'),
         actions: <Widget>[
           IconButton(
-            onPressed: pressEdit,
+            onPressed: (){
+              setState(() {
+                edit = !edit;
+                print('isEdit $edit');
+              });
+            },
             icon: Icon(Icons.edit),
           )
         ],
@@ -74,7 +80,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                   ),
                   child: Container(
                     child: Text(
-                      (perfil.nome ?? ''),
+                      (this.perfil.nome ?? ''),
                       style: TextStyle(fontSize: 24),
                       textAlign: TextAlign.center,
                     ),
@@ -98,6 +104,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                 labelText: 'Nome Completo',
               ),              
               keyboardType: TextInputType.text,
+              controller: nomeCtrl,
               onChanged: (val) {
                 setState(() {
                   perfil.nome = val;
@@ -111,7 +118,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               decoration: InputDecoration(
                 labelText: 'Idade',
               ),              
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.number,              
               onChanged: (val) {
                 setState(() {
                   perfil.idade = int.parse(val);
@@ -120,6 +127,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
             ),
             Divider(),
             TextFormField(
+              
               style: TextStyle(fontSize: 18),
               enabled: edit,
               decoration: InputDecoration(
@@ -157,6 +165,11 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               decoration: InputDecoration(
                 labelText: 'Nome da Horta',
               ),
+              onChanged: (val){
+                setState(() {
+                  perfil.nomeHorta = val;
+                });
+              },
             ),
             Divider(),
             TextField(
@@ -167,6 +180,11 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
               ),
               maxLines: null,
               keyboardType: TextInputType.multiline,
+              onChanged: (val){
+                setState(() {
+                  perfil.minhaHistoria = val;
+                });
+              },
             ),
             Divider(),
             Text('Horario de Funcionamento',
@@ -189,8 +207,10 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                     },
                   ).then((time) => {
                     setState(() {
-                      debugPrint('Time:'+time.toString());                      
-                      horaStart = time == null ? horaStart : time;
+                      debugPrint('Time:'+time.toString());                         
+                      TimeOfDay t = time == null ? horaStart : time;                      
+                      DateTime date = DateTime(today.year, today.month, today.day, t.hour, t.minute);
+                      perfil.abertura = Timestamp.fromDate(date);
                     })
                   }),
                 ),
@@ -215,7 +235,15 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                         child: child,
                       );
                     },
-                  ),
+                  ).then((time){
+                    setState(() {
+                      debugPrint('TimeEnd:'+time.toString());                      
+                      TimeOfDay t = time == null ? horaEnd : time;                      
+                      DateTime date = DateTime(today.year, today.month, today.day, t.hour, t.minute);
+                      perfil.fechamento = Timestamp.fromDate(date);
+                     
+                    });
+                  }),
                 ),
                 Text('Fecha as: ' + horaEnd.format(context), style: TextStyle(fontSize: 18))
               ],
@@ -234,11 +262,11 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                   flex: 1,
                   child: Switch(
                     onChanged: (value) => {
-                      setState(()=>{
-                        dinheiro = value
+                      setState((){
+                        perfil.dinheiro = value;
                       })
                     },
-                    value: dinheiro,
+                    value: perfil.dinheiro,
                   ),
                 )
               ],
@@ -254,11 +282,11 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                   flex: 1,
                   child: Switch(
                     onChanged: (value) => {
-                      setState(()=>{
-                        cardDebito = value
+                      setState((){
+                        perfil.cartaoDebito = value;
                       })
                     },
-                    value: cardDebito,
+                    value: perfil.cartaoDebito,
                   ),
                 )
               ],
@@ -274,15 +302,24 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                   flex: 1,
                   child: Switch(
                     onChanged: (value) => {
-                      setState(()=>{
-                        cardCredito = value
+                      setState((){
+                        perfil.cartaoCredito = value;
                       })
                     },
-                    value: cardCredito,
+                    value: perfil.cartaoCredito
                   ),
                 )
               ],
-            ) 
+            ),
+            Divider(),
+            RaisedButton.icon(
+              onPressed: () async {
+                await DatabaseService(uid: user.uid).updateUserPerfil(perfil);
+                
+              },
+              icon: Icon(Icons.save),
+              label: Text('Salvar')
+            )
           ])),
     );
   }
