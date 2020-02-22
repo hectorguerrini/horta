@@ -75,4 +75,17 @@ class AuthService {
       return null;
     }
   }
+
+  Future updateUserInfo(String displayName, String photoUrl) async {
+    try {
+      FirebaseUser user = await _auth.currentUser();
+      UserUpdateInfo info = new UserUpdateInfo();
+      info.displayName = displayName;
+      info.photoUrl = photoUrl;      
+      return user.updateProfile(info);
+    } catch (e) {
+      print(e.toStrint());
+      return null;
+    }
+  }
 }
