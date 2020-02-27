@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:horta/icons_app_icons.dart';
 import 'package:horta/models/perfil.dart';
 import 'package:horta/services/database.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PerfilScreenPage extends StatefulWidget {
   @override
@@ -12,6 +15,38 @@ class PerfilScreenPage extends StatefulWidget {
 }
 
 class _PerfilScreenState extends State<PerfilScreenPage> {
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
+  }
+  Future actionSheetModel() async {
+    await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(
+          message: Text('Escolha uma opção'),
+          title: Text('Editar Foto'),
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: getImage,
+              child: Text('Galeria')
+            )
+          ],
+        );
+      }
+    );
+  }
   final nomeCtrl = TextEditingController();
   final idadeCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -31,7 +66,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
   void initState() {
     super.initState();
     perfil = new Perfil();
-    getPerfil();
+    getPerfil();    
   }
 
   void getPerfil() async {
@@ -77,19 +112,49 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
         ],
       ),
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: size.width*0.02, vertical: 20),
           child: ListView(children: <Widget>[
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                  Icons.account_circle,
-                  color: Colors.grey,
-                  size: size.width * 0.15,
+                // Icon(
+                //   Icons.account_circle,
+                //   color: Colors.grey,
+                //   size: size.width * 0.15,
+                // ),
+                Stack(             
+                  overflow: Overflow.visible,     
+                  children: <Widget>[                    
+                    CircleAvatar(
+                      backgroundColor: Colors.green[600],
+                      radius: size.width * 0.1,
+                      backgroundImage: AssetImage('assets/foto.jpg'),
+                    
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,                      
+                      child: Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: Colors.green[600],                        
+                          borderRadius: BorderRadius.circular(80)
+                        ),                        
+                        alignment: AlignmentDirectional.center,
+                        child: IconButton(                      
+                          icon: Icon(Icons.camera_alt, size: 20), 
+                          onPressed: actionSheetModel,
+                          color: Colors.white,
+                          
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
-                    width: size.width * 0.75,
+                    width: size.width * 0.70,
                     height: size.height * 0.1,
                     alignment: Alignment.center,
                     constraints: BoxConstraints(
