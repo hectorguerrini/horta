@@ -15,38 +15,6 @@ class PerfilScreenPage extends StatefulWidget {
 }
 
 class _PerfilScreenState extends State<PerfilScreenPage> {
-  File _image;
-
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = image;
-    });
-  }
-  Future actionSheetModel() async {
-    await showCupertinoModalPopup(
-      context: context,
-      builder: (context) {
-        return CupertinoActionSheet(
-          message: Text('Escolha uma opção'),
-          title: Text('Editar Foto'),
-          cancelButton: CupertinoActionSheetAction(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          actions: <Widget>[
-            CupertinoActionSheetAction(
-              onPressed: getImage,
-              child: Text('Galeria')
-            )
-          ],
-        );
-      }
-    );
-  }
   final nomeCtrl = TextEditingController();
   final idadeCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -62,19 +30,104 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
   TimeOfDay horaStart = TimeOfDay(hour: 8, minute: 0);
   TimeOfDay horaEnd = TimeOfDay(hour: 18, minute: 0);
   DateTime today = DateTime.now();
+  File _image;
+  String photoUrl;
+  Future getImageGaleria() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    showLoading();
+    setState(() {
+      _image = image;
+      DatabaseService(uid: user.uid).updatePhoto(_image).then((onValue){
+        Navigator.pop(context);
+        showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+              title: Text('Mensagem'),
+              content:
+                  Text('Foto de perfil atualizado com successo'));
+        });
+      });     
+    });
+  }
+  Future getImageCamera() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    showLoading();
+    setState(() {
+      _image = image;
+      DatabaseService(uid: user.uid).updatePhoto(_image).then((onValue){
+        Navigator.pop(context);
+        showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+              title: Text('Mensagem'),
+              content:
+                  Text('Foto de perfil atualizado com successo'));
+        });
+      });              
+    });
+  }
+  Future actionSheetModel(BuildContext context) async {
+    await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(          
+          title: Text('Editar Foto'),
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                getImageGaleria();
+                Navigator.pop(context);
+              },
+              child: Text('Galeria')
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                getImageCamera();
+                Navigator.pop(context);
+              },
+              child: Text('Camera')
+            )
+          ],
+        );
+      }
+    );
+  }
+  Future showLoading() async {
+    await showCupertinoDialog(
+
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: CupertinoActivityIndicator(radius: 30, animating: true,)
+        ); 
+      }
+    );
+
+  }
   @override
   void initState() {
-    super.initState();
+    super.initState();  
+             
     perfil = new Perfil();
     getPerfil();    
   }
 
   void getPerfil() async {
     user = await FirebaseAuth.instance.currentUser();
-
+    photoUrl = user.photoUrl;
+    print(photoUrl);
+    showLoading();
     DatabaseService(uid: user.uid).getUserPerfil().then((value) {
       setState(() {
-        perfil = Perfil.fromJson(value.data);
+        perfil = Perfil.fromJson(value.data);        
         nomeCtrl.text = perfil.nome;
         idadeCtrl.text = perfil.idade.toString();
         emailCtrl.text = perfil.email;
@@ -88,6 +141,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
         DateTime t2 = DateTime.fromMillisecondsSinceEpoch(
             perfil.fechamento.millisecondsSinceEpoch);
         horaEnd = TimeOfDay.fromDateTime(t2);
+        Navigator.pop(context);
       });
     });
   }
@@ -95,7 +149,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Meu Perfil'),
@@ -114,23 +168,18 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
       body: Container(
           padding: EdgeInsets.symmetric(horizontal: size.width*0.02, vertical: 20),
           child: ListView(children: <Widget>[
-            Row(
+            Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                // Icon(
-                //   Icons.account_circle,
-                //   color: Colors.grey,
-                //   size: size.width * 0.15,
-                // ),
+                
                 Stack(             
                   overflow: Overflow.visible,     
-                  children: <Widget>[                    
+                  children: <Widget>[                       
                     CircleAvatar(
                       backgroundColor: Colors.green[600],
-                      radius: size.width * 0.1,
-                      backgroundImage: AssetImage('assets/foto.jpg'),
-                    
+                      radius: size.width * 0.2,
+                      backgroundImage: _image != null ? FileImage(_image) : ( photoUrl != null ? NetworkImage(photoUrl) : AssetImage('assets/account.png')),                                        
                     ),
                     Positioned(
                       bottom: 0,
@@ -145,7 +194,9 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                         alignment: AlignmentDirectional.center,
                         child: IconButton(                      
                           icon: Icon(Icons.camera_alt, size: 20), 
-                          onPressed: actionSheetModel,
+                          onPressed: () async {
+                            await actionSheetModel(context);
+                          },
                           color: Colors.white,
                           
                         ),
