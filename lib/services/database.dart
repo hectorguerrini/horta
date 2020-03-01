@@ -27,7 +27,7 @@ class DatabaseService {
   Future updatePhoto(File image) async {
     try {
       String urlImage;
-      String fileName = basename(image.path);
+      String fileName = uid + '_photoPerfil.jpg';
       StorageReference imageRef = storage.ref().child(fileName);
       StorageUploadTask uploadTask = imageRef.putFile(image);
       await uploadTask.onComplete;
