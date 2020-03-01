@@ -401,6 +401,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
                 Expanded(
                   flex: 1,
                   child: Switch(
+                    
                     onChanged: (value) => {
                       setState(() {
                         perfil.dinheiro = value;
