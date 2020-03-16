@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:horta/main.dart';
+import 'package:horta/screens/consumidor/listaHortas.dart';
 import 'package:horta/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:horta/models/user.dart';
@@ -43,6 +44,16 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       }
     });
   }
+  Widget pageMain() {
+    switch (_selectedIndex) {
+      case 0:
+        return ListaHortasScreenPage();
+        break;
+      default:
+        return ListaHortasScreenPage();
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
             )
           ],
         ),
-        body: Container(
-          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-          child: Center(
-            child: Text('Lista de hortas')
-          ),
-        ),
+        body: pageMain(),        
         bottomNavigationBar: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

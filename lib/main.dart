@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:horta/horta.dart';
-import 'package:horta/localizacacao.dart';
 import 'package:horta/screens/authenticate/authenticate.dart';
 import 'package:horta/screens/home/home.dart';
 import 'package:horta/screens/perfil/perfil.dart';
@@ -24,9 +22,7 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => HomeScreen(),          
           // When navigating to the "/second" route, build the SecondScreen widget.          
-          '/perfil': (context) => PerfilScreenPage(),
-          '/localizacao': (context) => LocalizacaoScreenPage(),
-          '/horta': (context) => HortaScreenPage(),    
+          '/perfil': (context) => PerfilScreenPage(),          
           '/auth': (context) => Authenticate()
           
         },
