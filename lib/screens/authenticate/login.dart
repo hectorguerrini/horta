@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:horta/services/auth.dart';
 
@@ -78,6 +79,8 @@ class _LoginScreenState extends State<LoginScreenPage> {
                               .loginWithEmailAndPassword(usuario, senha);
                           if (result == null) {
                             setState(() => error = 'Nao deu pra logar');
+                          } else {
+                            Navigator.pop(context);
                           }
                         }
                       },
@@ -89,23 +92,23 @@ class _LoginScreenState extends State<LoginScreenPage> {
                           borderRadius: BorderRadius.circular(20.0),
                           side: BorderSide(color: Colors.blue)),
                     ),
-                    RaisedButton(
-                        padding: EdgeInsets.all(0.0),
-                        textColor: Colors.blue,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            side: BorderSide(color: Colors.blue)),
-                        child: Text('Login anonimo'),
-                        onPressed: () async {
-                          dynamic result = await _auth.signInAnon();
-                          if (result == null) {
-                            print('Falha ao logar');
-                          } else {
-                            print('Sucesso ao logar');
-                            print(result.uid);
-                          }
-                        }),
+                    // RaisedButton(
+                    //     padding: EdgeInsets.all(0.0),
+                    //     textColor: Colors.blue,
+                    //     color: Colors.white,
+                    //     shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(20.0),
+                    //         side: BorderSide(color: Colors.blue)),
+                    //     child: Text('Login anonimo'),
+                    //     onPressed: () async {
+                    //       dynamic result = await _auth.signInAnon();
+                    //       if (result == null) {
+                    //         print('Falha ao logar');
+                    //       } else {
+                    //         print('Sucesso ao logar');
+                    //         print(result.uid);
+                    //       }
+                    //     }),
                   ],
                 )
               ],

@@ -1,3 +1,5 @@
+
+
 name: horta
 description: A new Flutter project.
 
@@ -17,19 +19,27 @@ environment:
   sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
-  http: ^0.12.0+2
-  firebase_auth: ^0.15.4
+  #http: ^0.12.0+2
+  font_awesome_flutter: ^8.7.0
+  firebase_auth: ^0.15.5+2
   cloud_firestore: ^0.13.2+1
+  firebase_storage: ^3.1.1
   provider: ^4.0.4
   flat_icons_flutter: ^1.0.2
+  json_annotation: ^3.0.1
   flutter:
     sdk: flutter
-
+  image_picker: ^0.6.3+4  
+  # camera: ^0.5.7+4
+  # path_provider: ^1.6.1
+  # path: ^1.6.4
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  json_serializable: ^3.2.5
+  build_runner: ^1.7.4
   flutter_test:
     sdk: flutter
 
