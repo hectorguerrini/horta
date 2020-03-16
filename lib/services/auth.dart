@@ -41,7 +41,7 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
-      throw e;
+      return Future.error(e);
     }
   }
 
@@ -61,7 +61,7 @@ class AuthService {
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
-      return e.message;
+      return Future.error(e);
     }
   }
 
