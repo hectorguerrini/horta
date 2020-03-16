@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horta/models/handleErrorRegister.dart';
 import 'package:horta/services/auth.dart';
 
 class Register extends StatefulWidget {
@@ -21,23 +22,15 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          FlatButton.icon(
-            onPressed: () {
-              widget.toggleView();
-            },
-            icon: Icon(Icons.person),
-            label: Text('Faca o login'),
-          ),
-        ],
         title: Text('Registro'),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            child: Column(
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 70.0),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              shrinkWrap: true,
               children: <Widget>[
                 TextFormField(
                   validator: (val) => val.isEmpty ? 'Escreva seu email' : null,
@@ -46,7 +39,7 @@ class _RegisterState extends State<Register> {
                       usuario = val;
                     });
                   },
-                  decoration: InputDecoration(labelText: 'Usuario'),
+                  decoration: InputDecoration(labelText: 'Email'),
                 ),
                 TextFormField(
                   validator: (val) => val.length < 6
@@ -61,30 +54,40 @@ class _RegisterState extends State<Register> {
                   decoration: InputDecoration(
                     labelText: 'Senha',
                   ),
-                ),
-                RaisedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWithEmailAndPassword(
-                          usuario, senha);
-                      if (result == null) {
-                        setState(() => error = 'insira um email valido');
-                      }
-                    }
-                  },
-                  padding: EdgeInsets.all(0.0),
-                  textColor: Colors.blue,
-                  color: Colors.white,
-                  child: Text('Registro'),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: BorderSide(color: Colors.blue)),
-                ),
+                ),                
                 SizedBox(height: 20.0),
                 Text(
                   error,
                   style: TextStyle(color: Colors.red, fontSize: 14.0),
                 ),
+                RaisedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      await _auth.registerWithEmailAndPassword(usuario, senha)
+                        .then((onValue) {
+
+                        }).catchError((onError){
+                          setState(() {
+                            error = new HandleErrorRegister(onError.code).errorMessage;  
+                          });                          
+                        });                      
+                    }
+                  },                  
+                  elevation: 5.0,
+                  textColor: Colors.white,
+                  color: Colors.green,
+                  child: Text('Criar Conta', style: TextStyle(fontSize: 16.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)                    
+                  ),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    widget.toggleView();
+                  },
+                  child: Text('Login', style: TextStyle(fontSize: 16.0)),
+                  textColor: Colors.green,
+                )
               ],
             ),
           ),
