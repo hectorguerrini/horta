@@ -9,8 +9,9 @@ import 'package:provider/provider.dart';
 
 
 void main() => runApp(MyApp());
-
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return StreamProvider.value(
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Named Routes',
         initialRoute: '/',
+        navigatorObservers: [routeObserver],
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => HomeScreen(),          

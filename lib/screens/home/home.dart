@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:horta/main.dart';
 import 'package:horta/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:horta/models/user.dart';
@@ -8,13 +9,28 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen> with RouteAware {
   User user;
-  int _selectedIndex;
+  int _selectedIndex = 0;
+
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
-    _selectedIndex = 0;
+  void didChangeDependencies() {
+    super.didChangeDependencies();    
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+  @override
+  void didPush() {    
+  }
+  @override
+  void didPopNext() {
+    setState(() {
+      _selectedIndex = 0;
+    });
   }
   void _onItemTapped(int index) {
     setState(() {
