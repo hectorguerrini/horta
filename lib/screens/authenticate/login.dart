@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    
     return Scaffold(
         appBar: AppBar(title: Text('Login')),
         body: Center(          

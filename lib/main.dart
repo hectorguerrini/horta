@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horta/screens/authenticate/authenticate.dart';
+import 'package:horta/screens/consumidor/detalheHorta.dart';
 import 'package:horta/screens/home/home.dart';
 import 'package:horta/screens/perfil/perfil.dart';
 import 'package:horta/services/auth.dart';
@@ -16,14 +17,15 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         title: 'Named Routes',
-        initialRoute: '/',
+        initialRoute: '/detalhe',
         navigatorObservers: [routeObserver],
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => HomeScreen(),          
           // When navigating to the "/second" route, build the SecondScreen widget.          
           '/perfil': (context) => PerfilScreenPage(),          
-          '/auth': (context) => Authenticate()
+          '/auth': (context) => Authenticate(),
+          '/detalhe': (context) => DetalheHorta()
           
         },
         theme: ThemeData(
