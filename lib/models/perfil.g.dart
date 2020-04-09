@@ -13,13 +13,7 @@ Perfil _$PerfilFromJson(Map<String, dynamic> json) {
     ..cpf = json['cpf'] as String
     ..wpp = json['wpp'] as String
     ..email = json['email'] as String
-    ..nomeHorta = json['nomeHorta'] as String
-    ..minhaHistoria = json['minhaHistoria'] as String
-    ..abertura = json['abertura'] as Timestamp
-    ..fechamento = json['fechamento'] as Timestamp
-    ..dinheiro = json['dinheiro'] as bool
-    ..cartaoDebito = json['cartaoDebito'] as bool
-    ..cartaoCredito = json['cartaoCredito'] as bool;
+    ..agricultor = json['agricultor'] as bool;
 }
 
 Map<String, dynamic> _$PerfilToJson(Perfil instance) => <String, dynamic>{
@@ -28,11 +22,5 @@ Map<String, dynamic> _$PerfilToJson(Perfil instance) => <String, dynamic>{
       'cpf': instance.cpf,
       'wpp': instance.wpp,
       'email': instance.email,
-      'nomeHorta': instance.nomeHorta,
-      'minhaHistoria': instance.minhaHistoria,
-      'abertura': instance.abertura,
-      'fechamento': instance.fechamento,
-      'dinheiro': instance.dinheiro,
-      'cartaoDebito': instance.cartaoDebito,
-      'cartaoCredito': instance.cartaoCredito,
+      'agricultor': instance.agricultor,
     };
