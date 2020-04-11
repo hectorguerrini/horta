@@ -29,7 +29,8 @@ dependencies:
   json_annotation: ^3.0.1
   flutter:
     sdk: flutter
-  image_picker: ^0.6.3+4  
+  image_picker: ^0.6.3+4
+  intl: ^0.16.1
   # camera: ^0.5.7+4
   # path_provider: ^1.6.1
   # path: ^1.6.4
