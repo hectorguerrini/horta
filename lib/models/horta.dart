@@ -6,8 +6,8 @@ part 'horta.g.dart';
 class Horta {  
   String nomeHorta;
   String minhaHistoria;
-  Timestamp abertura;
-  Timestamp fechamento;
+  //Timestamp abertura;
+  //Timestamp fechamento;
   bool dinheiro = false;
   bool cartaoDebito = false;
   bool cartaoCredito = false;  

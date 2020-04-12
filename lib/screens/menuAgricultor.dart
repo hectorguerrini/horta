@@ -11,17 +11,24 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Meus Produtos"), 
+        title: Text("Menu Agricultor"), 
       ),
       body: ListView(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(10),
         children: <Widget>[
-          FlatButton(
-            color: Colors.red,
+          RaisedButton(
+            textTheme: ButtonTextTheme.primary,
+            padding: EdgeInsets.all(10),
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(18.0),
+            ),
             onPressed: (){
               Navigator.pushNamed(context, '/listaProdutos');
             },
-            child: Text("Adicionar produto"),
+            child: Text("Adicionar produto",
+            textScaleFactor: 1.8,
+              ),
           )
         ],
       )

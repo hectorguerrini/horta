@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
           '/perfil/horta': (context) => MinhaHortaScreen(),
           '/auth': (context) => Authenticate(),
           '/detalhe': (context) => DetalheHorta(),
-          '/listaProdutos': (context) => ListaProdutosScreen()
-          
+          '/listaProdutos': (context) => ListaProdutosScreen(),
+          '/menuAgricultor': (context) => MenuAgricultorScreen()
         },
         theme: ThemeData(
           primaryColor: Colors.green,
