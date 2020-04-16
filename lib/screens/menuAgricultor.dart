@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:horta/screens/listaProdutos.dart';
 
 class MenuAgricultorScreen extends StatefulWidget {
   @override
@@ -7,6 +6,7 @@ class MenuAgricultorScreen extends StatefulWidget {
 }
 
 class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +29,14 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
             child: Text("Adicionar produto",
             textScaleFactor: 1.8,
               ),
-          )
+          ),
+
+    
+            
+
         ],
-      )
+      ),
+      
       );  
   }
 }
