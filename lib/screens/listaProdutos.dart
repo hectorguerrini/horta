@@ -56,8 +56,8 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
               isExpanded: true,
               onChanged: (objetoComNomeEIcone) {
                 setState(() {
-                  selectProduto.produto = objetoComNomeEIcone.produto;
-                  selectProduto.icon = objetoComNomeEIcone.icon;
+                  this.selectProduto = objetoComNomeEIcone;
+                
                 });
               },
               value: selectProduto,
@@ -74,36 +74,35 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
                   .toList(),
             ),
           ),
-          
-          
           ListTile(
             leading: Text("Preco do produto"),
             trailing: Text("Reais"),  
             title: TextField(
-              enabled: true,
-              keyboardType: TextInputType.number,
-              controller: precoProdutoCtrl,
-              onChanged: (dynamic value) {
-                setState(() {
+            enabled: true,
+            keyboardType: TextInputType.number,
+            controller: precoProdutoCtrl,
+            onChanged: (dynamic value) {
+              setState(() {
+                if (selectProduto != null)
                   selectProduto.preco = value;
-                });
-              },
+              });
+            },
             ),
-          ),
+          ),    
           
+          Divider(),
 
-
-          
-          Container(
+            Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: DropdownButton(
               isExpanded: true,
               onChanged: (unidadeProduto) {
                 setState(() {
-                  selectProduto.unidade = unidadeProduto;
+                  if (selectProduto != null)
+                    selectProduto.unidade = unidadeProduto;
                 });
               },
-              
+              value: selectProduto != null ? selectProduto.unidade : null,
               hint: Text("quantidade"),
               items: <String>['Kilo', 'Duzia', 'Unidade']
                   .map<DropdownMenuItem<String>>((String value) {
@@ -113,11 +112,11 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
                 );
               }).toList(),
             ),
-          ), 
-          Divider(),
-
-          Container(
-            child: selectProduto 
+          ),
+        
+          
+          
+          (selectProduto 
              == null ? 
             Container(
               height: 64,
