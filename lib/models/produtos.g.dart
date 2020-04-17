@@ -10,7 +10,7 @@ Produtos _$ProdutosFromJson(Map<String, dynamic> json) {
   return Produtos()
     ..produto = json['produto'] as String
     ..icon = json['icon'] as String
-    ..preco = json['preco'] as String
+    ..preco = json['preco'] as int
     ..unidade = json['unidade'] as String;
 }
 

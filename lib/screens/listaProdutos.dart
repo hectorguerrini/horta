@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/models/produtos.dart';
+import 'package:horta/models/user.dart';
+import 'package:horta/screens/perfil/meusProdutos.dart';
 import 'package:horta/services/produtos.dart';
+import 'package:intl/intl.dart';
 
 class ListaProdutosScreen extends StatefulWidget {
   @override
@@ -9,9 +13,11 @@ class ListaProdutosScreen extends StatefulWidget {
 
 class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
   List<Produtos> produtos = [];
-  final TextEditingController precoProdutoCtrl = new TextEditingController();
+  final precoProdutoCtrl = new TextEditingController(text: "0,00");
   Produtos selectProduto;
   List unidade = ["kg, unidade, duzia"];
+  NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
+  
   
   @override
   void initState() {
@@ -24,7 +30,10 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
     List<Produtos> lista = [];
     ProdutosService().listaProdutos().then((value) {
       value.documents.forEach((value) {
-        lista.add(Produtos.fromJson(value.data));
+        var prod = Produtos.fromJson(value.data);
+        prod.preco = 0;
+        prod.unidade = "Kilo";
+        lista.add(prod);
       });
       setState(() {
         produtos = lista;
@@ -74,24 +83,26 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
                   .toList(),
             ),
           ),
+
+          
           ListTile(
             leading: Text("Preco do produto"),
             trailing: Text("Reais"),  
-            title: TextField(
+            title: TextField(            
             enabled: true,
             keyboardType: TextInputType.number,
-            controller: precoProdutoCtrl,
-            onChanged: (dynamic value) {
+            controller: precoProdutoCtrl,      
+            onChanged: (value) {
               setState(() {
                 if (selectProduto != null)
-                  selectProduto.preco = value;
+                  selectProduto.preco = int.parse(value);
               });
             },
             ),
           ),    
-          
-          Divider(),
 
+          Divider(),
+          
             Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: DropdownButton(
@@ -115,8 +126,8 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
           ),
         
           
-          
-          (selectProduto 
+          ListTile(
+            leading: (selectProduto 
              == null ? 
             Container(
               height: 64,
@@ -127,8 +138,14 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
               width: 64,
               child: Image.asset(selectProduto.icon, fit: BoxFit.contain))             
           ),
+            title: selectProduto == null ? Text("Nome do produto") : Text(selectProduto.produto),
+            trailing: selectProduto == null ? Text("R\$ 0,00 reais") : Text("${currency.format(selectProduto.preco)} / ${selectProduto.unidade}"),
             
+            
+          ),
 
+          
+         
           Divider(),
 
           ButtonBar(
@@ -139,8 +156,21 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
                   color: Colors.green,
                   child: Text("Salvar"),
                   onPressed: () {                    
+                    ProdutosService(uid: User.uid).updateMeusProdutos(selectProduto).then((onValue) async {
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context){
+                          return CupertinoAlertDialog(
+                            title: Text("Mensagem"),
+                            content: Text("Salvo."),
+                          );
+                        }
+                      );
+                    });
+                    
                     Navigator.pushNamed(context, '/menuAgricultor');
-                   
+                    
+                    
                   })
             ],
           )

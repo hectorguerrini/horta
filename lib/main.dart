@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horta/screens/authenticate/authenticate.dart';
+import 'package:horta/screens/authenticate/login.dart';
 import 'package:horta/screens/consumidor/detalheHorta.dart';
 import 'package:horta/screens/home/home.dart';
 import 'package:horta/screens/listaProdutos.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
-          '/': (context) => MenuAgricultorScreen(),          
+          '/': (context) => ListaProdutosScreen(),          
           // When navigating to the "/second" route, build the SecondScreen widget.          
           '/perfil': (context) => PerfilScreenPage(),          
           '/perfil/conta': (context) => ContaScreen(),
@@ -33,7 +34,9 @@ class MyApp extends StatelessWidget {
           '/auth': (context) => Authenticate(),
           '/detalhe': (context) => DetalheHorta(),
           '/listaProdutos': (context) => ListaProdutosScreen(),
-          '/menuAgricultor': (context) => MenuAgricultorScreen()
+          '/menuAgricultor': (context) => MenuAgricultorScreen(),
+          
+          
         },
         theme: ThemeData(
           primaryColor: Colors.green,

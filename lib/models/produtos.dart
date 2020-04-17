@@ -7,7 +7,7 @@ part 'produtos.g.dart';
 class Produtos {
   String produto;
   String icon;
-  String preco;
+  int preco;
   String unidade;
   
   Produtos();
