@@ -12,8 +12,7 @@ Perfil _$PerfilFromJson(Map<String, dynamic> json) {
     ..idade = json['idade'] as int
     ..cpf = json['cpf'] as String
     ..wpp = json['wpp'] as String
-    ..email = json['email'] as String
-    ..agricultor = json['agricultor'] as bool;
+    ..email = json['email'] as String;    
 }
 
 Map<String, dynamic> _$PerfilToJson(Perfil instance) => <String, dynamic>{
@@ -22,5 +21,4 @@ Map<String, dynamic> _$PerfilToJson(Perfil instance) => <String, dynamic>{
       'cpf': instance.cpf,
       'wpp': instance.wpp,
       'email': instance.email,
-      'agricultor': instance.agricultor,
     };

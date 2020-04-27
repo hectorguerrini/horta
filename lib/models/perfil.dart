@@ -12,7 +12,7 @@ class Perfil {
   String cpf = "";
   String wpp = "";
   String email = "";
-  bool agricultor;
+  
 
   Perfil();
 

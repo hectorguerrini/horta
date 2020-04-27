@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:horta/models/horta.dart';
 
-import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';
 import 'package:horta/services/app.dart';
-import 'package:horta/services/database.dart';
+
+import 'package:horta/services/perfil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PerfilScreenPage extends StatefulWidget {
@@ -23,7 +22,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
     AppService(context: context).showLoading();
     setState(() {
       _image = image;
-      DatabaseService(uid: User.uid).updatePhoto(_image).then((onValue){
+      PerfilService(uid: User.uid).updatePhoto(_image).then((onValue){
         Navigator.pop(context);
         showDialog(
         context: context,
@@ -41,7 +40,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
     AppService(context: context).showLoading();
     setState(() {
       _image = image;
-      DatabaseService(uid: User.uid).updatePhoto(_image).then((onValue){
+      PerfilService(uid: User.uid).updatePhoto(_image).then((onValue){
         Navigator.pop(context);
         showDialog(
         context: context,
