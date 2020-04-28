@@ -17,7 +17,11 @@ class ProdutosService {
   }
 
   Future updateMeusProdutos(Produtos produtos) async{
-    return await this.meusProdutosCollection.document(uid).setData(produtos.toJson());
+    return await this.meusProdutosCollection.document(uid).collection('listaProdutos').add(produtos.toJson());
+  }
+
+  Future<QuerySnapshot> getMeusProdutos() async {
+    return await this.meusProdutosCollection.document(uid).collection('listaProdutos').getDocuments();
   }
 
 }

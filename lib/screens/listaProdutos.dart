@@ -22,10 +22,23 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
   @override
   void initState() {
     super.initState();
-
+    this.getListaProdutos();
   }
   
-
+  void getListaProdutos() {
+    List<Produtos> lista = [];
+    ProdutosService().listaProdutos().then((value) {
+      value.documents.forEach((value) {
+        var prod = Produtos.fromJson(value.data);
+        prod.preco = 0;
+        prod.unidade = "Kilo";
+        lista.add(prod);
+      });
+      setState(() {
+        produtos = lista;
+      });
+    });
+  }
   Widget criarProduto(){
     return(ListTile(
             enabled: false,
@@ -50,8 +63,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
               isExpanded: true,
               onChanged: (objetoComNomeEIcone) {
                 setState(() {
-                  this.selectProduto = objetoComNomeEIcone;
-                
+                  this.selectProduto = objetoComNomeEIcone;                
                 });
               },
               value: selectProduto,
@@ -128,8 +140,6 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
             
             
           ),
-
-          
          
           Divider(),
 
@@ -141,7 +151,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
                   color: Colors.green,
                   child: Text("Salvar"),
                   onPressed: () {                    
-                    /*ProdutosService(uid: User.uid).updateMeusProdutos(selectProduto).then((onValue) async {
+                    ProdutosService(uid: User.uid).updateMeusProdutos(selectProduto).then((onValue) async {
                       await showDialog(
                         context: context,
                         builder: (BuildContext context){
@@ -151,11 +161,8 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
                           );
                         }
                       );
+                      Navigator.pop(context);                    
                     });
-                    */
-                    Navigator.pop(context);
-                    
-                    
                   })
             ],
           )

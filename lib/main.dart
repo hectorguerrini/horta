@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
-          '/': (context) => MenuAgricultorScreen(),          
+          '/': (context) => HomeScreen(),          
           // When navigating to the "/second" route, build the SecondScreen widget.          
           '/perfil': (context) => PerfilScreenPage(),          
           '/perfil/conta': (context) => ContaScreen(),
