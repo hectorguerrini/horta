@@ -30,7 +30,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
           lista.add(Produtos.fromJson(f.data));
         });
         setState(() {
-          this.listaProdutos = lista;
+           this.listaProdutos = lista;
         });
       });
     
@@ -42,11 +42,8 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
       appBar: AppBar(
         title: Text("Menu Agricultor"), 
       ),
-      body: ListView.builder(
-        itemCount: this.listaProdutos.length + 1,
-        itemBuilder: (BuildContext context, int index) {
-          if(index == 0){
-            return RaisedButton(
+      body: Column(children: <Widget>[
+        RaisedButton(
               textTheme: ButtonTextTheme.primary,
               padding: EdgeInsets.all(10),
               color: Colors.blue,
@@ -61,16 +58,28 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
               child: Text("Adicionar produto",
               textScaleFactor: 1.8,
                 ),
-            );
+            ),
+            Expanded(child:ListView.builder(
+        itemCount: this.listaProdutos.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if(index == 0){
+            return Divider();
           }
           return ListTile(
             leading: Image.asset(this.listaProdutos.elementAt(index-1).icon, fit: BoxFit.contain),
             title: Text(this.listaProdutos.elementAt(index-1).produto),
             trailing: Text("${currency.format(this.listaProdutos.elementAt(index-1).preco)} / ${this.listaProdutos.elementAt(index-1).unidade}"),
+            subtitle: Divider(),
+            onTap: (){
+              
+            },
           );
         },
-          
+            )
         )
+
+      ],),
+      
       
       );  
   }
