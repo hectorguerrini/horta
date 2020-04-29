@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/models/produtos.dart';
 import 'package:horta/models/user.dart';
+import 'package:horta/screens/perfil/meusProdutos.dart';
 import 'package:horta/services/produtos.dart';
 import 'package:intl/intl.dart';
 
 class MenuAgricultorScreen extends StatefulWidget {
+
   @override
   _MenuAgricultorScreenState createState() => _MenuAgricultorScreenState();
 }
@@ -18,9 +22,10 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
     super.initState();
     this.getProdutos();
   }
-
-
-
+  
+  void getListaProdutos(){
+    this.listaProdutos = listaProdutos;
+  }
 
   void getProdutos() {
     List<Produtos> lista = [];
@@ -70,8 +75,8 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
             title: Text(this.listaProdutos.elementAt(index-1).produto),
             trailing: Text("${currency.format(this.listaProdutos.elementAt(index-1).preco)} / ${this.listaProdutos.elementAt(index-1).unidade}"),
             subtitle: Divider(),
-            onTap: (){
-              
+            onTap: () async { 
+              await actionSheetModel(context);
             },
           );
         },
@@ -83,15 +88,38 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
       
       );  
   }
+  Future actionSheetModel(BuildContext context) async {
+    await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoActionSheet(          
+          title: Text('Editar o item'),
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Voltar'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                // FUNCAO DE EDITAR
+                Navigator.pop(context);
+              },
+              child: Text('Editar')
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                //FUNCAO DE EXCLUIR
+                ProdutosService().deleteMeusProdutos("AwnAzids3MaRT79MCAvb");
+                Navigator.pop(context);
+              },
+              child: Text('Excluir')
+            )
+          ],
+        );
+      }
+    );
+  }
 }
 
-// List<Widget> listagemProdutos(List<Produtos> lista) {
-  
-//   List<Widget> listaW;
-//   lista.forEach((f) {
-//     listaW.add(
-      
-//     );
-//   });  
-//   return listaW;
-// }

@@ -3,7 +3,6 @@ import 'package:horta/models/produtos.dart';
 import 'package:horta/services/database.dart';
 
 class ProdutosService {
-  
   String uid;
   ProdutosService({this.uid});
 
@@ -22,6 +21,10 @@ class ProdutosService {
 
   Future<QuerySnapshot> getMeusProdutos() async {
     return await this.meusProdutosCollection.document(uid).collection('listaProdutos').getDocuments();
+  }
+
+  Future<void> deleteMeusProdutos(String docUID) async {
+    return await this.meusProdutosCollection.document(uid).collection('listaProdutos').document(docUID).delete();
   }
 
 }
