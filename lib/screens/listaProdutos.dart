@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:horta/main.dart';
 import 'package:horta/models/produtos.dart';
 import 'package:horta/models/user.dart';
 import 'package:horta/screens/perfil/meusProdutos.dart';
@@ -11,12 +12,21 @@ class ListaProdutosScreen extends StatefulWidget {
   _ListaProdutosScreenState createState() => _ListaProdutosScreenState();
 }
 
-class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
+class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAware {
   List<Produtos> produtos = [];
   final precoProdutoCtrl = new TextEditingController(text: "0,00");
   Produtos selectProduto;
+  Produtos argsProdutos;
   List unidade = ["kg, unidade, duzia"];
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
+
+  
+  @override
+  void didPush() {
+    // TODO: implement didPush
+    super.didPush();
+    argsProdutos = ModalRoute.of(context).settings.arguments;    
+  }
   
   
   @override
@@ -36,20 +46,18 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
       });
       setState(() {
         produtos = lista;
+        if(argsProdutos != null){
+          selectProduto = this.produtos.firstWhere((p) => p.produto == this.argsProdutos.produto);
+          selectProduto.preco = argsProdutos.preco;  
+          this.precoProdutoCtrl.text = argsProdutos.preco.toString();
+        }        
       });
     });
   }
-  Widget criarProduto(){
-    return(ListTile(
-            enabled: false,
-            leading: Icon(Icons.ac_unit),
-            title: Text("Nome do produto"),
-            trailing: Text("Preco" + " UNIDADE"),
-          ));
-  }
-
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de produtos"),
@@ -59,7 +67,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: DropdownButton(
+            child: DropdownButton(              
               isExpanded: true,
               onChanged: (objetoComNomeEIcone) {
                 setState(() {
