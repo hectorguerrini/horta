@@ -16,10 +16,15 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
   List<Produtos> produtos = [];
   final precoProdutoCtrl = new TextEditingController(text: "0,00");
   Produtos selectProduto;
-  Produtos argsProdutos;
+  ProdutosDocument argsProdutos;
   List unidade = ["kg, unidade, duzia"];
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
-
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
   
   @override
   void didPush() {
@@ -47,9 +52,9 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
       setState(() {
         produtos = lista;
         if(argsProdutos != null){
-          selectProduto = this.produtos.firstWhere((p) => p.produto == this.argsProdutos.produto);
-          selectProduto.preco = argsProdutos.preco;  
-          this.precoProdutoCtrl.text = argsProdutos.preco.toString();
+          selectProduto = this.produtos.firstWhere((p) => p.produto == this.argsProdutos.produtos.produto);
+          selectProduto.preco = argsProdutos.produtos.preco;  
+          this.precoProdutoCtrl.text = argsProdutos.produtos.preco.toString();
         }        
       });
     });
@@ -100,7 +105,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
             onChanged: (value) {
               setState(() {
                 if (selectProduto != null)
-                  selectProduto.preco = int.parse(value);
+                  selectProduto.preco = double.parse(value);
               });
             },
             ),

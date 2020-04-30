@@ -14,7 +14,7 @@ class MenuAgricultorScreen extends StatefulWidget {
 }
 
 class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
-  List<Produtos> listaProdutos = [];
+  List<ProdutosDocument> listaProdutos = [];
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
   @override
   void initState() {
@@ -25,16 +25,18 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   
 
   void getProdutos() {
-    List<Produtos> lista = [];
+    List<ProdutosDocument> lista = [];
     ProdutosService(uid: User.uid).getMeusProdutos()
       .then((onValue){
         onValue.documents.forEach((f){
-          // lista.add(Produtos.fromJson({ 'uid': f.documentID, ...f.data}));
-          Map<String, dynamic> data = {
-            'uid': f.documentID,
-            ...f.data
-          };
-          Produtos p = Produtos.fromJson(data);
+          ProdutosDocument p = ProdutosDocument.fromJson(
+            {
+              'uid': f.documentID,
+              'produtos': f.data  
+            }
+          );
+         
+          
           lista.add(p);
         });
         setState(() {
@@ -43,7 +45,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
       });
   }
 
-  Future actionSheetModel(BuildContext context, Produtos produto) async {
+  Future actionSheetModel(BuildContext context, ProdutosDocument produto) async {
     await showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -107,9 +109,9 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
         itemBuilder: (BuildContext context, int index) {
       
           return ListTile(
-            leading: Image.asset(this.listaProdutos.elementAt(index).icon, fit: BoxFit.contain),
-            title: Text(this.listaProdutos.elementAt(index).produto),
-            trailing: Text("${currency.format(this.listaProdutos.elementAt(index).preco)} / ${this.listaProdutos.elementAt(index).unidade}"),
+            leading: Image.asset(this.listaProdutos.elementAt(index).produtos.icon, fit: BoxFit.contain),
+            title: Text(this.listaProdutos.elementAt(index).produtos.produto),
+            trailing: Text("${currency.format(this.listaProdutos.elementAt(index).produtos.preco)} / ${this.listaProdutos.elementAt(index).produtos.unidade}"),
             subtitle: Divider(),
             onTap: () async {               
               await actionSheetModel(context, this.listaProdutos.elementAt(index));
