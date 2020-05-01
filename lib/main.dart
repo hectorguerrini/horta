@@ -4,7 +4,6 @@ import 'package:horta/screens/authenticate/login.dart';
 import 'package:horta/screens/consumidor/detalheHorta.dart';
 import 'package:horta/screens/home/home.dart';
 import 'package:horta/screens/listaProdutos.dart';
-import 'package:horta/screens/listaProdutosEdit.dart';
 import 'package:horta/screens/menuAgricultor.dart';
 import 'package:horta/screens/perfil/conta.dart';
 import 'package:horta/screens/perfil/minhaHorta.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
           '/detalhe': (context) => DetalheHorta(),
           '/listaProdutos': (context) => ListaProdutosScreen(),
           '/menuAgricultor': (context) => MenuAgricultorScreen(),
-          '/listaProdutosEdit': (context) => ListaProdutosEditScreen(),
+          
           
           
         },

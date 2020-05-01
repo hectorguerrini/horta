@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:horta/main.dart';
 import 'package:horta/models/produtos.dart';
 import 'package:horta/models/user.dart';
 import 'package:horta/services/produtos.dart';
@@ -12,7 +14,9 @@ class ListaProdutosScreen extends StatefulWidget {
 
 class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAware {
   List<Produtos> produtos = [];
-  final precoProdutoCtrl = new TextEditingController(text: "0,00");
+  //final precoProdutoCtrl = new TextEditingController(text: "0,00");
+  final precoProdutoCtrl = MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: "," );
+
   Produtos selectProduto;
   ProdutosDocument argsProdutos;
   List unidade = ["kg, unidade, duzia"];
@@ -42,7 +46,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
     ProdutosService().listaProdutos().then((value) {
       value.documents.forEach((value) {
         var prod = Produtos.fromJson(value.data);
-        prod.preco = 0;
+        prod.preco = 0.00;
         prod.unidade = "Kilo";
         lista.add(prod);
       });
@@ -97,12 +101,12 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
             trailing: Text("Reais"),  
             title: TextField(            
             enabled: true,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: precoProdutoCtrl,      
             onChanged: (value) {
               setState(() {
                 if (selectProduto != null)
-                  selectProduto.preco = double.parse(value);
+                  selectProduto.preco = precoProdutoCtrl.numberValue;
               });
             },
             ),
@@ -146,7 +150,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
               child: Image.asset(selectProduto.icon, fit: BoxFit.contain))             
           ),
             title: selectProduto == null ? Text("Nome do produto") : Text(selectProduto.produto),
-            trailing: selectProduto == null ? Text("R\$ 0,00 reais") : Text("${currency.format(selectProduto.preco)} / ${selectProduto.unidade}"),
+            trailing: selectProduto == null ? Text("R\$ 0,00 reais") : Text("R${currency.format(selectProduto.preco)} por ${selectProduto.unidade}"),
             
             
           ),

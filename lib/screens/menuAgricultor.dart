@@ -13,7 +13,7 @@ class MenuAgricultorScreen extends StatefulWidget {
 
 class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   List<ProdutosDocument> listaProdutos = [];
-  NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
+  NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "\$");
   @override
   void initState() {
     // TODO: implement initState
@@ -60,7 +60,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
               onPressed: () {
                 //FUNCAO DE EDITAR                
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/listaProdutosEdit', arguments: produto);
+                Navigator.pushNamed(context, '/listaProdutos', arguments: produto);
               },
               child: Text('Editar')
             ),
