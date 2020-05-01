@@ -10,15 +10,17 @@ class ProdutosService {
   final CollectionReference produtosCollection = Firestore.instance.collection('produtos');
   final CollectionReference meusProdutosCollection = Firestore.instance.collection('meusProdutos');
 
-  Future<QuerySnapshot> listaProdutos() async{
+  Future<QuerySnapshot> listaProdutos() async {
     return await produtosCollection.getDocuments();
     
   }
 
-  Future updateMeusProdutos(Produtos produtos) async{
+  Future updateMeusProdutos(Produtos produtos) async {
     return await this.meusProdutosCollection.document(uid).collection('listaProdutos').add(produtos.toJson());
   }
-
+  Future alterMeusProdutos(ProdutosDocument produtos) async {
+    return await this.meusProdutosCollection.document(uid).collection('listaProdutos').document(produtos.uid).updateData(produtos.produtos.toJson());
+  }
   Future<QuerySnapshot> getMeusProdutos() async {
     return await this.meusProdutosCollection.document(uid).collection('listaProdutos').getDocuments();
   }

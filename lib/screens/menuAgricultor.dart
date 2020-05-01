@@ -13,7 +13,7 @@ class MenuAgricultorScreen extends StatefulWidget {
 
 class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   List<ProdutosDocument> listaProdutos = [];
-  NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "\$");
+  NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
   @override
   void initState() {
     // TODO: implement initState
@@ -59,8 +59,12 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
             CupertinoActionSheetAction(
               onPressed: () {
                 //FUNCAO DE EDITAR                
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/listaProdutos', arguments: produto);
+                
+                Navigator.pushNamed(context, '/listaProdutos', arguments: produto).then((onValue){
+                  Navigator.pop(context);
+                  this.getProdutos();
+
+                });
               },
               child: Text('Editar')
             ),

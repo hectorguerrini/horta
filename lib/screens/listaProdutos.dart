@@ -15,7 +15,7 @@ class ListaProdutosScreen extends StatefulWidget {
 class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAware {
   List<Produtos> produtos = [];
   //final precoProdutoCtrl = new TextEditingController(text: "0,00");
-  final precoProdutoCtrl = MoneyMaskedTextController(decimalSeparator: ".", thousandSeparator: "," );
+  final precoProdutoCtrl = new MoneyMaskedTextController(decimalSeparator: ",", thousandSeparator: "." , leftSymbol: "R\$ ");
 
   Produtos selectProduto;
   ProdutosDocument argsProdutos;
@@ -55,12 +55,44 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
         if(argsProdutos != null){
           selectProduto = this.produtos.firstWhere((p) => p.produto == this.argsProdutos.produtos.produto);
           selectProduto.preco = argsProdutos.produtos.preco;  
-          this.precoProdutoCtrl.text = argsProdutos.produtos.preco.toString();
+          this.precoProdutoCtrl.text = argsProdutos.produtos.preco.toStringAsFixed(2);
         }        
       });
     });
   }
-  
+
+  void salvarProdutos() {
+    if ( argsProdutos != null ) {
+      this.argsProdutos.produtos = selectProduto;
+      ProdutosService(uid: User.uid).alterMeusProdutos(this.argsProdutos).then((onValue) async{
+        await showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return CupertinoAlertDialog(
+              title: Text("Mensagem"),
+              content: Text("Salvo."),
+            );
+          }
+        );
+        Navigator.pop(context);  
+      });
+    } else {
+      ProdutosService(uid: User.uid).updateMeusProdutos(selectProduto).then((onValue) async {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return CupertinoAlertDialog(
+              title: Text("Mensagem"),
+              content: Text("Salvo."),
+            );
+          }
+        );
+        Navigator.pop(context);                    
+      });
+    }
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -150,7 +182,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
               child: Image.asset(selectProduto.icon, fit: BoxFit.contain))             
           ),
             title: selectProduto == null ? Text("Nome do produto") : Text(selectProduto.produto),
-            trailing: selectProduto == null ? Text("R\$ 0,00 reais") : Text("R${currency.format(selectProduto.preco)} por ${selectProduto.unidade}"),
+            trailing: selectProduto == null ? Text("R\$ 0,00 reais") : Text("${currency.format(selectProduto.preco)} por ${selectProduto.unidade}"),
             
             
           ),
@@ -165,18 +197,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
                   color: Colors.green,
                   child: Text("Salvar"),
                   onPressed: () {                    
-                    ProdutosService(uid: User.uid).updateMeusProdutos(selectProduto).then((onValue) async {
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context){
-                          return CupertinoAlertDialog(
-                            title: Text("Mensagem"),
-                            content: Text("Salvo."),
-                          );
-                        }
-                      );
-                      Navigator.pop(context);                    
-                    });
+                    this.salvarProdutos();
                   })
             ],
           )
