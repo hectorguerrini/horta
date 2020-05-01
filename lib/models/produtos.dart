@@ -3,15 +3,23 @@ import 'package:json_annotation/json_annotation.dart';
 part 'produtos.g.dart';
 
 @JsonSerializable()
-
-class Produtos {
+class ProdutosDocument {
   String uid;
+  Produtos produtos;
+  
+  ProdutosDocument();
+
+  factory ProdutosDocument.fromJson(Map<String, dynamic> json) => _$ProdutosDocumentFromJson(json); 
+  
+  Map<String, dynamic> toJson() => _$ProdutosDocumentToJson(this);
+}
+class Produtos {
   String produto;
   String icon;
-  int preco;
+  double preco;
   String unidade;
   
-  Produtos({this.uid});
+  Produtos();
 
 /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
