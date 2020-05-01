@@ -5,12 +5,12 @@ import 'package:horta/models/user.dart';
 import 'package:horta/services/produtos.dart';
 import 'package:intl/intl.dart';
 
-class ListaProdutosScreen extends StatefulWidget {
+class ListaProdutosEditScreen extends StatefulWidget {
   @override
-  _ListaProdutosScreenState createState() => _ListaProdutosScreenState();
+  _ListaProdutosEditScreenState createState() => _ListaProdutosEditScreenState();
 }
 
-class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAware {
+class _ListaProdutosEditScreenState extends State<ListaProdutosEditScreen> with RouteAware {
   List<Produtos> produtos = [];
   final precoProdutoCtrl = new TextEditingController(text: "0,00");
   Produtos selectProduto;
@@ -62,29 +62,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: DropdownButton(              
-              isExpanded: true,
-              onChanged: (objetoComNomeEIcone) {
-                setState(() {
-                  this.selectProduto = objetoComNomeEIcone;                
-                });
-              },
-              value: selectProduto,
-              hint: Text("Nome do produto"),
-              items: this
-                  .produtos
-                  .map((value) => DropdownMenuItem(
-                        child: Text(
-                          value.produto,
-                          
-                        ),
-                        value: value,
-                      ))
-                  .toList(),
-            ),
-          ),
+          ListTile(title: Text(argsProdutos.produto.toString())),
 
           
           ListTile(

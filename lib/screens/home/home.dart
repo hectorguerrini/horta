@@ -86,8 +86,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
               title: Text('Home')
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home), 
-              title: Text('Home')
+              icon: Icon(Icons.menu), 
+              title: Text('Menu')
             ),
             user == null
             ? BottomNavigationBarItem(

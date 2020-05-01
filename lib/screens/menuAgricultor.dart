@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/models/produtos.dart';
 import 'package:horta/models/user.dart';
-import 'package:horta/screens/perfil/meusProdutos.dart';
 import 'package:horta/services/produtos.dart';
 import 'package:intl/intl.dart';
 
@@ -60,7 +58,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
               onPressed: () {
                 //FUNCAO DE EDITAR                
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/listaProdutos', arguments: produto);
+                Navigator.pushNamed(context, '/listaProdutosEdit', arguments: produto);
               },
               child: Text('Editar')
             ),
