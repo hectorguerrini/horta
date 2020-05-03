@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:horta/buttons.dart';
+import 'package:horta/formfield.dart';
 
 import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';
@@ -39,17 +40,6 @@ class _ContaScreenState extends State<ContaScreen> {
       // AppService().closeLoading();
     });
   }
-
-  Widget animatedForm(String descricao, bool b) {
-    return AnimatedDefaultTextStyle(
-        style: b
-            ? TextStyle(fontSize: 12, color: Colors.black87)
-            : TextStyle(fontSize: 18, color: Colors.black87),
-        child: Text(descricao),
-        duration: Duration(milliseconds: 200),
-        curve: Curves.easeIn);
-  }
-
   bool editNome = false;  
   bool editCpf = false;
   bool editWpp = false;
@@ -64,7 +54,7 @@ class _ContaScreenState extends State<ContaScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         children: <Widget>[
           ListTile(
-              title: this.animatedForm('Nome Completo', this.editNome),
+              title: FormFieldsCustom.animatedForm('Nome Completo', this.editNome, 12, 18),
               subtitle: this.editNome
                   ? TextFormField(
                       controller: nomeCtrl,
@@ -85,7 +75,7 @@ class _ContaScreenState extends State<ContaScreen> {
                   })),
           Divider(),
           ListTile(
-              title: this.animatedForm('CPF', this.editCpf),
+              title: FormFieldsCustom.animatedForm('CPF', this.editCpf, 12, 18),
               subtitle: this.editCpf
                   ? TextFormField(
                       controller: cpfCtrl,
@@ -107,7 +97,7 @@ class _ContaScreenState extends State<ContaScreen> {
                   })),
           Divider(),
           ListTile(
-              title: this.animatedForm('Telefone', this.editWpp),
+              title: FormFieldsCustom.animatedForm('Telefone', this.editWpp, 12, 18),
               subtitle: this.editWpp
                   ? TextFormField(
                       controller: wppCtrl,

@@ -4,8 +4,8 @@ part 'horta.g.dart';
 
 @JsonSerializable()
 class Horta {  
-  String nomeHorta;
-  String minhaHistoria;
+  String nomeHorta = "";
+  String minhaHistoria = "";
   Timestamp abertura;
   Timestamp fechamento;
   bool dinheiro = false;

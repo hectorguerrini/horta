@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:horta/formfield.dart';
 import 'package:horta/models/horta.dart';
 import 'package:horta/models/icons_app_icons.dart';
 import 'package:horta/models/user.dart';
@@ -13,6 +14,7 @@ class MinhaHortaScreen extends StatefulWidget {
 
 class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
   final TextEditingController nomeHortaCtrl = new TextEditingController();
+  final TextEditingController minhaHistoriaCtrl = new TextEditingController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   Horta minhaHorta;
   TimeOfDay horaStart;
@@ -29,12 +31,16 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
     DatabaseService(uid: User.uid).gethortaPerfil().then((value) {
       setState(() {
         minhaHorta = Horta.fromJson(value.data);
-        nomeHortaCtrl.text = minhaHorta.nomeHorta ?? '';
+        nomeHortaCtrl.text = minhaHorta.nomeHorta;
+        minhaHistoriaCtrl.text = minhaHorta.minhaHistoria;
+        horaStart = minhaHorta.abertura != null ? TimeOfDay.fromDateTime(minhaHorta.abertura.toDate()) : null;        
+        horaEnd = minhaHorta.fechamento != null ? TimeOfDay.fromDateTime(minhaHorta.fechamento.toDate()) : null;
       });
     });
   }
 
-  bool edit = false;
+  bool editNomeHorta = false;
+  bool editMinhaHistoria = false;
   @override
   Widget build(BuildContext context) {    
     return Scaffold(
@@ -42,45 +48,50 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         children: <Widget>[
-          (edit
-              ? ListTile(
-                  leading:
-                      Text("Nome da Horta", style: TextStyle(fontSize: 18)),
-                  title: TextFormField(
-                      controller: nomeHortaCtrl,
-                      onChanged: (val) {
-                        setState(() {
-                          minhaHorta.nomeHorta = val;
-                        });
-                      }),
-                  subtitle: Text(''),
-                  trailing: Icon(Icons.check_circle_outline),
-                  onTap: () {
+          ListTile(
+            title: FormFieldsCustom.animatedForm('Nome da Horta', this.editNomeHorta, 12, 18),
+            subtitle: this.editNomeHorta
+              ? TextFormField(
+                  controller: nomeHortaCtrl,
+                  onChanged: (value) {
                     setState(() {
-                      edit = false;
+                      this.minhaHorta.nomeHorta = value;
                     });
-                  },
-                )
-              : ListTile(
-                  title: Text("Nome da Horta", style: TextStyle(fontSize: 18)),
-                  subtitle: Text(minhaHorta.nomeHorta == null
-                      ? ''
-                      : minhaHorta.nomeHorta.toUpperCase()),
-                  trailing: Icon(Icons.edit),
-                  onTap: () {
-                    setState(() {
-                      edit = true;
-                    });
-                  },
-                )),
+                  })
+              : Text(this.minhaHorta.nomeHorta.toUpperCase()),
+            trailing: IconButton(
+              icon: this.editNomeHorta
+                  ? Icon(Icons.check_circle_outline)
+                  : Icon(Icons.edit),
+              onPressed: () {
+                setState(() {
+                  this.editNomeHorta = !this.editNomeHorta;
+                });
+              })
+          ),
           Divider(),
           ListTile(
-            title: Text("Nome da Horta", style: TextStyle(fontSize: 18)),
-            subtitle: Text(minhaHorta.minhaHistoria == null
-                ? ''
-                : minhaHorta.nomeHorta.toUpperCase()),
-            trailing: Icon(Icons.edit),
-            onTap: () {},
+            title: FormFieldsCustom.animatedForm('Minha Historia', this.editMinhaHistoria, 12, 18),
+            subtitle: this.editMinhaHistoria
+              ? TextFormField(
+                  controller: minhaHistoriaCtrl,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  onChanged: (value) {
+                    setState(() {
+                      this.minhaHorta.minhaHistoria = value;
+                    });
+                  })
+              : Text(this.minhaHorta.minhaHistoria.toUpperCase()),        
+            trailing: IconButton(
+              icon: this.editMinhaHistoria
+                  ? Icon(Icons.check_circle_outline)
+                  : Icon(Icons.edit),
+              onPressed: () {
+                setState(() {
+                  this.editMinhaHistoria = !this.editMinhaHistoria;
+                });
+              })            
           ),
           Divider(),
           Text('Horario de Funcionamento',
@@ -90,7 +101,7 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
             leading: Icon(Icons.timer),
             title: Text("Horario de abertura"),
             subtitle:
-                Text((horaStart == null ? '' : horaStart.format(context))),
+                Text((horaStart == null ? 'Sem Horario' : horaStart.format(context))),
             trailing: FlatButton(              
               child: Text("Editar"),
               color: Colors.transparent,
@@ -121,7 +132,7 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
             leading: Icon(Icons.timer_off),
             title: Text("Horario de Fechamento"),
             subtitle:
-                Text((horaEnd == null ? '' : horaEnd.format(context))),
+                Text((horaEnd == null ? 'Sem Horario' : horaEnd.format(context))),
             trailing: FlatButton(              
               child: Text("Editar"),
               color: Colors.transparent,
@@ -142,7 +153,7 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
                   TimeOfDay t = time == null ? horaEnd : time;
                   DateTime date = DateTime(today.year, today.month,
                       today.day, t.hour, t.minute);
-                  minhaHorta.abertura = Timestamp.fromDate(date);
+                  minhaHorta.fechamento = Timestamp.fromDate(date);
                   horaEnd = time;
                 });
                 
@@ -206,7 +217,8 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
                               title: Text('Mensagem'),
                               content: Text('Perfil atualizado com successo'));
                         });
-                    edit = false;
+                    this.editNomeHorta = false;
+                    this.editMinhaHistoria = false;
                   },
                   icon: Icon(Icons.save),
                   label: Text('Salvar'),
