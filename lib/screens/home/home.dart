@@ -56,10 +56,8 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   }
 
   @override
-  Widget build(BuildContext context) {
-    
-    user = Provider.of<User>(context);
-    final size = MediaQuery.of(context).size;
+  Widget build(BuildContext context) {    
+    user = Provider.of<User>(context);    
     final _auth = AuthService();
     return Scaffold(
         appBar: AppBar(

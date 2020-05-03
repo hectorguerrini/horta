@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:horta/models/icons_app_icons.dart'; // IconsApp.(name_icon)
+import 'package:horta/models/horta.dart';
+import 'package:horta/models/icons_app_icons.dart';
+import 'package:horta/services/consumidor.dart'; // IconsApp.(name_icon)
 class ListaHortasScreenPage extends StatefulWidget {
   @override
   _ListaHortasScreenState createState() => _ListaHortasScreenState();
 }
 
 class _ListaHortasScreenState extends State<ListaHortasScreenPage> {
+  List<HortaDocument> listaHortas = [];
+  @override
+  void initState() {
+    super.initState();
+    this.getHortas();
+  }
+
+  void getHortas() {    
+    ConsumidorService().getHortas()
+      .then((hortas){               
+        setState(() {
+          this.listaHortas = hortas.documents.map((h) => HortaDocument.fromJson({ 'uid': h.documentID, 'horta': h.data })).toList();
+        });
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(30),
-      children: <Widget>[
-        Container(
-            padding: const EdgeInsets.fromLTRB(10, 0, 0, 50),
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.people, size: 48),
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Horta Minha Vida',
-                              style: TextStyle(fontSize: 20),
-                              textAlign: TextAlign.center),
-                          Text(
-                            'Bairro Santa Paula',
-                            style: TextStyle(
-                                fontSize: 14, color: Colors.grey[800]),
-                          ),
-                        ],
-                      )),
-                )
-              ],
-            )),
-      ],
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      itemCount: this.listaHortas.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          // leading: Icon(IconsApp.user),
+          title: Text(this.listaHortas.elementAt(index).horta.nomeHorta, style: TextStyle(fontSize: 18),),
+          subtitle: Text(this.listaHortas.elementAt(index).horta.minhaHistoria,overflow: TextOverflow.ellipsis,),
+          trailing: Icon(Icons.arrow_forward_ios),
+          onTap: (){
+            Navigator.pushNamed(context, '/detalhe', arguments: this.listaHortas.elementAt(index));
+          },
+        );
+      }
     );
   }
 }

@@ -1,24 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'perfil.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 
 class Perfil {
-  String nome;
-  int idade;
-  String cpf;
-  String wpp;
-  String email;
-  String nomeHorta;
-  String minhaHistoria;
-  Timestamp abertura;
-  Timestamp fechamento;
-  bool dinheiro = false;
-  bool cartaoDebito = false;
-  bool cartaoCredito = false;
+  String nome = "";
+  String cpf = "";
+  String wpp = "";
+  String email = "";
   
+
   Perfil();
 
 /// A necessary factory constructor for creating a new User instance
