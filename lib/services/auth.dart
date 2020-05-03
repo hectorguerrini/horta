@@ -3,6 +3,7 @@ import 'package:horta/models/horta.dart';
 import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';
 import 'package:horta/services/database.dart';
+import 'package:horta/services/perfil.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -62,7 +63,7 @@ class AuthService {
       Perfil perfil = new Perfil();
       perfil.email = email;
       perfil.nome = nome;
-      await DatabaseService(uid: user.uid).updateUserPerfil(perfil);
+      await PerfilService(uid: user.uid).updateUserPerfil(perfil);
       
       Horta horta = new Horta();
       await DatabaseService(uid: user.uid).updateHortaPerfil(horta);

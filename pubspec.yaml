@@ -31,6 +31,7 @@ dependencies:
     sdk: flutter
   image_picker: ^0.6.3+4
   intl: ^0.16.1
+  flutter_masked_text: ^0.8.0
   # camera: ^0.5.7+4
   # path_provider: ^1.6.1
   # path: ^1.6.4

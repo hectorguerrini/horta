@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:horta/models/horta.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'perfil.g.dart';
@@ -8,11 +6,10 @@ part 'perfil.g.dart';
 
 class Perfil {
   String nome = "";
-  int idade = 0;
   String cpf = "";
   String wpp = "";
   String email = "";
-  bool agricultor;
+  
 
   Perfil();
 
