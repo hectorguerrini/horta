@@ -22,5 +22,4 @@ class DatabaseService {
     return await hortaCollection.document(uid).get();
   }
 
-
 }

@@ -1,17 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:horta/main.dart';
+import 'package:horta/models/horta.dart';
 import 'package:intl/intl.dart';
 class DetalheHorta extends StatefulWidget {
   @override
   _DetalheHortaState createState() => _DetalheHortaState();
 }
 
-class _DetalheHortaState extends State<DetalheHorta> {  
+class _DetalheHortaState extends State<DetalheHorta> with RouteAware{  
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
-  
+  HortaDocument hortaDoc;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPush() {
+    super.didPush();
+    this.hortaDoc = ModalRoute.of(context).settings.arguments;
+  }
+  @override
+  void initState() {    
+    super.initState();
+  }
+  void getProdutos() {
+    
+  }
   @override
   Widget build(BuildContext context) {   
     final size = MediaQuery.of(context).size;
     return Scaffold(        
+        appBar: AppBar(          
+          backgroundColor: Colors.transparent,
+          elevation: 0.1,
+        ),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverList(

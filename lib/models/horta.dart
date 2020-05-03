@@ -3,6 +3,16 @@ import 'package:json_annotation/json_annotation.dart';
 part 'horta.g.dart';
 
 @JsonSerializable()
+class HortaDocument {
+  String uid;
+  Horta horta;
+  HortaDocument();
+
+  factory HortaDocument.fromJson(Map<String, dynamic> json) => _$HortaDocumentFromJson(json);
+  
+  Map<String, dynamic> toJson() => _$HortaDocumentToJson(this);
+
+}
 class Horta {  
   String nomeHorta = "";
   String minhaHistoria = "";

@@ -8,14 +8,14 @@ part of 'perfil.dart';
 
 Perfil _$PerfilFromJson(Map<String, dynamic> json) {
   return Perfil()
-    ..nome = json['nome'] as String    
+    ..nome = json['nome'] as String
     ..cpf = json['cpf'] as String
     ..wpp = json['wpp'] as String
-    ..email = json['email'] as String;    
+    ..email = json['email'] as String;
 }
 
 Map<String, dynamic> _$PerfilToJson(Perfil instance) => <String, dynamic>{
-      'nome': instance.nome,      
+      'nome': instance.nome,
       'cpf': instance.cpf,
       'wpp': instance.wpp,
       'email': instance.email,
