@@ -12,7 +12,6 @@ class _ListaHortasScreenState extends State<ListaHortasScreenPage> {
   List<Horta> listaHortas = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     this.getHortas();
   }

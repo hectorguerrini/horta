@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:horta/main.dart';
 import 'package:horta/models/horta.dart';
 import 'package:horta/models/icons_app_icons.dart';
 import 'package:horta/models/user.dart';
 import 'package:horta/services/database.dart';
-import 'package:provider/provider.dart';
 
 class MinhaHortaScreen extends StatefulWidget {
   @override
@@ -38,8 +36,7 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
 
   bool edit = false;
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+  Widget build(BuildContext context) {    
     return Scaffold(
       appBar: AppBar(title: Text("Minha Horta")),
       body: ListView(
