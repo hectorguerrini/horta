@@ -36,10 +36,13 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 1 && user == null) {        
+      if (_selectedIndex == 1 && User.uid != null) {        
+        Navigator.pushNamed(context, '/menuAgricultor');
+      }
+      if (_selectedIndex == 2 && user == null) {        
         Navigator.pushNamed(context, '/auth');
       }
-      else if (_selectedIndex == 1 && user != null) {        
+      else if (_selectedIndex == 2 && user != null) {        
         Navigator.pushNamed(context, '/perfil');
       }
     });
@@ -79,6 +82,10 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
             BottomNavigationBarItem(
               icon: Icon(Icons.home), 
               title: Text('Home')
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu), 
+              title: Text('Menu')
             ),
             user == null
             ? BottomNavigationBarItem(

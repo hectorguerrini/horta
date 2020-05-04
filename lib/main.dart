@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:horta/screens/authenticate/authenticate.dart';
+import 'package:horta/screens/authenticate/login.dart';
 import 'package:horta/screens/consumidor/detalheHorta.dart';
 import 'package:horta/screens/home/home.dart';
+import 'package:horta/screens/listaProdutos.dart';
+import 'package:horta/screens/menuAgricultor.dart';
 import 'package:horta/screens/perfil/conta.dart';
 import 'package:horta/screens/perfil/minhaHorta.dart';
 import 'package:horta/screens/perfil/perfil.dart';
@@ -30,6 +33,8 @@ class MyApp extends StatelessWidget {
           '/perfil/horta': (context) => MinhaHortaScreen(),
           '/auth': (context) => Authenticate(),
           '/detalhe': (context) => DetalheHorta(),
+          '/listaProdutos': (context) => ListaProdutosScreen(),
+          '/menuAgricultor': (context) => MenuAgricultorScreen(),      
         },
         theme: ThemeData(
           primaryColor: Colors.green,
