@@ -11,7 +11,7 @@ class ListaProdutosScreen extends StatefulWidget {
   @override
   _ListaProdutosScreenState createState() => _ListaProdutosScreenState();
 }
-
+//oi
 class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAware {
   List<Produtos> produtos = [];
   //final precoProdutoCtrl = new TextEditingController(text: "0,00");
