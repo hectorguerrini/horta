@@ -122,7 +122,7 @@ class _MinhaHortaScreenState extends State<MinhaHortaScreen> with RouteAware {
                   TimeOfDay t = time == null ? horaStart : time;
                   DateTime date = DateTime(today.year, today.month,
                       today.day, t.hour, t.minute);
-                  //minhaHorta.abertura = Timestamp.fromDate(date);
+                  minhaHorta.abertura = Timestamp.fromDate(date);
                   horaStart = time;
                 });
               },
