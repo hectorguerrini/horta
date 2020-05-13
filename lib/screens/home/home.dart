@@ -39,9 +39,6 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
       if (_selectedIndex == 1 && User.uid != null) {        
         Navigator.pushNamed(context, '/menuAgricultor');
       }
-      if (_selectedIndex == 2 && user == null) {        
-        Navigator.pushNamed(context, '/auth');
-      }
       else if (_selectedIndex == 2 && user != null) {        
         Navigator.pushNamed(context, '/perfil');
       }
@@ -66,14 +63,18 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
         appBar: AppBar(
           title: Text('Welcome'),
           actions: <Widget>[
+            user != null ? 
             FlatButton.icon(
               onPressed: () async {
                 await _auth.signOut();
+                Navigator.pushNamed(context, '/auth');
               },
               icon: Icon(Icons.person),
               label: Text('Sair'),
               textColor: Colors.white,
             )
+            :
+            Container()
           ],
         ),
         body: pageMain(),        
@@ -87,12 +88,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
               icon: Icon(Icons.menu), 
               title: Text('Menu')
             ),
-            user == null
-            ? BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.signInAlt),
-              title: Text('Login')
-            )
-            : BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.account_circle),
               title: Text('Perfil')
             )
