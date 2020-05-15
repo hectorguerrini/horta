@@ -23,7 +23,6 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context));
   }

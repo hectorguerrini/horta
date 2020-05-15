@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:horta/buttons.dart';
-import 'package:horta/formfield.dart';
+import 'package:horta/components/buttons.dart';
+import 'package:horta/components/formfield.dart';
 
 import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';

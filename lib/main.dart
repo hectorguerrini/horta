@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horta/screens/authenticate/authenticate.dart';
-import 'package:horta/screens/authenticate/login.dart';
+
 import 'package:horta/screens/consumidor/detalheHorta.dart';
 import 'package:horta/screens/home/home.dart';
 import 'package:horta/screens/listaProdutos.dart';

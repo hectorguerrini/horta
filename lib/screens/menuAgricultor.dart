@@ -16,7 +16,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     this.getProdutos();
   }

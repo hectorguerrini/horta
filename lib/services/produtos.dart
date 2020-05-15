@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:horta/models/produtos.dart';
-import 'package:horta/services/database.dart';
+
 
 class ProdutosService {
   String uid;

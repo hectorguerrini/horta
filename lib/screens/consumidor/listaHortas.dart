@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:horta/models/horta.dart';
-import 'package:horta/models/icons_app_icons.dart';
+
 import 'package:horta/services/consumidor.dart'; // IconsApp.(name_icon)
 class ListaHortasScreenPage extends StatefulWidget {
   @override
