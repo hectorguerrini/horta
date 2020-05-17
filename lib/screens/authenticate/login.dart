@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:horta/models/handleErrorLogin.dart';
 import 'package:horta/services/auth.dart';
@@ -21,19 +20,19 @@ class _LoginScreenState extends State<LoginScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: AppBar(title: Text('Login')),
-        body: Center(          
-          child: Container(          
+        body: Center(
+          child: Container(
             padding: EdgeInsets.symmetric(horizontal: 70),
-            child: Form(              
+            child: Form(
               key: _formKey,
               child: ListView(
                 shrinkWrap: true,
                 children: <Widget>[
                   TextFormField(
-                    validator: (val) => val.isEmpty ? 'Escreva seu email' : null,
+                    validator: (val) =>
+                        val.isEmpty ? 'Escreva seu email' : null,
                     onChanged: (val) {
                       setState(() {
                         usuario = val;
@@ -63,30 +62,51 @@ class _LoginScreenState extends State<LoginScreenPage> {
                   RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        await _auth.loginWithEmailAndPassword(usuario, senha)
-                          .then((onValue) {
-                            Navigator.pop(context);
-                          }).catchError((onError){
-                            setState(() => error = new HandleErrorLogin(onError.code).errorMessage);
-                          });                            
+                        await _auth
+                            .loginWithEmailAndPassword(usuario, senha)
+                            .then((onValue) {
+                          Navigator.pop(context);
+                        }).catchError((onError) {
+                          setState(() => error =
+                              new HandleErrorLogin(onError.code).errorMessage);
+                        });
                       }
-                    },                                                         
+                    },
                     textColor: Colors.white,
-                    color: Colors.green,                        
-                    child: Text('Entrar', style: TextStyle(fontSize: 16.0),),
-                    elevation: 5,                        
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: BorderSide(color: Colors.green)
+                    color: Colors.green,
+                    child: Text(
+                      'Entrar',
+                      style: TextStyle(fontSize: 16.0),
                     ),
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        side: BorderSide(color: Colors.green)),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      widget.toggleView();
-                    },                    
-                    textColor: Colors.green,
-                    
-                    child: Text('Criar Conta', style: TextStyle(fontSize: 16.0))
+                      onPressed: () {
+                        widget.toggleView();
+                        
+                      },
+                      textColor: Colors.green,
+                      child: Text('Criar Conta',
+                          style: TextStyle(fontSize: 16.0))),
+
+                  FlatButton(onPressed: (){
+                    Navigator.pushNamed(context, '/novaSenhaScreen');
+                  }, 
+                  child: Text("Esqueci minha senha")),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                          
+                          icon: Image.asset('assets/facebook.png'),
+                          onPressed: () {}),
+                      IconButton(
+                          icon: Image.asset('assets/google.png'),
+                          onPressed: () {})
+                    ],
                   )
                 ],
               ),

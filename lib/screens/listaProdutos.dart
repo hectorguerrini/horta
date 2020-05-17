@@ -99,6 +99,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de produtos"),
+        
       ),
       body: ListView(
         padding: EdgeInsets.all(20.0),

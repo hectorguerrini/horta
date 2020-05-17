@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:horta/models/horta.dart';
 import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';
@@ -11,7 +13,9 @@ class AuthService {
   //create User object based on firebase user
 
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(user.uid, user.photoUrl, user.email, user.displayName) : null;
+    return user != null
+        ? User(user.uid, user.photoUrl, user.email, user.displayName)
+        : null;
   }
 
 //Auth change user Stream
@@ -37,10 +41,10 @@ class AuthService {
 
   Future<User> loginWithEmailAndPassword(String email, String senha) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
-          email: email, password: senha);
-      FirebaseUser user = result.user;            
-      
+      AuthResult result =
+          await _auth.signInWithEmailAndPassword(email: email, password: senha);
+      FirebaseUser user = result.user;
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -48,23 +52,23 @@ class AuthService {
     }
   }
 
-
 //register with email/password
 
-  Future<User> registerWithEmailAndPassword(String nome,String email, String senha) async {
+  Future<User> registerWithEmailAndPassword(
+      String nome, String email, String senha) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: senha);
       FirebaseUser user = result.user;
       UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
-      userUpdateInfo.displayName = nome;      
+      userUpdateInfo.displayName = nome;
       await user.updateProfile(userUpdateInfo);
 
       Perfil perfil = new Perfil();
       perfil.email = email;
       perfil.nome = nome;
       await PerfilService(uid: user.uid).updateUserPerfil(perfil);
-      
+
       Horta horta = new Horta();
       await DatabaseService(uid: user.uid).updateHortaPerfil(horta);
 
@@ -88,13 +92,18 @@ class AuthService {
   Future updateUserPhotoUrl(String photoUrl) async {
     try {
       FirebaseUser user = await _auth.currentUser();
-      UserUpdateInfo info = new UserUpdateInfo();      
-      info.photoUrl = photoUrl;      
+      UserUpdateInfo info = new UserUpdateInfo();
+      info.photoUrl = photoUrl;
       info.displayName = 'heavi';
       return await user.updateProfile(info);
     } catch (e) {
       print(e.toStrint());
       return null;
     }
+  }
+
+  //Esqueci minha senha
+  Future redefinirSenha(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 }

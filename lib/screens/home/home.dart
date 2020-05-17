@@ -37,10 +37,10 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 1 && User.uid != null) {        
-        Navigator.pushNamed(context, '/menuAgricultor');
+        Navigator.pushReplacementNamed(context, '/menuAgricultor');
       }
       else if (_selectedIndex == 2 && user != null) {        
-        Navigator.pushNamed(context, '/perfil');
+        Navigator.pushReplacementNamed(context, '/perfil');
       }
     });
   }

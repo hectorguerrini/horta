@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/models/produtos.dart';
 import 'package:horta/models/user.dart';
+import 'package:horta/services/auth.dart';
 import 'package:horta/services/produtos.dart';
 import 'package:intl/intl.dart';
 
@@ -20,7 +21,21 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
     super.initState();
     this.getProdutos();
   }
+     final _auth = AuthService();
+    int _selectedIndex = 1;
+    User user;
   
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (_selectedIndex == 0) {        
+        Navigator.pushReplacementNamed(context, '/');
+      }
+      else if (_selectedIndex == 2) {        
+        Navigator.pushReplacementNamed(context, '/perfil');
+      }
+    });
+  }
 
   void getProdutos() {
     List<ProdutosDocument> lista = [];
@@ -86,6 +101,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Menu Agricultor"), 
+        
       ),
       body: Column(        
         children: <Widget>[
@@ -125,9 +141,26 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
         )
 
       ],),
+      bottomNavigationBar: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home), 
+              title: Text('Home')
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu), 
+              title: Text('Menu')
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              title: Text('Perfil')
+            )
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped
+        ));
       
       
-      );  
   }
   
 }
