@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:horta/models/handleErrorLogin.dart';
+import 'package:horta/models/handleErrorRedefinirSenha.dart';
 import 'package:horta/services/auth.dart';
 
 class NovaSenhaScreen extends StatefulWidget {
@@ -10,6 +12,7 @@ class NovaSenhaScreen extends StatefulWidget {
 class _NovaSenhaScreenState extends State<NovaSenhaScreen> {
   AuthService auth = new AuthService();
   String email;
+  String error = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,17 +24,30 @@ class _NovaSenhaScreenState extends State<NovaSenhaScreen> {
           padding: EdgeInsets.all(66),
           children: <Widget>[
             TextFormField(
+
               onChanged: (val) {
                 setState(() {
                   email = val;
                 });
               },
               decoration: InputDecoration(labelText: 'Email'),
+              validator: (val) => val.isEmpty ? 'Insira seu email' : null,
             ),
-            FlatButton(
+             SizedBox(height: 20.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                  ),
+            Container(height: 30),
+            RaisedButton(
+                padding: EdgeInsets.all(20),
                 onPressed: () async {
-                  await auth.redefinirSenha(email);
-                  Navigator.pushNamed(context, '/auth');
+                  await auth.redefinirSenha(email).then((onValue) {
+                          Navigator.pop(context);
+                        }).catchError((onError) {
+                          setState(() => error =
+                              new HandleErrorRedefinirSenha(onError.code).errorMessage);
+                        });
                 },
                 child: Text("Enviar email de redefinição de senha."))
           ],

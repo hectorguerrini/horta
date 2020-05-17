@@ -104,6 +104,14 @@ class AuthService {
 
   //Esqueci minha senha
   Future redefinirSenha(String email) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    try{
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch(e){
+      print(e.toString());
+      return Future.error(e);
+    }
   }
+
+ 
 }
+  
