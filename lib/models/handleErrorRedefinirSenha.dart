@@ -11,6 +11,9 @@ class HandleErrorRedefinirSenha {
       case "ERROR_USER_NOT_FOUND":
         errorMessage = "Usuario não encontrado.";
         break;     
+      case "ERROR_TOO_MANY_REQUESTS":
+        errorMessage = "Seu dispositivo foi temporariamente bloqueado para redefinição de senha. Tente novamente mais tarde.";
+        break;
       default:
         errorMessage = "Insira um e-mail válido";
     }
