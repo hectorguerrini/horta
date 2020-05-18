@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           '/listaProdutos': (context) => ListaProdutosScreen(),
           '/menuAgricultor': (context) => MenuAgricultorScreen(),  
           '/novaSenhaScreen': (context) => NovaSenhaScreen(),
+          
         },
         theme: ThemeData(
           primaryColor: Colors.green,

@@ -14,28 +14,16 @@ class MenuAgricultorScreen extends StatefulWidget {
 
 class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   List<ProdutosDocument> listaProdutos = [];
+  bool disp = true;
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     this.getProdutos();
   }
-     final _auth = AuthService();
-    int _selectedIndex = 1;
-    User user;
-  
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (_selectedIndex == 0) {        
-        Navigator.pushReplacementNamed(context, '/');
-      }
-      else if (_selectedIndex == 2) {        
-        Navigator.pushReplacementNamed(context, '/perfil');
-      }
-    });
-  }
+    
+ 
 
   void getProdutos() {
     List<ProdutosDocument> lista = [];
@@ -99,10 +87,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Menu Agricultor"), 
-        
-      ),
+      
       body: Column(        
         children: <Widget>[
         RaisedButton(
@@ -129,8 +114,16 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
           return ListTile(
             leading: Image.asset(this.listaProdutos.elementAt(index).produtos.icon, fit: BoxFit.contain),
             title: Text(this.listaProdutos.elementAt(index).produtos.produto),
-            trailing: Text("${currency.format(this.listaProdutos.elementAt(index).produtos.preco)} / ${this.listaProdutos.elementAt(index).produtos.unidade}"),
-            subtitle: Divider(),
+            trailing: Switch(
+              value: this.listaProdutos.elementAt(index).produtos.disponibilidade,
+              onChanged: (value) {
+                setState(() {
+                  this.listaProdutos.elementAt(index).produtos.disponibilidade = !this.listaProdutos.elementAt(index).produtos.disponibilidade;
+                });
+              },
+            ),
+            subtitle: Text("${currency.format(this.listaProdutos.elementAt(index).produtos.preco)} / ${this.listaProdutos.elementAt(index).produtos.unidade}"),
+            
             onTap: () async {               
               await actionSheetModel(context, this.listaProdutos.elementAt(index));
               this.getProdutos();
@@ -141,24 +134,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
         )
 
       ],),
-      bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home), 
-              title: Text('Home')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu), 
-              title: Text('Menu')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Perfil')
-            )
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped
-        ));
+      );
       
       
   }

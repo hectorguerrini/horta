@@ -18,17 +18,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
 
   int _selectedIndex = 2;
     User user;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (_selectedIndex == 0) {        
-        Navigator.pushReplacementNamed(context, '/');
-      }
-      else if (_selectedIndex == 1) {        
-        Navigator.pushReplacementNamed(context, '/menuAgricultor');
-      }
-    });
-  }
+  
   File _image;
   Future getImageGaleria() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -188,24 +178,7 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
             ),          
             Divider()
           ])),
-          bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home), 
-              title: Text('Home')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu), 
-              title: Text('Menu')
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Perfil')
-            )
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped
-        ));
+          );
     
   }
 }
