@@ -18,7 +18,7 @@ class Produtos {
   String icon;
   double preco;
   String unidade;
-  bool disponibilidade;
+  bool disponibilidade = true;
   Produtos();
 
 /// A necessary factory constructor for creating a new User instance

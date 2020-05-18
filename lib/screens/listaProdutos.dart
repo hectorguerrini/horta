@@ -39,6 +39,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
   void initState() {
     super.initState();
     this.getListaProdutos();
+    
   }
   
   void getListaProdutos() {
@@ -47,6 +48,7 @@ class _ListaProdutosScreenState extends State<ListaProdutosScreen> with RouteAwa
       value.documents.forEach((value) {
         var prod = Produtos.fromJson(value.data);
         prod.preco = 0.00;
+        prod.disponibilidade = true;
         prod.unidade = "Kilo";
         lista.add(prod);
       });

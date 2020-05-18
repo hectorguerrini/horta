@@ -14,7 +14,6 @@ class MenuAgricultorScreen extends StatefulWidget {
 
 class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
   List<ProdutosDocument> listaProdutos = [];
-  bool disp = true;
   NumberFormat currency = new NumberFormat.currency(locale: "pt_BR",decimalDigits: 2, symbol: "R\$");
   @override
   void initState() {
@@ -119,6 +118,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
               onChanged: (value) {
                 setState(() {
                   this.listaProdutos.elementAt(index).produtos.disponibilidade = !this.listaProdutos.elementAt(index).produtos.disponibilidade;
+                  ProdutosService(uid: User.uid).alterMeusProdutos(this.listaProdutos.elementAt(index));
                 });
               },
             ),
