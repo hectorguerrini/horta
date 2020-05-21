@@ -119,6 +119,7 @@ class _MenuAgricultorScreenState extends State<MenuAgricultorScreen> {
                 setState(() {
                   this.listaProdutos.elementAt(index).produtos.disponibilidade = !this.listaProdutos.elementAt(index).produtos.disponibilidade;
                   ProdutosService(uid: User.uid).alterMeusProdutos(this.listaProdutos.elementAt(index));
+                  
                 });
               },
             ),

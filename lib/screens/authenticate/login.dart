@@ -86,26 +86,31 @@ class _LoginScreenState extends State<LoginScreenPage> {
                   FlatButton(
                       onPressed: () {
                         widget.toggleView();
-                        
                       },
                       textColor: Colors.green,
                       child: Text('Criar Conta',
                           style: TextStyle(fontSize: 16.0))),
-
-                  FlatButton(onPressed: (){
-                    Navigator.pushNamed(context, '/novaSenhaScreen');
-                  }, 
-                  child: Text("Esqueci minha senha")),
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/novaSenhaScreen');
+                      },
+                      child: Text("Esqueci minha senha")),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       IconButton(
-                          
                           icon: Image.asset('assets/facebook.png'),
-                          onPressed: () {}),
+                          onPressed: () async {
+                            await _auth.loginFacebook();
+                            Navigator.pop(context);
+                          }),
                       IconButton(
                           icon: Image.asset('assets/google.png'),
-                          onPressed: () {})
+                          onPressed: () async {
+                            await _auth.loginGoogle();
+
+                            Navigator.pop(context);
+                          })
                     ],
                   )
                 ],

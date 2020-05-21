@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:horta/models/horta.dart';
 import 'package:horta/models/perfil.dart';
 import 'package:horta/models/user.dart';
@@ -52,6 +54,45 @@ class AuthService {
     }
   }
 
+  // facebook login
+  Future<void> loginFacebook() async {
+    try {
+      var facebookLogin = new FacebookLogin();
+      var result = await facebookLogin.logIn(['email']);
+
+      if (result.status == FacebookLoginStatus.loggedIn) {
+        final AuthCredential credential = FacebookAuthProvider.getCredential(
+            accessToken: result.accessToken.token);
+
+        final FirebaseUser user =
+            (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        print('logado ' + user.displayName);
+        return user;
+      }
+    } catch (e) {
+      print(e.message);
+    }
+  }
+
+// google login
+  Future<void> loginGoogle() async {
+    try {
+      final GoogleSignIn _googleSignIn =
+          GoogleSignIn(scopes: ['email'], hostedDomain: '', clientId: '');
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.idToken);
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
+      print("logado " + user.displayName);
+      return user;
+    } catch (e) {
+      print(e.message);
+    }
+  }
 //register with email/password
 
   Future<User> registerWithEmailAndPassword(
@@ -104,14 +145,11 @@ class AuthService {
 
   //Esqueci minha senha
   Future redefinirSenha(String email) async {
-    try{
-        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-    } catch(e){
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
       print(e.toString());
       return Future.error(e);
     }
   }
-
- 
 }
-  
