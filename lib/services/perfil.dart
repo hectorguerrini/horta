@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:horta/models/perfil.dart';
+import 'package:horta/models/horta_model.dart';
+import 'package:horta/models/perfil_model.dart';
 import 'package:horta/services/auth.dart';
 
 class PerfilService {
@@ -9,15 +10,24 @@ class PerfilService {
   PerfilService({this.uid});
 
   final FirebaseStorage storage = FirebaseStorage.instance;
-  final CollectionReference perfilCollection = Firestore.instance.collection('perfil');
+  final CollectionReference perfilCollection =
+      Firestore.instance.collection('perfil');
 
-  Future updateUserPerfil(Perfil perfil) async{
-    return await this.perfilCollection.document(uid).setData(perfil.toJson(), merge: true);
+  final CollectionReference hortaCollection =
+      Firestore.instance.collection('horta');
+
+  // Perfil consumidor/agricultor
+  Future updateUserPerfil(PerfilModel perfil) async {
+    return await perfil.reference.updateData(perfil.toJson());
   }
-  
-  Future<DocumentSnapshot> getUserPerfil() async {
-    return await perfilCollection.document(uid).get();
+
+  Future<PerfilModel> getUserPerfil() async {
+    return await perfilCollection
+        .document(uid)
+        .get()
+        .then((value) => PerfilModel.fromJson(value.data, value.reference));
   }
+
   Future updatePhoto(File image) async {
     try {
       String urlImage;
@@ -37,5 +47,17 @@ class PerfilService {
       print(e.toString());
       return null;
     }
+  }
+
+  // Horta
+  Future updateHortaPerfil(HortaModel horta) async {
+    return await horta.reference.updateData(horta.toJson());
+  }
+
+  Future<HortaModel> gethortaPerfil() async {
+    return await hortaCollection
+        .document(uid)
+        .get()
+        .then((value) => HortaModel.fromJson(value.data, value.reference));
   }
 }
