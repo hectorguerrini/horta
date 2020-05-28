@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:horta/formfield.dart';
+import 'package:horta/components/formfield.dart';
 import 'package:horta/models/horta.dart';
 import 'package:horta/models/icons_app_icons.dart';
 import 'package:horta/models/user.dart';
