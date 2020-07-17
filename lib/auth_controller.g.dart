@@ -29,6 +29,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
   String get email => (_$emailComputed ??= Computed<String>(() => super.email,
           name: '_AuthControllerBase.email'))
       .value;
+  Computed<String> _$getUidComputed;
+
+  @override
+  String get getUid =>
+      (_$getUidComputed ??= Computed<String>(() => super.getUid,
+              name: '_AuthControllerBase.getUid'))
+          .value;
 
   final _$userLoggedAtom = Atom(name: '_AuthControllerBase.userLogged');
 
@@ -59,15 +66,22 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$loginAsyncAction.run(() => super.login(email, senha));
   }
 
+  final _$signOutAsyncAction = AsyncAction('_AuthControllerBase.signOut');
+
+  @override
+  Future<dynamic> signOut() {
+    return _$signOutAsyncAction.run(() => super.signOut());
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 
   @override
-  UserModel _userFromFirebaseUser(FirebaseUser user) {
+  UserModel _userFromFirebaseUser({FirebaseUser user}) {
     final _$actionInfo = _$_AuthControllerBaseActionController.startAction(
         name: '_AuthControllerBase._userFromFirebaseUser');
     try {
-      return super._userFromFirebaseUser(user);
+      return super._userFromFirebaseUser(user: user);
     } finally {
       _$_AuthControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -79,7 +93,8 @@ mixin _$AuthController on _AuthControllerBase, Store {
 userLogged: ${userLogged},
 photoUrl: ${photoUrl},
 displayName: ${displayName},
-email: ${email}
+email: ${email},
+getUid: ${getUid}
     ''';
   }
 }

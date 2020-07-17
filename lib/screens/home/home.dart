@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           actions: <Widget>[
             FlatButton.icon(
               onPressed: () async {
-                await _auth.signOut();
+                await authController.signOut();
               },
               icon: Icon(Icons.person),
               label: Text('Sair'),
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.menu), title: Text('Menu')),
-            authController.userLogged == null
+            authController.getUid == null
                 ? BottomNavigationBarItem(
                     icon: FaIcon(FontAwesomeIcons.signInAlt),
                     title: Text('Login'))

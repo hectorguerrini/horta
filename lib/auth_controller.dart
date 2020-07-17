@@ -19,7 +19,7 @@ abstract class _AuthControllerBase with Store {
   @action
   getUser() async {
     FirebaseUser user = await _auth.currentUser();
-    userLogged = _userFromFirebaseUser(user);
+    userLogged = _userFromFirebaseUser(user: user);
   }
 
   @action
@@ -28,14 +28,24 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  UserModel _userFromFirebaseUser(FirebaseUser user) {
+  Future signOut() async {
+    try {
+      await _auth.signOut();
+      userLogged = _userFromFirebaseUser();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @action
+  UserModel _userFromFirebaseUser({FirebaseUser user}) {
     return user != null
         ? UserModel(
             uid: user.uid,
             photoUrl: user.photoUrl,
             email: user.email,
             displayName: user.displayName)
-        : null;
+        : UserModel();
   }
 
   @computed
@@ -46,4 +56,7 @@ abstract class _AuthControllerBase with Store {
 
   @computed
   String get email => userLogged.email;
+
+  @computed
+  String get getUid => userLogged.uid;
 }
