@@ -14,8 +14,7 @@ class DetalheHorta extends StatefulWidget {
 class _DetalheHortaState extends State<DetalheHorta> {
   NumberFormat currency = new NumberFormat.currency(
       locale: "pt_BR", decimalDigits: 2, symbol: "R\$");
-  HortaModel hortaDoc;
-  List<ProdutosModel> listaProdutos = [];
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -81,41 +80,36 @@ class _DetalheHortaState extends State<DetalheHorta> {
                       fontWeight: FontWeight.bold)),
             ),
           ])),
-          // Observer(builder: (_) {
-
-          //   return SliverList(
-          //       delegate: SliverChildBuilderDelegate(
-          //     (BuildContext context, int index) {
-          //       return Padding(
-          //           padding: EdgeInsets.symmetric(horizontal: 20),
-          //           child: Column(
-          //             children: <Widget>[
-          //               Divider(),
-          //               ListTile(
-          //                 leading: Image.asset(this
-          //                     .listaProdutos
-          //                     .elementAt(index)
-          //                     .produtos
-          //                     .icon),
-          //                 title: Text(
-          //                     this
-          //                         .listaProdutos
-          //                         .elementAt(index)
-          //                         .produtos
-          //                         .produto,
-          //                     style:
-          //                         TextStyle(fontSize: 16, color: Colors.black)),
-          //                 subtitle: Text(
-          //                     "${currency.format(this.listaProdutos.elementAt(index).produtos.preco)} ${this.listaProdutos.elementAt(index).produtos.unidade}",
-          //                     style: TextStyle(
-          //                         fontSize: 16, color: Colors.black54)),
-          //               ),
-          //             ],
-          //           ));
-          //     },
-          //     childCount: this.listaProdutos.length,
-          //   ));
-          // }),
+          Observer(builder: (_) {
+            return SliverList(
+                delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: <Widget>[
+                        Divider(),
+                        ListTile(
+                          leading: Image.asset(hortaController.listaProdutos
+                              .elementAt(index)
+                              .icon),
+                          title: Text(
+                              hortaController.listaProdutos
+                                  .elementAt(index)
+                                  .produto,
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black)),
+                          subtitle: Text(
+                              "${currency.format(hortaController.listaProdutos.elementAt(index).preco)} ${hortaController.listaProdutos.elementAt(index).unidade}",
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.black54)),
+                        ),
+                      ],
+                    ));
+              },
+              childCount: hortaController.listaProdutos.length,
+            ));
+          }),
         ],
       ),
     );

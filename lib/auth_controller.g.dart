@@ -52,6 +52,21 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$isLoggedAtom = Atom(name: '_AuthControllerBase.isLogged');
+
+  @override
+  bool get isLogged {
+    _$isLoggedAtom.reportRead();
+    return super.isLogged;
+  }
+
+  @override
+  set isLogged(bool value) {
+    _$isLoggedAtom.reportWrite(value, super.isLogged, () {
+      super.isLogged = value;
+    });
+  }
+
   final _$getUserAsyncAction = AsyncAction('_AuthControllerBase.getUser');
 
   @override
@@ -91,6 +106,7 @@ mixin _$AuthController on _AuthControllerBase, Store {
   String toString() {
     return '''
 userLogged: ${userLogged},
+isLogged: ${isLogged},
 photoUrl: ${photoUrl},
 displayName: ${displayName},
 email: ${email},

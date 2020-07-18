@@ -1,4 +1,5 @@
 import 'package:horta/models/horta_model.dart';
+import 'package:horta/models/produtos_model.dart';
 import 'package:horta/services/consumidor.dart';
 import 'package:mobx/mobx.dart';
 part 'horta_controller.g.dart';
@@ -14,6 +15,8 @@ abstract class _HortaControllerBase with Store {
   @observable
   HortaModel detalheHorta;
 
+  @observable
+  List<ProdutosModel> listaProdutos;
   _HortaControllerBase(this._consumidorService) {
     getListaHortas();
   }
@@ -24,7 +27,19 @@ abstract class _HortaControllerBase with Store {
   }
 
   @action
-  setDetalheHorta(HortaModel value) => detalheHorta = value;
+  getListaProdutos() {
+    _consumidorService
+        .getListaProdutosHorta(detalheHorta.reference.documentID)
+        .then((value) {
+      listaProdutos = value;
+    });
+  }
+
+  @action
+  setDetalheHorta(HortaModel value) {
+    detalheHorta = value;
+    getListaProdutos();
+  }
 
   dispose() {}
 }

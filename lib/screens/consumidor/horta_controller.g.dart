@@ -39,6 +39,21 @@ mixin _$HortaController on _HortaControllerBase, Store {
     });
   }
 
+  final _$listaProdutosAtom = Atom(name: '_HortaControllerBase.listaProdutos');
+
+  @override
+  List<ProdutosModel> get listaProdutos {
+    _$listaProdutosAtom.reportRead();
+    return super.listaProdutos;
+  }
+
+  @override
+  set listaProdutos(List<ProdutosModel> value) {
+    _$listaProdutosAtom.reportWrite(value, super.listaProdutos, () {
+      super.listaProdutos = value;
+    });
+  }
+
   final _$_HortaControllerBaseActionController =
       ActionController(name: '_HortaControllerBase');
 
@@ -48,6 +63,17 @@ mixin _$HortaController on _HortaControllerBase, Store {
         name: '_HortaControllerBase.getListaHortas');
     try {
       return super.getListaHortas();
+    } finally {
+      _$_HortaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getListaProdutos() {
+    final _$actionInfo = _$_HortaControllerBaseActionController.startAction(
+        name: '_HortaControllerBase.getListaProdutos');
+    try {
+      return super.getListaProdutos();
     } finally {
       _$_HortaControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -68,7 +94,8 @@ mixin _$HortaController on _HortaControllerBase, Store {
   String toString() {
     return '''
 listaHortas: ${listaHortas},
-detalheHorta: ${detalheHorta}
+detalheHorta: ${detalheHorta},
+listaProdutos: ${listaProdutos}
     ''';
   }
 }

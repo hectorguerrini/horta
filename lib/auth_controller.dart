@@ -11,6 +11,8 @@ abstract class _AuthControllerBase with Store {
   final AuthService _authService = new AuthService();
   @observable
   UserModel userLogged;
+  @observable
+  bool isLogged = false;
 
   _AuthControllerBase() {
     getUser();
@@ -20,11 +22,13 @@ abstract class _AuthControllerBase with Store {
   getUser() async {
     FirebaseUser user = await _auth.currentUser();
     userLogged = _userFromFirebaseUser(user: user);
+    isLogged = userLogged != null ? true : false;
   }
 
   @action
   Future login(String email, String senha) async {
     userLogged = await _authService.loginWithEmailAndPassword(email, senha);
+    isLogged = userLogged != null ? true : false;
   }
 
   @action
@@ -32,6 +36,7 @@ abstract class _AuthControllerBase with Store {
     try {
       await _auth.signOut();
       userLogged = _userFromFirebaseUser();
+      isLogged = userLogged != null ? true : false;
     } catch (e) {
       print(e.toString());
     }
@@ -45,7 +50,7 @@ abstract class _AuthControllerBase with Store {
             photoUrl: user.photoUrl,
             email: user.email,
             displayName: user.displayName)
-        : UserModel();
+        : null;
   }
 
   @computed

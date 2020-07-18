@@ -40,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
   @override
   Widget build(BuildContext context) {
     final authController = Provider.of<AuthController>(context);
-    final _auth = AuthService();
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
@@ -76,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
                 icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.menu), title: Text('Menu')),
-            authController.getUid == null
+            !authController.isLogged
                 ? BottomNavigationBarItem(
                     icon: FaIcon(FontAwesomeIcons.signInAlt),
                     title: Text('Login'))
