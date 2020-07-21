@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:horta/auth_controller.dart';
 import 'package:horta/screens/consumidor/listaHortas.dart';
-import 'package:horta/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,12 +42,13 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
-        // if (_selectedIndex == 1 && User.uid != null) {
-        //   Navigator.pushNamed(context, '/menuAgricultor');
-        // }
-        if (_selectedIndex == 2 && authController.userLogged == null) {
+        if (_selectedIndex == 1 && authController.isLogged) {
+          Navigator.pushNamed(context, '/menuAgricultor');
+        }
+        if (_selectedIndex == 1 && !authController.isLogged) {
           Navigator.pushNamed(context, '/auth');
-        } else if (_selectedIndex == 2 && authController.userLogged != null) {
+        }
+        if (_selectedIndex == 2 && authController.isLogged) {
           Navigator.pushNamed(context, '/perfil');
         }
       });
@@ -73,8 +73,9 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
           return BottomNavigationBar(items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Home')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.menu), title: Text('Menu')),
+            if (authController.isLogged)
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.menu), title: Text('Menu')),
             !authController.isLogged
                 ? BottomNavigationBarItem(
                     icon: FaIcon(FontAwesomeIcons.signInAlt),

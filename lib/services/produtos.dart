@@ -10,11 +10,14 @@ class ProdutosService {
   final CollectionReference meusProdutosCollection =
       Firestore.instance.collection('meusProdutos');
 
-  Future<QuerySnapshot> listaProdutos() async {
-    return await produtosCollection.getDocuments();
+  Future<List<ProdutosModel>> comboProdutos() async {
+    return await produtosCollection.getDocuments().then((value) => value
+        .documents
+        .map((e) => ProdutosModel.fromJson(e.data, e.reference))
+        .toList());
   }
 
-  Future updateMeusProdutos(ProdutosModel produtos) async {
+  Future<DocumentReference> updateMeusProdutos(ProdutosModel produtos) async {
     return await this
         .meusProdutosCollection
         .document(uid)
@@ -22,24 +25,22 @@ class ProdutosService {
         .add(produtos.toJson());
   }
 
-  Future alterMeusProdutos(ProdutosModel produtos) async {
-    return produtos.reference.updateData(produtos.toJson());
-  }
-
-  Future<QuerySnapshot> getMeusProdutos() async {
-    return await this
-        .meusProdutosCollection
+  Stream<List<ProdutosModel>> getMeusProdutos() {
+    return meusProdutosCollection
         .document(uid)
         .collection('listaProdutos')
-        .getDocuments();
+        .snapshots()
+        .map((event) => event.documents
+            .map((e) => ProdutosModel.fromJson(e.data, e.reference))
+            .toList());
   }
 
-  Future<void> deleteMeusProdutos(String docUID) async {
-    return await this
-        .meusProdutosCollection
-        .document(uid)
-        .collection('listaProdutos')
-        .document(docUID)
-        .delete();
-  }
+  // Future<void> deleteMeusProdutos(String docUID) async {
+  //   return await this
+  //       .meusProdutosCollection
+  //       .document(uid)
+  //       .collection('listaProdutos')
+  //       .document(docUID)
+  //       .delete();
+  // }
 }

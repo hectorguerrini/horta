@@ -12,6 +12,7 @@ ProdutosModel _$ProdutosModelFromJson(Map<String, dynamic> json) {
     icon: json['icon'] as String,
     preco: (json['preco'] as num)?.toDouble(),
     unidade: json['unidade'] as String,
+    disponibilidade: json['disponibilidade'] as bool,
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$ProdutosModelToJson(ProdutosModel instance) =>
       'icon': instance.icon,
       'preco': instance.preco,
       'unidade': instance.unidade,
+      'disponibilidade': instance.disponibilidade,
     };

@@ -24,7 +24,7 @@ class ConsumidorService {
         .getDocuments()
         .then((value) {
       return value.documents
-          .map((e) => ProdutosModel.fromJson(e.data))
+          .map((e) => ProdutosModel.fromJson(e.data, e.reference))
           .toList();
     });
   }

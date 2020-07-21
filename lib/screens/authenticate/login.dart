@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horta/auth_controller.dart';
 import 'package:horta/models/handleErrorLogin.dart';
-import 'package:horta/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreenPage extends StatefulWidget {

@@ -16,7 +16,7 @@ abstract class _HortaControllerBase with Store {
   HortaModel detalheHorta;
 
   @observable
-  List<ProdutosModel> listaProdutos;
+  List<ProdutosModel> listaProdutos = [];
   _HortaControllerBase(this._consumidorService) {
     getListaHortas();
   }

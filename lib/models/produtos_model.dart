@@ -9,15 +9,40 @@ class ProdutosModel {
   String icon;
   double preco;
   String unidade;
-
+  bool disponibilidade;
   @JsonKey(ignore: true)
-  final DocumentReference reference;
+  DocumentReference reference;
 
   ProdutosModel(
-      {this.produto, this.icon, this.preco, this.unidade, this.reference});
+      {this.produto,
+      this.icon,
+      this.preco,
+      this.unidade,
+      this.disponibilidade,
+      this.reference});
 
-  factory ProdutosModel.fromJson(Map<String, dynamic> json) =>
-      _$ProdutosModelFromJson(json);
+  copyWith(
+      {String produto,
+      String icon,
+      double preco,
+      String unidade,
+      bool disponibilidade}) {
+    return ProdutosModel(
+        produto: produto ?? this.produto,
+        icon: icon ?? this.icon,
+        preco: preco ?? this.preco,
+        unidade: unidade ?? this.unidade,
+        disponibilidade: disponibilidade ?? this.disponibilidade,
+        reference: this.reference);
+  }
+
+  String getIsDisponibilidade() {
+    return disponibilidade ? 'Disponivel' : 'Indisponivel';
+  }
+
+  factory ProdutosModel.fromJson(
+          Map<String, dynamic> json, DocumentReference _reference) =>
+      _$ProdutosModelFromJson(json)..reference = _reference;
 
   Map<String, dynamic> toJson() => _$ProdutosModelToJson(this);
 }
