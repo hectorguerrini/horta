@@ -1,20 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'perfil.dart';
+part of 'perfil_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Perfil _$PerfilFromJson(Map<String, dynamic> json) {
-  return Perfil()
-    ..nome = json['nome'] as String
-    ..cpf = json['cpf'] as String
-    ..wpp = json['wpp'] as String
-    ..email = json['email'] as String;
+PerfilModel _$PerfilModelFromJson(Map<String, dynamic> json) {
+  return PerfilModel(
+    nome: json['nome'] as String,
+    cpf: json['cpf'] as String,
+    wpp: json['wpp'] as String,
+    email: json['email'] as String,
+  );
 }
 
-Map<String, dynamic> _$PerfilToJson(Perfil instance) => <String, dynamic>{
+Map<String, dynamic> _$PerfilModelToJson(PerfilModel instance) =>
+    <String, dynamic>{
       'nome': instance.nome,
       'cpf': instance.cpf,
       'wpp': instance.wpp,
