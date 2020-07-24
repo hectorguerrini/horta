@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:horta/auth_controller.dart';
 import 'package:horta/models/handleErrorLogin.dart';
+import 'package:horta/models/handleErrorLoginCredential.dart';
+import 'package:horta/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreenPage extends StatefulWidget {
@@ -12,6 +14,7 @@ class LoginScreenPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreenPage> {
+  final _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String usuario = '';
@@ -90,7 +93,39 @@ class _LoginScreenState extends State<LoginScreenPage> {
                       },
                       textColor: Colors.green,
                       child:
-                          Text('Criar Conta', style: TextStyle(fontSize: 16.0)))
+                          Text('Criar Conta', style: TextStyle(fontSize: 16.0))),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        //Botão para login com facebook
+                        IconButton(
+                          icon: Image.asset('assets/facebook.png'),
+                          onPressed: () async {
+                            await _auth.loginFacebook().then((onValue) {
+                              Navigator.pop(context);
+                            }).catchError((onError) {
+                              setState(() {
+                                error =
+                                    new HandleErrorLoginCredential(onError.code)
+                                        .errorMessage;
+                              });
+                            });
+                          }),
+                        //Botão para login com google
+                      IconButton(
+                          icon: Image.asset('assets/google.png'),
+                          onPressed: () async {
+                            await _auth.loginGoogle().then((onValue) {
+                              Navigator.pop(context);
+                            }).catchError((onError) {
+                              setState(() {
+                                error =
+                                    new HandleErrorLoginCredential(onError.code)
+                                        .errorMessage;
+                              });
+                            });
+                          }),
+                    ],)
                 ],
               ),
             ),
