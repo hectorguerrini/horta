@@ -56,44 +56,40 @@ class AuthService {
       return Future.error(e);
     }
   }
+
 //facebook
   Future<void> loginFacebook() async {
-      try {
-        var facebookLogin = new FacebookLogin();
-        var result = await facebookLogin.logIn(['email']);
-
-        if (result.status == FacebookLoginStatus.loggedIn) {
-          final AuthCredential credential = FacebookAuthProvider.getCredential(
-              accessToken: result.accessToken.token);
-
-          final FirebaseUser user =
-              (await FirebaseAuth.instance.signInWithCredential(credential)).user;
-          print('logado ' + user.displayName);
-          return user;
-        }
-      } catch (e) {
-        print(e.message);
+    try {
+      var facebookLogin = new FacebookLogin();
+      var result = await facebookLogin.logIn(['email']);
+      if (result.status == FacebookLoginStatus.loggedIn) {
+        final AuthCredential credential = FacebookAuthProvider.getCredential(
+            accessToken: result.accessToken.token);
+        final FirebaseUser user =
+            (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        return user;
       }
+    } catch (e) {
+      print(e.message);
     }
+  }
+
 //google
   Future<void> loginGoogle() async {
-      try {
-        final GoogleSignIn _googleSignIn =
-            GoogleSignIn(scopes: ['email'], hostedDomain: '', clientId: '');
-        final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
-
-        final AuthCredential credential = GoogleAuthProvider.getCredential(
-            idToken: googleAuth.idToken, accessToken: googleAuth.idToken);
-        final FirebaseUser user =
-            (await _auth.signInWithCredential(credential)).user;
-        print("logado " + user.displayName);
-        return user;
-      } catch (e) {
-        print(e.message);
-      }
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.idToken);
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
+      return user;
+    } catch (e) {
+      print(e.message);
     }
+  }
 
 //signout
   Future signOut() async {
