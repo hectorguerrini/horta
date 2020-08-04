@@ -52,7 +52,7 @@ abstract class _AuthControllerBase with Store {
             displayName: user.displayName)
         : null;
   }
-
+//ss
   @computed
   String get photoUrl => userLogged.photoUrl;
 
