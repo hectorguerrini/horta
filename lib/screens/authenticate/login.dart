@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreenPage> {
 
   String usuario = '';
   String senha = '';
-  String error = '';
+  String error = ''; 
 
   @override
   Widget build(BuildContext context) {
@@ -101,29 +101,13 @@ class _LoginScreenState extends State<LoginScreenPage> {
                         IconButton(
                           icon: Image.asset('assets/facebook.png'),
                           onPressed: () async {
-                            await _auth.loginFacebook().then((onValue) {
-                              Navigator.pop(context);
-                            }).catchError((onError) {
-                              setState(() {
-                                error =
-                                    new HandleErrorLoginCredential(onError.code)
-                                        .errorMessage;
-                              });
-                            });
+                            
                           }),
                         //Botão para login com google
                       IconButton(
                           icon: Image.asset('assets/google.png'),
                           onPressed: () async {
-                            await _auth.loginGoogle().then((onValue) {
-                              Navigator.pop(context);
-                            }).catchError((onError) {
-                              setState(() {
-                                error =
-                                    new HandleErrorLoginCredential(onError.code)
-                                        .errorMessage;
-                              });
-                            });
+                            authController.googlelogin();
                           }),
                     ],)
                 ],

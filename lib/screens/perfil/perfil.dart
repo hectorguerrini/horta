@@ -87,7 +87,18 @@ class _PerfilScreenState extends State<PerfilScreenPage> {
     final authController = Provider.of<AuthController>(context);
     final perfilController = Provider.of<PerfilController>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Meu Perfil')),
+      appBar: AppBar(title: Text('Meu Perfil'),
+      actions: <Widget>[
+            FlatButton.icon(
+              onPressed: () async {
+                await authController.signOut();
+              },
+              icon: Icon(Icons.person),
+              label: Text('Sair'),
+              textColor: Colors.white,
+            )
+          ],),
+      
       body: Container(
           padding:
               EdgeInsets.symmetric(horizontal: size.width * 0.02, vertical: 20),

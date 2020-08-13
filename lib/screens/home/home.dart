@@ -57,16 +57,7 @@ class _HomeScreenState extends State<HomeScreen> with RouteAware {
     return Scaffold(
         appBar: AppBar(
           title: Text('Welcome'),
-          actions: <Widget>[
-            FlatButton.icon(
-              onPressed: () async {
-                await authController.signOut();
-              },
-              icon: Icon(Icons.person),
-              label: Text('Sair'),
-              textColor: Colors.white,
-            )
-          ],
+          
         ),
         body: pageMain(),
         bottomNavigationBar: Observer(builder: (_) {

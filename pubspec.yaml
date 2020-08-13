@@ -20,7 +20,6 @@ environment:
 
 dependencies:
   google_sign_in: ^4.5.1
-  flutter_facebook_login: ^3.0.0
   #http: ^0.12.0+2
   font_awesome_flutter: ^8.7.0
   firebase_auth: ^0.16.0

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "606622168277-bues7fssf4p3d8mi37udmr5fueo58gap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mauadevteam.horta",
+            "certificate_hash": "9e1c7e1176ff83bf38115a73aa5252e5b8a1e0b9"
+          }
+        },
+        {
           "client_id": "606622168277-4264eurdp0trra377pt19jqn20m2no5r.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -30,6 +38,13 @@
             {
               "client_id": "606622168277-4264eurdp0trra377pt19jqn20m2no5r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "606622168277-46j8i6bd0kooffl7mhomhpi64bu5a0vl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mauadevteamios.horta"
+              }
             }
           ]
         }

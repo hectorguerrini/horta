@@ -32,6 +32,12 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
+  Future googlelogin() async {
+    userLogged = await _authService.loginGoogle();
+    isLogged = userLogged != null ? true : false;
+  }
+
+  @action
   Future signOut() async {
     try {
       await _auth.signOut();
