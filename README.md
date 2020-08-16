@@ -1,6 +1,6 @@
 # horta
 
-A new Flutter project.
+A new Flutter project. Created by Slidy
 
 ## Getting Started
 
