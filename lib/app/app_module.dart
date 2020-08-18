@@ -1,3 +1,4 @@
+import 'modules/login/register_controller.dart';
 import 'package:horta/app/modules/login/login_module.dart';
 import 'package:horta/app/modules/perfil/perfil_module.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
@@ -15,6 +16,7 @@ import 'package:horta/app/modules/home/home_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => RegisterController()),
         Bind((i) => AppController()),
         Bind((i) => AuthController()),
         Bind<IAuthRepository>((i) => AuthRepository()),
