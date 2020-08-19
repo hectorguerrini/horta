@@ -1,3 +1,4 @@
+import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/login/login_module.dart';
 import 'package:horta/app/modules/perfil/perfil_module.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';

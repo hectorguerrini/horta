@@ -16,6 +16,28 @@ mixin _$HomeController on _HomeControllerBase, Store {
       (_$isLoggedComputed ??= Computed<bool>(() => super.isLogged,
               name: '_HomeControllerBase.isLogged'))
           .value;
+  Computed<int> _$getIndexPageComputed;
+
+  @override
+  int get getIndexPage =>
+      (_$getIndexPageComputed ??= Computed<int>(() => super.getIndexPage,
+              name: '_HomeControllerBase.getIndexPage'))
+          .value;
+
+  final _$_selectedPageAtom = Atom(name: '_HomeControllerBase._selectedPage');
+
+  @override
+  int get _selectedPage {
+    _$_selectedPageAtom.reportRead();
+    return super._selectedPage;
+  }
+
+  @override
+  set _selectedPage(int value) {
+    _$_selectedPageAtom.reportWrite(value, super._selectedPage, () {
+      super._selectedPage = value;
+    });
+  }
 
   final _$isAgricultorAtom = Atom(name: '_HomeControllerBase.isAgricultor');
 
@@ -40,11 +62,37 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$getIsAgricultorAsyncAction.run(() => super.getIsAgricultor());
   }
 
+  final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase');
+
+  @override
+  dynamic pageChanged(int index) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.pageChanged');
+    try {
+      return super.pageChanged(index);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic bottomTapped(int index) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.bottomTapped');
+    try {
+      return super.bottomTapped(index);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 isAgricultor: ${isAgricultor},
-isLogged: ${isLogged}
+isLogged: ${isLogged},
+getIndexPage: ${getIndexPage}
     ''';
   }
 }
