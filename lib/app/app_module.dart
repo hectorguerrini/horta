@@ -28,6 +28,7 @@ class AppModule extends MainModule {
         Router('/home', module: HomeModule()),
         Router('/login', module: LoginModule()),
         Router('/perfil', module: PerfilModule()),
+        Router('/agricultor', module: AgricultorModule()),
       ];
 
   @override
