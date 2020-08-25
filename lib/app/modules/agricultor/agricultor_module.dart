@@ -1,5 +1,5 @@
 import 'package:horta/app/modules/agricultor/cadastro-produto/cadastro_produto_controller.dart';
-import 'package:horta/app/modules/agricultor/cadastro-produto/cadatro_produto_page.dart';
+import 'package:horta/app/modules/agricultor/cadastro-produto/cadastro_produto_page.dart';
 
 import 'repositories/agricultor_repository.dart';
 import 'agricultor_controller.dart';

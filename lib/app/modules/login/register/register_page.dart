@@ -16,6 +16,7 @@ class _RegisterPageState
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Registro'),
@@ -23,10 +24,14 @@ class _RegisterPageState
       body: Center(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 70.0),
-          child: Form(            
+          child: Form(
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
+                Image(
+                  image: AssetImage('assets/logo.png'),
+                  width: size.width * 0.50,
+                ),
                 TextFormField(
                   validator: (val) => val.isEmpty ? 'Escreva seu nome' : null,
                   onChanged: controller.setNome,
@@ -34,7 +39,7 @@ class _RegisterPageState
                 ),
                 TextFormField(
                   validator: (val) => val.isEmpty ? 'Escreva seu email' : null,
-                  onChanged: controller.setUser,
+                  onChanged: controller.setEmail,
                   decoration: InputDecoration(labelText: 'Email'),
                 ),
                 TextFormField(
@@ -47,11 +52,8 @@ class _RegisterPageState
                     labelText: 'Senha',
                   ),
                 ),
-                
                 RaisedButton(
-                  onPressed: () async {
-                    //registro com email e senha
-                  },
+                  onPressed: controller.registerWithEmailAndPassword,
                   elevation: 5.0,
                   textColor: Colors.white,
                   color: Colors.green,
@@ -59,13 +61,11 @@ class _RegisterPageState
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
                 ),
-                FlatButton(
-                  onPressed: () {
-                    
-                  },
-                  child: Text('Login', style: TextStyle(fontSize: 16.0)),
-                  textColor: Colors.green,
-                )
+                // FlatButton(
+                //   onPressed: () {},
+                //   child: Text('Login', style: TextStyle(fontSize: 16.0)),
+                //   textColor: Colors.green,
+                // )
               ],
             ),
           ),

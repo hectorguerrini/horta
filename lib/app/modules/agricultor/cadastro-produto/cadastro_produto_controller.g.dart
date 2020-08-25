@@ -9,33 +9,47 @@ part of 'cadastro_produto_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CadastroProdutoController on _CadastroProdutoControllerBase, Store {
-  Computed<String> _$nomeProdutoComputed;
+  Computed<List<ProdutosModel>> _$getMeusProdutosComputed;
 
   @override
-  String get nomeProduto =>
-      (_$nomeProdutoComputed ??= Computed<String>(() => super.nomeProduto,
-              name: '_CadastroProdutoControllerBase.nomeProduto'))
+  List<ProdutosModel> get getMeusProdutos => (_$getMeusProdutosComputed ??=
+          Computed<List<ProdutosModel>>(() => super.getMeusProdutos,
+              name: '_CadastroProdutoControllerBase.getMeusProdutos'))
+      .value;
+  Computed<Hortalicas> _$getNomeProdutoComputed;
+
+  @override
+  Hortalicas get getNomeProduto => (_$getNomeProdutoComputed ??=
+          Computed<Hortalicas>(() => super.getNomeProduto,
+              name: '_CadastroProdutoControllerBase.getNomeProduto'))
+      .value;
+  Computed<String> _$getIconProdutoComputed;
+
+  @override
+  String get getIconProduto =>
+      (_$getIconProdutoComputed ??= Computed<String>(() => super.getIconProduto,
+              name: '_CadastroProdutoControllerBase.getIconProduto'))
           .value;
-  Computed<String> _$iconProdutoComputed;
+  Computed<Unidade> _$getUnidadeProdutoComputed;
 
   @override
-  String get iconProduto =>
-      (_$iconProdutoComputed ??= Computed<String>(() => super.iconProduto,
-              name: '_CadastroProdutoControllerBase.iconProduto'))
-          .value;
-  Computed<String> _$unidadeProdutoComputed;
+  Unidade get getUnidadeProduto => (_$getUnidadeProdutoComputed ??=
+          Computed<Unidade>(() => super.getUnidadeProduto,
+              name: '_CadastroProdutoControllerBase.getUnidadeProduto'))
+      .value;
+  Computed<double> _$getPrecoProdutoComputed;
 
   @override
-  String get unidadeProduto =>
-      (_$unidadeProdutoComputed ??= Computed<String>(() => super.unidadeProduto,
-              name: '_CadastroProdutoControllerBase.unidadeProduto'))
-          .value;
-  Computed<double> _$precoProdutoComputed;
+  double get getPrecoProduto => (_$getPrecoProdutoComputed ??= Computed<double>(
+          () => super.getPrecoProduto,
+          name: '_CadastroProdutoControllerBase.getPrecoProduto'))
+      .value;
+  Computed<String> _$getPriceComputed;
 
   @override
-  double get precoProduto =>
-      (_$precoProdutoComputed ??= Computed<double>(() => super.precoProduto,
-              name: '_CadastroProdutoControllerBase.precoProduto'))
+  String get getPrice =>
+      (_$getPriceComputed ??= Computed<String>(() => super.getPrice,
+              name: '_CadastroProdutoControllerBase.getPrice'))
           .value;
 
   final _$selectProdutoAtom =
@@ -54,14 +68,72 @@ mixin _$CadastroProdutoController on _CadastroProdutoControllerBase, Store {
     });
   }
 
+  final _$salvarAsyncAction =
+      AsyncAction('_CadastroProdutoControllerBase.salvar');
+
+  @override
+  Future salvar() {
+    return _$salvarAsyncAction.run(() => super.salvar());
+  }
+
+  final _$_CadastroProdutoControllerBaseActionController =
+      ActionController(name: '_CadastroProdutoControllerBase');
+
+  @override
+  dynamic setProduto(Hortalicas value) {
+    final _$actionInfo = _$_CadastroProdutoControllerBaseActionController
+        .startAction(name: '_CadastroProdutoControllerBase.setProduto');
+    try {
+      return super.setProduto(value);
+    } finally {
+      _$_CadastroProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setPreco(String value) {
+    final _$actionInfo = _$_CadastroProdutoControllerBaseActionController
+        .startAction(name: '_CadastroProdutoControllerBase.setPreco');
+    try {
+      return super.setPreco(value);
+    } finally {
+      _$_CadastroProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setUnidade(Unidade unidade) {
+    final _$actionInfo = _$_CadastroProdutoControllerBaseActionController
+        .startAction(name: '_CadastroProdutoControllerBase.setUnidade');
+    try {
+      return super.setUnidade(unidade);
+    } finally {
+      _$_CadastroProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeDisponibilidade(bool value, ProdutosModel item) {
+    final _$actionInfo =
+        _$_CadastroProdutoControllerBaseActionController.startAction(
+            name: '_CadastroProdutoControllerBase.changeDisponibilidade');
+    try {
+      return super.changeDisponibilidade(value, item);
+    } finally {
+      _$_CadastroProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 selectProduto: ${selectProduto},
-nomeProduto: ${nomeProduto},
-iconProduto: ${iconProduto},
-unidadeProduto: ${unidadeProduto},
-precoProduto: ${precoProduto}
+getMeusProdutos: ${getMeusProdutos},
+getNomeProduto: ${getNomeProduto},
+getIconProduto: ${getIconProduto},
+getUnidadeProduto: ${getUnidadeProduto},
+getPrecoProduto: ${getPrecoProduto},
+getPrice: ${getPrice}
     ''';
   }
 }

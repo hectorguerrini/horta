@@ -25,21 +25,6 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
     });
   }
 
-  final _$_authAtom = Atom(name: '_RegisterControllerBase._auth');
-
-  @override
-  FirebaseAuth get _auth {
-    _$_authAtom.reportRead();
-    return super._auth;
-  }
-
-  @override
-  set _auth(FirebaseAuth value) {
-    _$_authAtom.reportWrite(value, super._auth, () {
-      super._auth = value;
-    });
-  }
-
   final _$registerWithEmailAndPasswordAsyncAction =
       AsyncAction('_RegisterControllerBase.registerWithEmailAndPassword');
 
@@ -64,11 +49,11 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
   }
 
   @override
-  dynamic setUser(String value) {
+  dynamic setEmail(String value) {
     final _$actionInfo = _$_RegisterControllerBaseActionController.startAction(
-        name: '_RegisterControllerBase.setUser');
+        name: '_RegisterControllerBase.setEmail');
     try {
-      return super.setUser(value);
+      return super.setEmail(value);
     } finally {
       _$_RegisterControllerBaseActionController.endAction(_$actionInfo);
     }

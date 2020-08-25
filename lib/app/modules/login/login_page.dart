@@ -29,7 +29,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
               shrinkWrap: true,
               children: <Widget>[
                 Image(
-                  image: AssetImage('assets/logoName.png'),
+                  image: AssetImage('assets/logo.png'),
                   width: size.width * 0.50,
                 ),
                 TextFormField(

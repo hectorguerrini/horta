@@ -8,7 +8,7 @@ class AppWidget extends StatelessWidget {
     return OKToast(
       duration: Duration(seconds: 3),
       dismissOtherOnShow: true,
-      position: ToastPosition.bottom,
+      position: ToastPosition.center,
       radius: 10,
       child: MaterialApp(
         navigatorKey: Modular.navigatorKey,

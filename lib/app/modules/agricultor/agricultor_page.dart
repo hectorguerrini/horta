@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:horta/app/enumeration/hortalicas_enum.dart';
+import 'package:horta/app/enumeration/unidade_enum.dart';
+import 'package:horta/app/shared/utils/constants.dart';
 import 'agricultor_controller.dart';
 import 'models/produtos_model.dart';
 
@@ -24,7 +27,9 @@ class _AgricultorPageState
         child: Column(
           children: <Widget>[
             FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Modular.to.pushNamed('/agricultor/produto');
+              },
               icon: Icon(
                 Icons.add,
                 color: Colors.white,
@@ -70,11 +75,12 @@ class _AgricultorPageState
                 itemBuilder: (BuildContext context, int index) {
                   ProdutosModel item = lista[index];
                   return ListTile(
-                    leading: Image.asset(item.icon, fit: BoxFit.contain),
+                    leading: Image.asset(ICON_HORTALICAS[item.produto],
+                        fit: BoxFit.contain),
                     title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(item.produto),
-                        Spacer(),
+                        Text(item.produto.toShortString()),
                         item.disponibilidade
                             ? Text(
                                 "Disponível",
@@ -87,7 +93,7 @@ class _AgricultorPageState
                       ],
                     ),
                     subtitle: Text(
-                        "${controller.currency.format(item.preco)} / ${item.unidade}"),
+                        "${controller.currency.format(item.preco)} / ${item.unidade.toShortString()}"),
                     trailing: Switch(
                         value: item.disponibilidade,
                         onChanged: (value) {

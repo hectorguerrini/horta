@@ -35,4 +35,16 @@ class AuthRepository implements IAuthRepository {
     print("signed in " + user.displayName);
     return user;
   }
+
+  @override
+  Future<FirebaseUser> registerWithEmailAndPassword(
+      String nome, String email, String senha) async {
+    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+            email: email, password: senha))
+        .user;
+    UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+    userUpdateInfo.displayName = nome;
+    await user.updateProfile(userUpdateInfo);
+    return user;
+  }
 }

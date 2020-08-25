@@ -28,4 +28,9 @@ abstract class _AuthControllerBase with Store {
   Future loginWithGoogle() async {
     user = await _repository.loginWithGoogle();
   }
+
+  @action
+  Future registerWithEmail(String nome, String email, String senha) async {
+    user = await _repository.registerWithEmailAndPassword(nome, email, senha);
+  }
 }

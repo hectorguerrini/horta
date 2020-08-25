@@ -27,6 +27,7 @@ class AgricultorRepository {
     return _collectionReference
         .document(_authController.user.uid)
         .collection('listaProdutos')
+        .orderBy('produto')
         .snapshots()
         .map((event) => event.documents
             .map((e) => ProdutosModel.fromJson(e.data)..reference = e.reference)

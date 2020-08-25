@@ -9,7 +9,7 @@ part of 'register_model.dart';
 RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) {
   return RegisterModel(
     nome: json['nome'] as String,
-    user: json['user'] as String,
+    email: json['email'] as String,
     senha: json['senha'] as String,
   );
 }
@@ -17,6 +17,6 @@ RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$RegisterModelToJson(RegisterModel instance) =>
     <String, dynamic>{
       'nome': instance.nome,
-      'user': instance.user,
+      'email': instance.email,
       'senha': instance.senha,
     };

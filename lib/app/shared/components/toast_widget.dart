@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ToastWidget extends StatelessWidget {
+  final String msg;
+
+  const ToastWidget({Key key, @required this.msg}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Container(
-          width: 40.0,
-          height: 40.0,
-          color: Colors.grey.withOpacity(0.3),
-          child: Icon(
-            Icons.add,
-            size: 30.0,
-            color: Colors.green,
-          ),
-        ),
-      ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30.0),
+      child: Container(
+          padding: EdgeInsets.all(16), color: Colors.green, child: Text(msg)),
     );
   }
 }

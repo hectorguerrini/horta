@@ -41,6 +41,15 @@ mixin _$AuthController on _AuthControllerBase, Store {
     return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
   }
 
+  final _$registerWithEmailAsyncAction =
+      AsyncAction('_AuthControllerBase.registerWithEmail');
+
+  @override
+  Future<dynamic> registerWithEmail(String nome, String email, String senha) {
+    return _$registerWithEmailAsyncAction
+        .run(() => super.registerWithEmail(nome, email, senha));
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 
