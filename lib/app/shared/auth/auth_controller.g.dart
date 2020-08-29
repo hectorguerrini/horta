@@ -24,6 +24,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$reloadUserAsyncAction = AsyncAction('_AuthControllerBase.reloadUser');
+
+  @override
+  Future<dynamic> reloadUser() {
+    return _$reloadUserAsyncAction.run(() => super.reloadUser());
+  }
+
   final _$loginWithEmailAsyncAction =
       AsyncAction('_AuthControllerBase.loginWithEmail');
 

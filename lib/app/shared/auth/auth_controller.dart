@@ -20,6 +20,11 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
+  Future reloadUser() async {
+    await _repository.getUser().then(setUser);
+  }
+
+  @action
   Future loginWithEmail(String email, String senha) async {
     user = await _repository.loginWithEmailAndPassword(email, senha);
   }

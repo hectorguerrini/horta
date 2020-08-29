@@ -9,39 +9,34 @@ part of 'perfil_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PerfilController on _PerfilControllerBase, Store {
-  final _$valueAtom = Atom(name: '_PerfilControllerBase.value');
+  Computed<String> _$getUserEmailComputed;
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
-  }
+  String get getUserEmail =>
+      (_$getUserEmailComputed ??= Computed<String>(() => super.getUserEmail,
+              name: '_PerfilControllerBase.getUserEmail'))
+          .value;
+  Computed<String> _$getUserNomeComputed;
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
-    });
-  }
-
-  final _$_PerfilControllerBaseActionController =
-      ActionController(name: '_PerfilControllerBase');
+  String get getUserNome =>
+      (_$getUserNomeComputed ??= Computed<String>(() => super.getUserNome,
+              name: '_PerfilControllerBase.getUserNome'))
+          .value;
+  Computed<bool> _$getIsAgricultorComputed;
 
   @override
-  void increment() {
-    final _$actionInfo = _$_PerfilControllerBaseActionController.startAction(
-        name: '_PerfilControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_PerfilControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
+  bool get getIsAgricultor =>
+      (_$getIsAgricultorComputed ??= Computed<bool>(() => super.getIsAgricultor,
+              name: '_PerfilControllerBase.getIsAgricultor'))
+          .value;
 
   @override
   String toString() {
     return '''
-value: ${value}
+getUserEmail: ${getUserEmail},
+getUserNome: ${getUserNome},
+getIsAgricultor: ${getIsAgricultor}
     ''';
   }
 }

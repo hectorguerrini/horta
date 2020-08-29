@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
@@ -14,7 +15,7 @@ class PerfilPage extends StatefulWidget {
 
 class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
   //use 'controller' variable to access controller
-  final AuthController _authController = Modular.get();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -59,18 +60,20 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                     ),
                   ],
                 ),
-                ListTile(
-                  title: Text(
-                    (_authController.user.displayName ?? ''),
-                    style: TextStyle(fontSize: 24),
-                    textAlign: TextAlign.center,
-                  ),
-                  subtitle: Text(
-                    _authController.user.email ?? '',
-                    style: TextStyle(fontSize: 22),
-                    textAlign: TextAlign.center,
-                  ),
-                )
+                Observer(builder: (_) {
+                  return ListTile(
+                    title: Text(
+                      controller.getUserNome,
+                      style: TextStyle(fontSize: 24),
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Text(
+                      controller.getUserEmail,
+                      style: TextStyle(fontSize: 22),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                })
               ],
             ),
             ListTile(
@@ -83,26 +86,24 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                 'informações pessoais',
                 style: TextStyle(fontSize: 18, color: Colors.black54),
               ),
-              // onTap: () {
-              //   Navigator.pushNamed(context, '/perfil/conta');
-              // },
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () => Modular.to.pushNamed('/perfil/conta'),
             ),
             Divider(),
-            ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text(
-                'Editar Minha Horta',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            if (controller.getIsAgricultor)
+              ListTile(
+                leading: Icon(Icons.info_outline),
+                title: Text(
+                  'Editar Minha Horta',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  'informações da horta, Forma Pgto, Horario',
+                  style: TextStyle(fontSize: 18, color: Colors.black54),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () => Modular.to.pushNamed('/perfil/horta'),
               ),
-              subtitle: Text(
-                'informações da horta, Forma Pgto, Horario',
-                style: TextStyle(fontSize: 18, color: Colors.black54),
-              ),
-              // onTap: () {
-              //   Navigator.pushNamed(context, '/perfil/horta');
-              // },
-            ),
-            Divider()
           ])),
     );
   }

@@ -6,20 +6,15 @@ part 'perfil_model.g.dart';
 
 @JsonSerializable()
 class PerfilModel extends BaseModel {
-  String nome;
-  String cpf;
-  String wpp;
-  String email;
-
-  PerfilModel({this.nome, this.cpf, this.wpp, this.email});
-
-  PerfilModel copyWith({String nome, String cpf, String wpp, String email}) {
+  final String cpf;
+  final String celular;
+  PerfilModel({this.cpf = '', this.celular = ''});
+  PerfilModel copyWith(
+      {String nome, String cpf, String celular, String email}) {
     return PerfilModel(
-        nome: nome ?? this.nome,
-        cpf: cpf ?? this.cpf,
-        wpp: wpp ?? this.wpp,
-        email: email ?? this.email)
-      ..reference = this.reference;
+      cpf: cpf ?? this.cpf,
+      celular: celular ?? this.celular,
+    )..reference = this.reference;
   }
 
   factory PerfilModel.fromJson(Map<String, dynamic> json) =>
