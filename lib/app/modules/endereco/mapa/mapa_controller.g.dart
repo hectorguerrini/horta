@@ -17,6 +17,20 @@ mixin _$MapaController on _MapaControllerBase, Store {
               () => super.getInitialCameraPosition,
               name: '_MapaControllerBase.getInitialCameraPosition'))
           .value;
+  Computed<Iterable<Marker>> _$getMarkerComputed;
+
+  @override
+  Iterable<Marker> get getMarker =>
+      (_$getMarkerComputed ??= Computed<Iterable<Marker>>(() => super.getMarker,
+              name: '_MapaControllerBase.getMarker'))
+          .value;
+  Computed<bool> _$getLoadingComputed;
+
+  @override
+  bool get getLoading =>
+      (_$getLoadingComputed ??= Computed<bool>(() => super.getLoading,
+              name: '_MapaControllerBase.getLoading'))
+          .value;
   Computed<String> _$getSelectedEnderecoComputed;
 
   @override
@@ -72,6 +86,45 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$_markersAtom = Atom(name: '_MapaControllerBase._markers');
+
+  @override
+  ObservableMap<MarkerId, Marker> get _markers {
+    _$_markersAtom.reportRead();
+    return super._markers;
+  }
+
+  @override
+  set _markers(ObservableMap<MarkerId, Marker> value) {
+    _$_markersAtom.reportWrite(value, super._markers, () {
+      super._markers = value;
+    });
+  }
+
+  final _$_loadingAddressAtom =
+      Atom(name: '_MapaControllerBase._loadingAddress');
+
+  @override
+  bool get _loadingAddress {
+    _$_loadingAddressAtom.reportRead();
+    return super._loadingAddress;
+  }
+
+  @override
+  set _loadingAddress(bool value) {
+    _$_loadingAddressAtom.reportWrite(value, super._loadingAddress, () {
+      super._loadingAddress = value;
+    });
+  }
+
+  final _$onCameraIdleAsyncAction =
+      AsyncAction('_MapaControllerBase.onCameraIdle');
+
+  @override
+  Future onCameraIdle() {
+    return _$onCameraIdleAsyncAction.run(() => super.onCameraIdle());
+  }
+
   final _$setNumberAsyncAction = AsyncAction('_MapaControllerBase.setNumber');
 
   @override
@@ -94,6 +147,17 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
+  dynamic onCameraMove(CameraPosition cameraPosition) {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.onCameraMove');
+    try {
+      return super.onCameraMove(cameraPosition);
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic goCurrentLocation() {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
         name: '_MapaControllerBase.goCurrentLocation');
@@ -108,6 +172,8 @@ mixin _$MapaController on _MapaControllerBase, Store {
   String toString() {
     return '''
 getInitialCameraPosition: ${getInitialCameraPosition},
+getMarker: ${getMarker},
+getLoading: ${getLoading},
 getSelectedEndereco: ${getSelectedEndereco}
     ''';
   }
