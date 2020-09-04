@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:horta/app/shared/auth/repositories/auth_reposiroty_interface.dart';
@@ -5,6 +6,9 @@ import 'package:horta/app/shared/auth/repositories/auth_reposiroty_interface.dar
 class AuthRepository implements IAuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  final CollectionReference _collectionReference =
+      Firestore.instance.collection('hortas');
 
   @override
   Future<FirebaseUser> getUser() {
@@ -46,5 +50,10 @@ class AuthRepository implements IAuthRepository {
     userUpdateInfo.displayName = nome;
     await user.updateProfile(userUpdateInfo);
     return user;
+  }
+
+  @override
+  Future<bool> getIsAgricultor(String uid) async {
+    return (await _collectionReference.document(uid).get()).exists;
   }
 }

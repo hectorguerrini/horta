@@ -60,7 +60,7 @@ abstract class _LoginControllerBase with Store {
   loginGoogle() async {
     try {
       await _authController.loginWithGoogle();
-      Modular.to.pushReplacementNamed('/home');
+      Modular.to.pop();
     } on PlatformException catch (e) {
       print(e.toString());
     }

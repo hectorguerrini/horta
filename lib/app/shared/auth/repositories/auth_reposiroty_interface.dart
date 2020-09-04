@@ -6,4 +6,5 @@ abstract class IAuthRepository {
   Future<FirebaseUser> registerWithEmailAndPassword(
       String nome, String email, String senha);
   Future<FirebaseUser> loginWithGoogle();
+  Future<bool> getIsAgricultor(String uid);
 }

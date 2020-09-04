@@ -22,21 +22,12 @@ abstract class _HomeControllerBase extends PageController with Store {
   @override
   bool get keepPage => true;
 
-  @observable
-  bool isAgricultor = false;
-
-  _HomeControllerBase() {
-    getIsAgricultor();
-  }
+  _HomeControllerBase();
 
   @action
-  getIsAgricultor() async {
-    try {
-      isAgricultor =
-          await _repository.getIsAgricultor(_authController.user.uid);
-    } catch (e) {
-      print(e.toString());
-    }
+  login() async {
+    await Modular.to.pushNamed('/login');
+    _selectedPage = 0;
   }
 
   @computed
@@ -44,7 +35,8 @@ abstract class _HomeControllerBase extends PageController with Store {
 
   @computed
   int get getIndexPage => _selectedPage;
-
+  @computed
+  bool get getIsAgricultor => _authController.isAgricultor;
   @action
   pageChanged(int index) {
     _selectedPage = index;

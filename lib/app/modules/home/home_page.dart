@@ -24,25 +24,33 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: PageView(
-        onPageChanged: controller.pageChanged,
-        scrollDirection: Axis.horizontal,
-        controller: controller,
-        children: [
-          RouterOutlet(module: AgricultorModule()),
-          RouterOutlet(module: ClientesModule())
-        ],
-      ),
+      body: Observer(builder: (_) {
+        return PageView(
+          onPageChanged: controller.pageChanged,
+          scrollDirection: Axis.horizontal,
+          controller: controller,
+          children: [
+            if (controller.getIsAgricultor) ...[
+              RouterOutlet(module: AgricultorModule()),
+              RouterOutlet(module: ClientesModule())
+            ],
+            if (!controller.getIsAgricultor)
+              Container(
+                child: Text('text'),
+              )
+          ],
+        );
+      }),
       bottomNavigationBar: Observer(builder: (_) {
         return BottomNavigationBar(
           items: <BottomNavigationBarItem>[
-            if (controller.isAgricultor)
+            if (controller.getIsAgricultor)
               BottomNavigationBarItem(
                   icon: Icon(FontAwesome5.carrot), title: Text('Horta')),
-            if (controller.isAgricultor)
+            if (controller.getIsAgricultor)
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), title: Text('Clientes')),
-            if (!controller.isAgricultor)
+            if (!controller.getIsAgricultor)
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), title: Text('Home')),
             !(controller.isLogged)
@@ -54,7 +62,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           onTap: (value) {
             controller.bottomTapped(value);
             if (value == 1 && !controller.isLogged) {
-              Modular.to.pushNamed('/auth');
+              controller.login();
             } else if ((value == 2) && controller.isLogged) {
               Modular.to.pushNamed('/perfil');
             }

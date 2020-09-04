@@ -10,6 +10,7 @@ abstract class _SplashControllerBase with Store {
   final AuthController _authController = Modular.get();
 
   _init() async {
+    await _authController.init();
     if (_authController.user != null) {
       print('is Logged');
     } else {
@@ -18,7 +19,9 @@ abstract class _SplashControllerBase with Store {
   }
 
   _SplashControllerBase() {
-    Future.delayed(Duration(seconds: 2))
-        .then((value) => Modular.to.pushReplacementNamed('/home'));
+    Future.delayed(Duration(seconds: 2)).then((value) async {
+      await _init();
+      Modular.to.pushReplacementNamed('/home');
+    });
   }
 }

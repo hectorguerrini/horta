@@ -23,6 +23,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
       (_$getIndexPageComputed ??= Computed<int>(() => super.getIndexPage,
               name: '_HomeControllerBase.getIndexPage'))
           .value;
+  Computed<bool> _$getIsAgricultorComputed;
+
+  @override
+  bool get getIsAgricultor =>
+      (_$getIsAgricultorComputed ??= Computed<bool>(() => super.getIsAgricultor,
+              name: '_HomeControllerBase.getIsAgricultor'))
+          .value;
 
   final _$_selectedPageAtom = Atom(name: '_HomeControllerBase._selectedPage');
 
@@ -39,27 +46,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$isAgricultorAtom = Atom(name: '_HomeControllerBase.isAgricultor');
+  final _$loginAsyncAction = AsyncAction('_HomeControllerBase.login');
 
   @override
-  bool get isAgricultor {
-    _$isAgricultorAtom.reportRead();
-    return super.isAgricultor;
-  }
-
-  @override
-  set isAgricultor(bool value) {
-    _$isAgricultorAtom.reportWrite(value, super.isAgricultor, () {
-      super.isAgricultor = value;
-    });
-  }
-
-  final _$getIsAgricultorAsyncAction =
-      AsyncAction('_HomeControllerBase.getIsAgricultor');
-
-  @override
-  Future getIsAgricultor() {
-    return _$getIsAgricultorAsyncAction.run(() => super.getIsAgricultor());
+  Future login() {
+    return _$loginAsyncAction.run(() => super.login());
   }
 
   final _$_HomeControllerBaseActionController =
@@ -90,9 +81,9 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-isAgricultor: ${isAgricultor},
 isLogged: ${isLogged},
-getIndexPage: ${getIndexPage}
+getIndexPage: ${getIndexPage},
+getIsAgricultor: ${getIsAgricultor}
     ''';
   }
 }

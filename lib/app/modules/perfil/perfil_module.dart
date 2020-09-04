@@ -1,3 +1,4 @@
+import 'package:horta/app/modules/endereco/endereco_module.dart';
 import 'package:horta/app/modules/perfil/meu-perfil/meu_perfil_controller.dart';
 import 'package:horta/app/modules/perfil/meu-perfil/meu_perfil_page.dart';
 import 'package:horta/app/modules/perfil/minha-horta/minha_horta_controller.dart';
@@ -25,6 +26,7 @@ class PerfilModule extends ChildModule {
         Router(Modular.initialRoute, child: (_, args) => PerfilPage()),
         Router('/conta', child: (_, args) => MeuPerfilPage()),
         Router('/horta', child: (_, args) => MinhaHortaPage()),
+        Router('/endereco', module: EnderecoModule()),
       ];
 
   static Inject get to => Inject<PerfilModule>.of();

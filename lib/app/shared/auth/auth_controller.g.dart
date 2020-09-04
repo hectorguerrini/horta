@@ -24,6 +24,28 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$isAgricultorAtom = Atom(name: '_AuthControllerBase.isAgricultor');
+
+  @override
+  bool get isAgricultor {
+    _$isAgricultorAtom.reportRead();
+    return super.isAgricultor;
+  }
+
+  @override
+  set isAgricultor(bool value) {
+    _$isAgricultorAtom.reportWrite(value, super.isAgricultor, () {
+      super.isAgricultor = value;
+    });
+  }
+
+  final _$initAsyncAction = AsyncAction('_AuthControllerBase.init');
+
+  @override
+  Future<dynamic> init() {
+    return _$initAsyncAction.run(() => super.init());
+  }
+
   final _$reloadUserAsyncAction = AsyncAction('_AuthControllerBase.reloadUser');
 
   @override
@@ -57,6 +79,14 @@ mixin _$AuthController on _AuthControllerBase, Store {
         .run(() => super.registerWithEmail(nome, email, senha));
   }
 
+  final _$getIsAgricultorAsyncAction =
+      AsyncAction('_AuthControllerBase.getIsAgricultor');
+
+  @override
+  Future<dynamic> getIsAgricultor() {
+    return _$getIsAgricultorAsyncAction.run(() => super.getIsAgricultor());
+  }
+
   final _$_AuthControllerBaseActionController =
       ActionController(name: '_AuthControllerBase');
 
@@ -74,7 +104,8 @@ mixin _$AuthController on _AuthControllerBase, Store {
   @override
   String toString() {
     return '''
-user: ${user}
+user: ${user},
+isAgricultor: ${isAgricultor}
     ''';
   }
 }

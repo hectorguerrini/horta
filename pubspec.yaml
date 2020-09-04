@@ -21,8 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  geocoding: ^1.0.3
   google_maps_flutter: ^0.5.30
-  geolocator: ^5.3.2+2
+  geolocator: ^6.0.0+1
   intl: ^0.16.1
   google_sign_in: ^4.5.1
   fluttericon: ^1.0.7

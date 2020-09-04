@@ -43,9 +43,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       : null,
                   onChanged: controller.setSenha,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Senha',
-                  ),
+                  decoration: InputDecoration(labelText: 'Senha'),
                 ),
                 SizedBox(height: 20.0),
                 Observer(builder: (_) {

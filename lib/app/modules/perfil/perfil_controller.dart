@@ -8,7 +8,6 @@ part 'perfil_controller.g.dart';
 class PerfilController = _PerfilControllerBase with _$PerfilController;
 
 abstract class _PerfilControllerBase with Store {
-  final HomeController _homeController = Modular.get();
   final AuthController _authController = Modular.get();
 
   @computed
@@ -18,5 +17,5 @@ abstract class _PerfilControllerBase with Store {
   String get getUserNome => _authController.user.displayName ?? '';
 
   @computed
-  bool get getIsAgricultor => _homeController.isAgricultor;
+  bool get getIsAgricultor => _authController.isAgricultor;
 }

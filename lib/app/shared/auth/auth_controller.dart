@@ -12,11 +12,18 @@ abstract class _AuthControllerBase with Store {
   @observable
   FirebaseUser user;
 
+  @observable
+  bool isAgricultor = false;
+
   @action
   setUser(FirebaseUser value) => user = value;
 
-  _AuthControllerBase() {
-    _repository.getUser().then(setUser);
+  _AuthControllerBase();
+
+  @action
+  Future init() async {
+    await _repository.getUser().then(setUser);
+    await getIsAgricultor();
   }
 
   @action
@@ -27,15 +34,27 @@ abstract class _AuthControllerBase with Store {
   @action
   Future loginWithEmail(String email, String senha) async {
     user = await _repository.loginWithEmailAndPassword(email, senha);
+    await getIsAgricultor();
   }
 
   @action
   Future loginWithGoogle() async {
     user = await _repository.loginWithGoogle();
+    await getIsAgricultor();
   }
 
   @action
   Future registerWithEmail(String nome, String email, String senha) async {
     user = await _repository.registerWithEmailAndPassword(nome, email, senha);
+  }
+
+  @action
+  Future getIsAgricultor() async {
+    try {
+      if (user != null)
+        isAgricultor = await _repository.getIsAgricultor(user.uid);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

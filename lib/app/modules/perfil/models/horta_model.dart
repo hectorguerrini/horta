@@ -38,6 +38,7 @@ class HortaModel extends BaseModel {
           null
       ? DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch)
       : null;
+
   HortaModel copyWith({
     String nomeHorta,
     String minhaHistoria,
