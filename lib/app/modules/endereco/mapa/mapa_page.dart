@@ -25,7 +25,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
           widget.title,
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white.withOpacity(0.5),
+        backgroundColor: Colors.white,
         leading: IconButton(
             color: Colors.red,
             icon: Icon(
