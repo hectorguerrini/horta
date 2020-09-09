@@ -22,11 +22,11 @@ class PerfilModule extends ChildModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => PerfilPage()),
-        Router('/conta', child: (_, args) => MeuPerfilPage()),
-        Router('/horta', child: (_, args) => MinhaHortaPage()),
-        Router('/endereco', module: EnderecoModule()),
+  List<ModularRouter> get routers => [
+        ModularRouter(Modular.initialRoute, child: (_, args) => PerfilPage()),
+        ModularRouter('/conta', child: (_, args) => MeuPerfilPage()),
+        ModularRouter('/horta', child: (_, args) => MinhaHortaPage()),
+        ModularRouter('/endereco', module: EnderecoModule()),
       ];
 
   static Inject get to => Inject<PerfilModule>.of();

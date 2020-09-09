@@ -8,52 +8,48 @@ class AuthRepository implements IAuthRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   final CollectionReference _collectionReference =
-      Firestore.instance.collection('hortas');
+      FirebaseFirestore.instance.collection('hortas');
 
   @override
-  Future<FirebaseUser> getUser() {
-    return _auth.currentUser();
+  User getUser() {
+    return _auth.currentUser;
   }
 
   @override
-  Future<FirebaseUser> loginWithEmailAndPassword(
-      String email, String senha) async {
+  Future<User> loginWithEmailAndPassword(String email, String senha) async {
     return (await _auth.signInWithEmailAndPassword(
             email: email, password: senha))
         .user;
   }
 
   @override
-  Future<FirebaseUser> loginWithGoogle() async {
+  Future<User> loginWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential)).user;
+    final User user = (await _auth.signInWithCredential(credential)).user;
     print("signed in " + user.displayName);
     return user;
   }
 
   @override
-  Future<FirebaseUser> registerWithEmailAndPassword(
+  Future<User> registerWithEmailAndPassword(
       String nome, String email, String senha) async {
-    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+    final User user = (await _auth.createUserWithEmailAndPassword(
             email: email, password: senha))
         .user;
-    UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
-    userUpdateInfo.displayName = nome;
-    await user.updateProfile(userUpdateInfo);
+    await user.updateProfile(displayName: nome);
     return user;
   }
 
   @override
   Future<bool> getIsAgricultor(String uid) async {
-    return (await _collectionReference.document(uid).get()).exists;
+    return (await _collectionReference.doc(uid).get()).exists;
   }
 }

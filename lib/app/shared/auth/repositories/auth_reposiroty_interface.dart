@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class IAuthRepository {
-  Future<FirebaseUser> getUser();
-  Future<FirebaseUser> loginWithEmailAndPassword(String email, String senha);
-  Future<FirebaseUser> registerWithEmailAndPassword(
+  User getUser();
+  Future<User> loginWithEmailAndPassword(String email, String senha);
+  Future<User> registerWithEmailAndPassword(
       String nome, String email, String senha);
-  Future<FirebaseUser> loginWithGoogle();
+  Future<User> loginWithGoogle();
   Future<bool> getIsAgricultor(String uid);
 }

@@ -10,25 +10,22 @@ abstract class _AuthControllerBase with Store {
   final IAuthRepository _repository = Modular.get();
 
   @observable
-  FirebaseUser user;
+  User user;
 
   @observable
   bool isAgricultor = false;
-
-  @action
-  setUser(FirebaseUser value) => user = value;
 
   _AuthControllerBase();
 
   @action
   Future init() async {
-    await _repository.getUser().then(setUser);
+    user = _repository.getUser();
     await getIsAgricultor();
   }
 
   @action
   Future reloadUser() async {
-    await _repository.getUser().then(setUser);
+    user = _repository.getUser();
   }
 
   @action

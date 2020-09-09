@@ -16,9 +16,10 @@ class AgricultorModule extends ChildModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => AgricultorPage()),
-        Router('/produto', child: (_, args) => CadastroProdutoPage()),
+  List<ModularRouter> get routers => [
+        ModularRouter(Modular.initialRoute,
+            child: (_, args) => AgricultorPage()),
+        ModularRouter('/produto', child: (_, args) => CadastroProdutoPage()),
       ];
 
   static Inject get to => Inject<AgricultorModule>.of();
