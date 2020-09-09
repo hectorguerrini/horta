@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:horta/app/shared/auth/repositories/auth_reposiroty_interface.dart';
 
 class AuthRepository implements IAuthRepository {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
