@@ -32,19 +32,12 @@ abstract class _MapaControllerBase with Store {
     _latLng = Modular.args.data['latLng'];
     _address = Modular.args.data['address'];
     _initialCameraPosition = CameraPosition(target: _latLng, zoom: 18);
-
-    Marker _marker = Marker(
-        markerId: _markerId,
-        position: _latLng,
-        visible: true,
-        icon: BitmapDescriptor.defaultMarker);
-    _markers[_markerId] = _marker;
   }
   @computed
   CameraPosition get getInitialCameraPosition => _initialCameraPosition;
 
   @computed
-  Iterable<Marker> get getMarker => _markers.values;
+  Set<Marker> get getMarker => _markers.values.toSet();
 
   @computed
   bool get getLoading => _loadingAddress;
@@ -59,6 +52,15 @@ abstract class _MapaControllerBase with Store {
   @action
   onMapCreated(GoogleMapController controller) {
     _googleMapController = controller;
+    _googleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
+    Marker _marker = Marker(
+        markerId: _markerId,
+        position: _latLng,
+        flat: true,
+        visible: true,
+        icon: BitmapDescriptor.defaultMarker);
+    _markers[_markerId] = _marker;
   }
 
   @action

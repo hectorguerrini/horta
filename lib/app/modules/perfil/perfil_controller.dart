@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:horta/app/modules/home/home_controller.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 

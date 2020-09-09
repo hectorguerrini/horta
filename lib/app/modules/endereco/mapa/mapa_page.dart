@@ -6,7 +6,8 @@ import 'mapa_controller.dart';
 
 class MapaPage extends StatefulWidget {
   final String title;
-  const MapaPage({Key key, this.title = "Mapa"}) : super(key: key);
+  const MapaPage({Key key, this.title = "Selecione o Endereço"})
+      : super(key: key);
 
   @override
   _MapaPageState createState() => _MapaPageState();
@@ -18,6 +19,22 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white.withOpacity(0.5),
+        leading: IconButton(
+            color: Colors.red,
+            icon: Icon(
+              Icons.keyboard_arrow_left,
+              color: Colors.orange,
+              size: 48,
+            ),
+            onPressed: () => Modular.to.pop()),
+      ),
       body: Stack(
         alignment: Alignment.topLeft,
         children: <Widget>[
@@ -34,17 +51,6 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                   top: 24, bottom: MediaQuery.of(context).size.height * 0.3),
             );
           }),
-          Positioned(
-            top: 24,
-            child: IconButton(
-                color: Colors.red,
-                icon: Icon(
-                  Icons.keyboard_arrow_left,
-                  color: Colors.orange,
-                  size: 48,
-                ),
-                onPressed: () {}),
-          ),
           Positioned(
             bottom: 0,
             height: MediaQuery.of(context).size.height * 0.3,

@@ -17,11 +17,11 @@ mixin _$MapaController on _MapaControllerBase, Store {
               () => super.getInitialCameraPosition,
               name: '_MapaControllerBase.getInitialCameraPosition'))
           .value;
-  Computed<Iterable<Marker>> _$getMarkerComputed;
+  Computed<Set<Marker>> _$getMarkerComputed;
 
   @override
-  Iterable<Marker> get getMarker =>
-      (_$getMarkerComputed ??= Computed<Iterable<Marker>>(() => super.getMarker,
+  Set<Marker> get getMarker =>
+      (_$getMarkerComputed ??= Computed<Set<Marker>>(() => super.getMarker,
               name: '_MapaControllerBase.getMarker'))
           .value;
   Computed<bool> _$getLoadingComputed;
