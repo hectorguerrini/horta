@@ -38,6 +38,13 @@ mixin _$MapaController on _MapaControllerBase, Store {
           Computed<String>(() => super.getSelectedEndereco,
               name: '_MapaControllerBase.getSelectedEndereco'))
       .value;
+  Computed<String> _$getSelectedLocalComputed;
+
+  @override
+  String get getSelectedLocal => (_$getSelectedLocalComputed ??=
+          Computed<String>(() => super.getSelectedLocal,
+              name: '_MapaControllerBase.getSelectedLocal'))
+      .value;
 
   final _$_initialCameraPositionAtom =
       Atom(name: '_MapaControllerBase._initialCameraPosition');
@@ -158,23 +165,13 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
-  dynamic goCurrentLocation() {
-    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase.goCurrentLocation');
-    try {
-      return super.goCurrentLocation();
-    } finally {
-      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 getInitialCameraPosition: ${getInitialCameraPosition},
 getMarker: ${getMarker},
 getLoading: ${getLoading},
-getSelectedEndereco: ${getSelectedEndereco}
+getSelectedEndereco: ${getSelectedEndereco},
+getSelectedLocal: ${getSelectedLocal}
     ''';
   }
 }

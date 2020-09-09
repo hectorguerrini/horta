@@ -42,13 +42,19 @@ abstract class _MapaControllerBase with Store {
   @computed
   bool get getLoading => _loadingAddress;
 
-  @computed
+  /*@computed
   String get getSelectedEndereco => (_address.thoroughfare +
       ' - ' +
       _address.subLocality +
       ', ' +
       _address.subAdministrativeArea);
-
+*/
+  @computed
+  String get getSelectedEndereco => _address.thoroughfare;
+  @computed
+  String get getSelectedLocal => _address.subLocality +
+      ', ' +
+      _address.subAdministrativeArea;
   @action
   onMapCreated(GoogleMapController controller) {
     _googleMapController = controller;
@@ -82,12 +88,6 @@ abstract class _MapaControllerBase with Store {
     }
   }
 
-  @action
-  goCurrentLocation() {
-    // _googleMapController.animateCamera(CameraUpdate.newLatLngZoom(
-    //     LatLng(currentPosition.latitude, currentPosition.longitude),
-    //     currentPosition.accuracy));
-  }
   @action
   setNumber(String value) async {
     var address = (_address.thoroughfare +

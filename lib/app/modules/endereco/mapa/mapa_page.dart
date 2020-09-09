@@ -36,7 +36,7 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
             onPressed: () => Modular.to.pop()),
       ),
       body: Stack(
-        alignment: Alignment.topLeft,
+        alignment: Alignment.center,
         children: <Widget>[
           Observer(builder: (_) {
             return GoogleMap(
@@ -46,68 +46,48 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
               onCameraIdle: controller.onCameraIdle,
               markers: Set<Marker>.of(controller.getMarker),
               myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              padding: EdgeInsets.only(
-                  top: 24, bottom: MediaQuery.of(context).size.height * 0.3),
+              liteModeEnabled: true,
+              
+              padding: EdgeInsets.only( bottom: 54),
             );
           }),
           Positioned(
-            bottom: 0,
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(32), topRight: Radius.circular(32)),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Observer(builder: (_) {
-                      if (controller.getLoading) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return Text(
-                        controller.getSelectedEndereco,
-                        style: TextStyle(fontSize: 16),
-                      );
-                    }),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.search,
-                        onFieldSubmitted: controller.setNumber,
-                        decoration: InputDecoration(labelText: 'Nº'),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 8),
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.search,
-                        onFieldSubmitted: controller.setNumber,
-                        decoration: InputDecoration(labelText: 'Complemento'),
-                      ),
-                    ),
-                    RaisedButton(
-                        color: Colors.green,
-                        child: Text(
-                          'Confirmar',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {}),
-                  ],
-                ),
-              ),
+            bottom: 16,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal:16.0),
+              child: RaisedButton(
+                  color: Colors.orange,
+                  child: Text(
+                    'Confirmar Endereço',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {}),
             ),
+          ),
+          Positioned(
+            top: 0,
+            width: MediaQuery.of(context).size.width,
+            child: Observer(builder: (_) {
+              if (controller.getLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListTile(
+                dense: true,
+                title: Text(
+                  controller.getSelectedEndereco,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16,color: Colors.orange)
+                ),
+                subtitle: Text(
+                  controller.getSelectedLocal,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+              );
+            }),
           )
         ],
       ),

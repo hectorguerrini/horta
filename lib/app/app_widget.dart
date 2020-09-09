@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:oktoast/oktoast.dart';
 
 class AppWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return OKToast(
@@ -12,7 +13,7 @@ class AppWidget extends StatelessWidget {
       radius: 10,
       child: MaterialApp(
         navigatorKey: Modular.navigatorKey,
-        title: 'Flutter Slidy',
+        title: 'É da Horta',
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
