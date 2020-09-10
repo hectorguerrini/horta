@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  dash_chat: ^1.1.15
   geocoding: ^1.0.3
   google_maps_flutter: ^0.5.31
   geolocator: ^6.0.0+4
