@@ -109,11 +109,11 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
             ListTile(
               leading: Icon(FontAwesome5.map_marker_alt),
               title: Text(
-                'Editar endereço',
+                'Endereço',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                'endereço',
+                'Atualizar Endereço',
                 style: TextStyle(fontSize: 18, color: Colors.black54),
               ),
               trailing: Icon(Icons.keyboard_arrow_right),
