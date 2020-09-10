@@ -5,13 +5,12 @@ import 'package:dio/native_imp.dart';
 import 'package:horta/app/modules/chat/models/chat_model.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
 
-class ChatRepository{
+class ChatRepository {
   final DioForNative client;
   final CollectionReference _collectionReference =
-    FirebaseFirestore.instance.collection('chat');
+      FirebaseFirestore.instance.collection('chat');
   final AuthController _authController = Modular.get();
   ChatRepository(this.client);
- 
 
   Stream<List<ChatModel>> getChat() {
     return _collectionReference
@@ -22,6 +21,4 @@ class ChatRepository{
             .map((e) => ChatModel.fromJson(e.data())..reference = e.reference)
             .toList());
   }
-
-  
 }

@@ -16,9 +16,7 @@ abstract class _ChatControllerBase with Store {
   final AuthController _authController = Modular.get();
   final GlobalKey<DashChatState> chatViewKey = GlobalKey<DashChatState>();
 
-
-
-  ChatUser usuario(){
+  ChatUser usuario() {
     return ChatUser(
       name: getName,
       uid: getUid,
@@ -26,14 +24,12 @@ abstract class _ChatControllerBase with Store {
     );
   }
 
-
   @observable
   ObservableStream<List<ChatModel>> chat;
 
   @observable
   List<ChatMessage> messages = List<ChatMessage>();
 
- 
   @computed
   String get getName => _authController.user.displayName;
 
@@ -42,7 +38,6 @@ abstract class _ChatControllerBase with Store {
 
   @computed
   String get getAvatarUrl => _authController.user.photoURL;
-
 
   @action
   getMsg() {
@@ -60,7 +55,4 @@ abstract class _ChatControllerBase with Store {
       transaction.set(documentReference, message.toJson());
     });
   }
-
-
-  
 }
