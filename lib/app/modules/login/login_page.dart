@@ -23,46 +23,90 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       ),
       body: Center(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 70),
+          padding: EdgeInsets.symmetric(horizontal: 40),
           child: Form(
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
-                Image(
-                  image: AssetImage('assets/logo.png'),
-                  width: size.width * 0.50,
+                Container(
+                  child: Image(
+                    image: AssetImage('assets/logo.png'),
+                    width: size.width * 0.5,
+                  ),
                 ),
-                TextFormField(
-                  validator: (val) => val.isEmpty ? 'Escreva seu email' : null,
-                  onChanged: controller.setEmail,
-                  decoration: InputDecoration(labelText: 'Usuario'),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: TextFormField(
+                    validator: (val) =>
+                        val.isEmpty ? 'Escreva seu email' : null,
+                    onChanged: controller.setEmail,
+                    decoration: InputDecoration(
+                      hintText: "Usuario",
+                      hintStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
+                      fillColor:
+                          Theme.of(context).primaryColor.withOpacity(0.3),
+                      filled: true,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 2),
+                          borderRadius: BorderRadius.circular(32)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(32)),
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  validator: (val) => val.length < 6
-                      ? 'Escreva sua senha com mais de 6 caracteres'
-                      : null,
-                  onChanged: controller.setSenha,
-                  obscureText: true,
-                  decoration: InputDecoration(labelText: 'Senha'),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: TextFormField(
+                    validator: (val) => val.length < 6
+                        ? 'Escreva sua senha com mais de 6 caracteres'
+                        : null,
+                    onChanged: controller.setSenha,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).primaryColor, width: 2),
+                          borderRadius: BorderRadius.circular(32)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(32)),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      hintText: "Senha",
+                      hintStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
+                      fillColor:
+                          Theme.of(context).primaryColor.withOpacity(0.3),
+                      filled: true,
+                    ),
+                  ),
                 ),
-                SizedBox(height: 20.0),
+
                 Observer(builder: (_) {
                   return Text(
                     controller.msg,
                     style: TextStyle(color: Colors.red, fontSize: 14.0),
                   );
                 }),
-                FlatButton(
+                RaisedButton(
                   onPressed: controller.isValid ? controller.login : null,
                   textColor: Colors.white,
-                  color: Colors.green,
+                  color: Theme.of(context).primaryColor,
                   child: Text(
                     'Entrar',
                     style: TextStyle(fontSize: 16.0),
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: BorderSide(color: Colors.green)),
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
                 ),
                 // FlatButton(
                 //     onPressed: () {
