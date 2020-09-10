@@ -14,20 +14,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends ModularState<ChatPage, ChatController> {
 
-  //PARA TESTE!
 
-  final ChatUser user = ChatUser(
-    name: "Andre",
-    uid: "zk9O8TccOwVkVDkZAIfkLVpf5803", //GET UID DO CONTROLLER
-    avatar: "https://www.wrappixel.com/ampleadmin/assets/images/users/4.jpg",
-  );
-
-  final ChatUser otherUser = ChatUser(
-    name: "Basta",
-    uid: "JoZhxJCloFXHRLqyK6UJCPQrWU52",
-  );
-
-  // PARA TESTE !
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +39,15 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
               var messages =
                   items.map((i) => ChatMessage.fromJson(i.data())).toList();
             return DashChat(
-              user: user,
+              user: controller.usuario(),
               messages: messages,
               key: controller.chatViewKey,
               onSend: controller.onSend,
-              // Testar depois abaixo
-              inverted: false,
+
               sendOnEnter: true,
               textInputAction: TextInputAction.send,
               inputDecoration:
-                    InputDecoration.collapsed(hintText: "Add message here..."),
+                    InputDecoration.collapsed(hintText: "Escreva sua mensagem!"),
                 dateFormat: DateFormat('yyyy-MMM-dd'),
                 timeFormat: DateFormat('HH:mm'),
                 showUserAvatar: false,
@@ -78,7 +64,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                 alwaysShowSend: true,
                 inputTextStyle: TextStyle(fontSize: 16.0),
                 inputContainerStyle: BoxDecoration(
-                  border: Border.all(width: 0.0),
+                  border: Border.all(width: 0.1),
                   color: Colors.white,
                 ),
             );

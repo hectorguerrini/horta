@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dio/native_imp.dart';
 import 'package:horta/app/modules/chat/models/chat_model.dart';
@@ -21,4 +22,6 @@ class ChatRepository{
             .map((e) => ChatModel.fromJson(e.data())..reference = e.reference)
             .toList());
   }
+
+  
 }

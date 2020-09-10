@@ -1,10 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/clientes/clientes_module.dart';
-import 'package:horta/app/shared/auth/auth_controller.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +18,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
-
+  //EXCLUIR DEPOIS DO TESTE
+  
+  //EXCLUIR ACIMA
   @override
   Widget build(BuildContext context) {
     return Scaffold(
