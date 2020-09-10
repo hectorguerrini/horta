@@ -64,7 +64,7 @@ abstract class _CadastroProdutoControllerBase with Store {
   @action
   changeDisponibilidade(bool value, ProdutosModel item) {
     item = item.copyWith(disponibilidade: value);
-    item.reference.updateData(item.toJson());
+    item.reference.update(item.toJson());
   }
 
   @action
