@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/clientes/clientes_module.dart';
-import 'package:horta/app/shared/auth/auth_controller.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
