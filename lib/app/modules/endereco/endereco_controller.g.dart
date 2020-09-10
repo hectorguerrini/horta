@@ -131,6 +131,17 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
       ActionController(name: '_EnderecoControllerBase');
 
   @override
+  dynamic getEnderecos() {
+    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
+        name: '_EnderecoControllerBase.getEnderecos');
+    try {
+      return super.getEnderecos();
+    } finally {
+      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic editAddress() {
     final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
         name: '_EnderecoControllerBase.editAddress');

@@ -7,11 +7,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:horta/app/modules/endereco/model/endereco_model.dart';
 import 'package:mobx/mobx.dart';
 
+import 'repositories/endereco_repository.dart';
+
 part 'endereco_controller.g.dart';
 
 class EnderecoController = _EnderecoControllerBase with _$EnderecoController;
 
 abstract class _EnderecoControllerBase with Store {
+  final EnderecoRepository _repository = Modular.get();
   @observable
   Placemark selectedEndereco;
   @observable
@@ -28,6 +31,12 @@ abstract class _EnderecoControllerBase with Store {
 
   _EnderecoControllerBase() {
     getCurrentLocation();
+    getEnderecos();
+  }
+
+  @action
+  getEnderecos() {
+    _repository.getEnderecoHorta();
   }
 
   @action

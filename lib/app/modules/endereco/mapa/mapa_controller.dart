@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:horta/app/modules/endereco/model/endereco_model.dart';
+import 'package:horta/app/modules/endereco/repositories/endereco_repository.dart';
 import 'package:mobx/mobx.dart';
 
 part 'mapa_controller.g.dart';
@@ -8,6 +11,7 @@ part 'mapa_controller.g.dart';
 class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
+  final EnderecoRepository _repository = Modular.get();
   GoogleMapController _googleMapController;
 
   final MarkerId _markerId = MarkerId('1');
@@ -28,6 +32,14 @@ abstract class _MapaControllerBase with Store {
   @observable
   bool _loadingAddress = false;
 
+  @observable
+  bool showContainer = false;
+
+  @observable
+  bool showColumn = false;
+
+  @observable
+  String numero = '';
   _MapaControllerBase() {
     _latLng = Modular.args.data['latLng'];
     _address = Modular.args.data['address'];
@@ -42,19 +54,14 @@ abstract class _MapaControllerBase with Store {
   @computed
   bool get getLoading => _loadingAddress;
 
-  /*@computed
-  String get getSelectedEndereco => (_address.thoroughfare +
-      ' - ' +
-      _address.subLocality +
-      ', ' +
-      _address.subAdministrativeArea);
-*/
   @computed
   String get getSelectedEndereco => _address.thoroughfare;
   @computed
-  String get getSelectedLocal => _address.subLocality +
-      ', ' +
-      _address.subAdministrativeArea;
+  String get getSelectedLocal =>
+      _address.subLocality + ', ' + _address.subAdministrativeArea;
+
+  @computed
+  bool get isValid => numero.isNotEmpty;
   @action
   onMapCreated(GoogleMapController controller) {
     _googleMapController = controller;
@@ -94,8 +101,37 @@ abstract class _MapaControllerBase with Store {
         ', $value'
             ' - ' +
         _address.subLocality);
+    numero = value;
     Location locations = (await locationFromAddress(address))[0];
+    _address = (await placemarkFromCoordinates(
+        locations.latitude, locations.longitude))[0];
     _googleMapController.animateCamera(CameraUpdate.newLatLngZoom(
         LatLng(locations.latitude, locations.longitude), 18));
+  }
+
+  @action
+  openConfirmAddress() {
+    showContainer = true;
+    Future.delayed(Duration(milliseconds: 800))
+        .then((value) => showColumn = true);
+  }
+
+  @action
+  closeAddress() {
+    showContainer = false;
+    showColumn = false;
+  }
+
+  @action
+  salvarEndereco() async {
+    try {
+      EnderecoModel enderecoModel = new EnderecoModel(
+          endereco: _address,
+          geoPoint: GeoPoint(_markers[_markerId].position.latitude,
+              _markers[_markerId].position.longitude));
+      await _repository.updateEnderecoHorta(enderecoModel);
+    } catch (e) {
+      print(e);
+    }
   }
 }
