@@ -17,7 +17,7 @@ class ProdutosModel extends BaseModel {
   ProdutosModel(
       {this.produto, this.preco, this.unidade, this.disponibilidade = false});
 
-  copyWith(
+  ProdutosModel copyWith(
       {Hortalicas produto,
       double preco,
       Unidade unidade,
