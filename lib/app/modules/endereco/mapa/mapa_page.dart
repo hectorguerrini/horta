@@ -117,12 +117,19 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                             TextFormField(
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.search,
-                              onFieldSubmitted: controller.setNumber,
-                              decoration: InputDecoration(labelText: 'Numero'),
+                              onFieldSubmitted: (value) =>
+                                  controller.searchNumber(),
+                              controller: controller.numeroCtrl,
+                              decoration: InputDecoration(
+                                  labelText: 'Numero',
+                                  suffixIcon: IconButton(
+                                      icon: Icon(Icons.search),
+                                      onPressed: controller.searchNumber)),
                             ),
                             TextFormField(
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.search,
+                              controller: controller.complementoCtrl,
                               decoration:
                                   InputDecoration(labelText: 'Complemento'),
                             ),

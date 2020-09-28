@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,6 +13,8 @@ class MapaController = _MapaControllerBase with _$MapaController;
 
 abstract class _MapaControllerBase with Store {
   final EnderecoRepository _repository = Modular.get();
+  final TextEditingController numeroCtrl = new TextEditingController();
+  final TextEditingController complementoCtrl = new TextEditingController();
   GoogleMapController _googleMapController;
 
   final MarkerId _markerId = MarkerId('1');
@@ -44,7 +47,9 @@ abstract class _MapaControllerBase with Store {
     _latLng = Modular.args.data['latLng'];
     _address = Modular.args.data['address'];
     _initialCameraPosition = CameraPosition(target: _latLng, zoom: 18);
+    setNumberCtrl(_address.subThoroughfare);
   }
+
   @computed
   CameraPosition get getInitialCameraPosition => _initialCameraPosition;
 
@@ -55,13 +60,18 @@ abstract class _MapaControllerBase with Store {
   bool get getLoading => _loadingAddress;
 
   @computed
-  String get getSelectedEndereco => _address.thoroughfare;
+  String get getSelectedEndereco =>
+      _address.thoroughfare + ' ' + _address.subThoroughfare;
   @computed
   String get getSelectedLocal =>
       _address.subLocality + ', ' + _address.subAdministrativeArea;
 
   @computed
-  bool get isValid => numero.isNotEmpty;
+  bool get isValid => numeroCtrl.text != '';
+
+  @action
+  setNumberCtrl(String value) => numeroCtrl.text = value;
+
   @action
   onMapCreated(GoogleMapController controller) {
     _googleMapController = controller;
@@ -72,14 +82,23 @@ abstract class _MapaControllerBase with Store {
         position: _latLng,
         flat: true,
         visible: true,
-        icon: BitmapDescriptor.defaultMarker);
+        icon:
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange));
     _markers[_markerId] = _marker;
   }
 
   @action
-  onCameraMove(CameraPosition cameraPosition) {
-    _markers[_markerId] =
-        _markers[_markerId].copyWith(positionParam: cameraPosition.target);
+  onCameraMove(CameraPosition cameraPosition) async {
+    _markers.clear();
+
+    Marker _marker = Marker(
+        markerId: _markerId,
+        position: cameraPosition.target,
+        flat: false,
+        visible: true,
+        icon:
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange));
+    _markers[_markerId] = _marker;
   }
 
   @action
@@ -96,12 +115,12 @@ abstract class _MapaControllerBase with Store {
   }
 
   @action
-  setNumber(String value) async {
+  searchNumber() async {
     var address = (_address.thoroughfare +
-        ', $value'
+        ', $numeroCtrl.text'
             ' - ' +
         _address.subLocality);
-    numero = value;
+
     Location locations = (await locationFromAddress(address))[0];
     _address = (await placemarkFromCoordinates(
         locations.latitude, locations.longitude))[0];
@@ -126,7 +145,13 @@ abstract class _MapaControllerBase with Store {
   salvarEndereco() async {
     try {
       EnderecoModel enderecoModel = new EnderecoModel(
-          endereco: _address,
+          logradouro: _address.thoroughfare,
+          numero: _address.subThoroughfare,
+          bairro: _address.subLocality,
+          cidade: _address.subAdministrativeArea,
+          estado: _address.administrativeArea,
+          cep: _address.postalCode,
+          complemento: complementoCtrl.text,
           geoPoint: GeoPoint(_markers[_markerId].position.latitude,
               _markers[_markerId].position.longitude));
       await _repository.updateEnderecoHorta(enderecoModel);

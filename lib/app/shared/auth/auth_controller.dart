@@ -46,6 +46,12 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
+  Future logout() async {
+    await _repository.logout();
+    await reloadUser();
+  }
+
+  @action
   Future getIsAgricultor() async {
     try {
       if (user != null)

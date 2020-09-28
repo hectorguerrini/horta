@@ -175,6 +175,15 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$onCameraMoveAsyncAction =
+      AsyncAction('_MapaControllerBase.onCameraMove');
+
+  @override
+  Future onCameraMove(CameraPosition cameraPosition) {
+    return _$onCameraMoveAsyncAction
+        .run(() => super.onCameraMove(cameraPosition));
+  }
+
   final _$onCameraIdleAsyncAction =
       AsyncAction('_MapaControllerBase.onCameraIdle');
 
@@ -183,11 +192,12 @@ mixin _$MapaController on _MapaControllerBase, Store {
     return _$onCameraIdleAsyncAction.run(() => super.onCameraIdle());
   }
 
-  final _$setNumberAsyncAction = AsyncAction('_MapaControllerBase.setNumber');
+  final _$searchNumberAsyncAction =
+      AsyncAction('_MapaControllerBase.searchNumber');
 
   @override
-  Future setNumber(String value) {
-    return _$setNumberAsyncAction.run(() => super.setNumber(value));
+  Future searchNumber() {
+    return _$searchNumberAsyncAction.run(() => super.searchNumber());
   }
 
   final _$salvarEnderecoAsyncAction =
@@ -202,22 +212,22 @@ mixin _$MapaController on _MapaControllerBase, Store {
       ActionController(name: '_MapaControllerBase');
 
   @override
-  dynamic onMapCreated(GoogleMapController controller) {
+  dynamic setNumberCtrl(String value) {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase.onMapCreated');
+        name: '_MapaControllerBase.setNumberCtrl');
     try {
-      return super.onMapCreated(controller);
+      return super.setNumberCtrl(value);
     } finally {
       _$_MapaControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic onCameraMove(CameraPosition cameraPosition) {
+  dynamic onMapCreated(GoogleMapController controller) {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase.onCameraMove');
+        name: '_MapaControllerBase.onMapCreated');
     try {
-      return super.onCameraMove(cameraPosition);
+      return super.onMapCreated(controller);
     } finally {
       _$_MapaControllerBaseActionController.endAction(_$actionInfo);
     }

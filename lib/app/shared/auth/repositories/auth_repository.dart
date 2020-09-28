@@ -5,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:horta/app/shared/auth/repositories/auth_reposiroty_interface.dart';
 
 class AuthRepository implements IAuthRepository {
-  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -53,5 +52,10 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<bool> getIsAgricultor(String uid) async {
     return (await _collectionReference.doc(uid).get()).exists;
+  }
+
+  @override
+  Future logout() async {
+    await _auth.signOut();
   }
 }

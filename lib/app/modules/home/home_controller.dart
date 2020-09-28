@@ -35,8 +35,10 @@ abstract class _HomeControllerBase extends PageController with Store {
 
   @computed
   int get getIndexPage => _selectedPage;
+
   @computed
   bool get getIsAgricultor => _authController.isAgricultor;
+
   @action
   pageChanged(int index) {
     _selectedPage = index;

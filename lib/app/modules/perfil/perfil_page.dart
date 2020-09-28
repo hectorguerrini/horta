@@ -119,6 +119,15 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () => Modular.to.pushNamed('/perfil/endereco'),
             ),
+            Divider(),
+            ListTile(
+              leading: Icon(FontAwesome5.sign_out_alt),
+              title: Text(
+                'Sair da conta',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              onTap: controller.logout,
+            )
           ])),
     );
   }

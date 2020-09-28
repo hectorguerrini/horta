@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -15,8 +16,10 @@ class EnderecoController = _EnderecoControllerBase with _$EnderecoController;
 
 abstract class _EnderecoControllerBase with Store {
   final EnderecoRepository _repository = Modular.get();
+
   @observable
   Placemark selectedEndereco;
+
   @observable
   Location locationEndereco;
 
@@ -47,8 +50,14 @@ abstract class _EnderecoControllerBase with Store {
       selectedEndereco = (await placemarkFromCoordinates(
           locationEndereco.latitude, locationEndereco.longitude))[0];
       _searching = false;
-    } catch (e) {
+    } on PlatformException catch (e) {
+      _searching = false;
       print(e);
+      switch (e.code) {
+        case 'NOT_FOUND':
+          break;
+        default:
+      }
     }
   }
 
@@ -104,6 +113,7 @@ abstract class _EnderecoControllerBase with Store {
           ', ' +
           selectedEndereco.postalCode)
       : '';
+
   @computed
   bool get isSearching => _searching;
 }
