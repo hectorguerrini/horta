@@ -1,5 +1,6 @@
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/chat/chat_module.dart';
+import 'package:horta/app/modules/home/home_module.dart';
 import 'package:horta/app/modules/login/login_module.dart';
 import 'package:horta/app/modules/perfil/perfil_module.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
@@ -26,7 +27,7 @@ class AppModule extends MainModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, child: (_, args) => SplashScreen()),
-        ModularRouter('/home', module: ChatModule()),
+        ModularRouter('/home', module: HomeModule()),
         ModularRouter('/login', module: LoginModule()),
         ModularRouter('/perfil', module: PerfilModule()),
         ModularRouter('/agricultor', module: AgricultorModule()),

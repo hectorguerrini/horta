@@ -34,13 +34,13 @@ mixin _$ChatController on _ChatControllerBase, Store {
   final _$chatAtom = Atom(name: '_ChatControllerBase.chat');
 
   @override
-  ObservableStream<List<ChatModel>> get chat {
+  ObservableStream<List<ChatMessage>> get chat {
     _$chatAtom.reportRead();
     return super.chat;
   }
 
   @override
-  set chat(ObservableStream<List<ChatModel>> value) {
+  set chat(ObservableStream<List<ChatMessage>> value) {
     _$chatAtom.reportWrite(value, super.chat, () {
       super.chat = value;
     });

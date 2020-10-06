@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:horta/app/modules/chat/models/chat_model.dart';
 import 'package:horta/app/modules/chat/repositories/chat_repository.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
@@ -25,7 +24,7 @@ abstract class _ChatControllerBase with Store {
   }
 
   @observable
-  ObservableStream<List<ChatModel>> chat;
+  ObservableStream<List<ChatMessage>> chat;
 
   @observable
   List<ChatMessage> messages = List<ChatMessage>();

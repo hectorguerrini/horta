@@ -1,21 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chat_model.dart';
+part of 'chatRoom_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChatModel _$ChatModelFromJson(Map<String, dynamic> json) {
-  return ChatModel(
+ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) {
+  return ChatRoom(
     fUid: json['fUid'] as String,
     sUid: json['sUid'] as String,
-    msg: json['msg'] as List,
+    createAt: json['createAt'] == null
+        ? null
+        : DateTime.parse(json['createAt'] as String),
   );
 }
 
-Map<String, dynamic> _$ChatModelToJson(ChatModel instance) => <String, dynamic>{
+Map<String, dynamic> _$ChatRoomToJson(ChatRoom instance) => <String, dynamic>{
       'fUid': instance.fUid,
       'sUid': instance.sUid,
-      'msg': instance.msg,
+      'createAt': instance.createAt?.toIso8601String(),
     };
