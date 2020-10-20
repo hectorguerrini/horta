@@ -1,5 +1,6 @@
 import 'package:horta/app/modules/chat/chatRoom/chat_room_controller.dart';
 import 'package:horta/app/modules/chat/chatRoom/chat_room_page.dart';
+import 'package:horta/app/modules/chat/repositories/chatRoom_repository.dart';
 
 import 'chat_controller.dart';
 import 'repositories/chat_repository.dart';
@@ -12,6 +13,7 @@ class ChatModule extends ChildModule {
   List<Bind> get binds => [
         Bind((i) => ChatController()),
         Bind((i) => ChatRoomController()),
+        Bind((i) => ChatRoomRepository()),
         Bind((i) => ChatRepository(Dio())),
         Bind((i) => ChatModule())
       ];

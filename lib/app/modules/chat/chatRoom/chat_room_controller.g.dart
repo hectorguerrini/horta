@@ -9,18 +9,18 @@ part of 'chat_room_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ChatRoomController on _ChatRoomControllerBase, Store {
-  final _$valueAtom = Atom(name: '_ChatRoomControllerBase.value');
+  final _$listaHortasAtom = Atom(name: '_ChatRoomControllerBase.listaHortas');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableStream<List<HortaModel>> get listaHortas {
+    _$listaHortasAtom.reportRead();
+    return super.listaHortas;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set listaHortas(ObservableStream<List<HortaModel>> value) {
+    _$listaHortasAtom.reportWrite(value, super.listaHortas, () {
+      super.listaHortas = value;
     });
   }
 
@@ -28,11 +28,11 @@ mixin _$ChatRoomController on _ChatRoomControllerBase, Store {
       ActionController(name: '_ChatRoomControllerBase');
 
   @override
-  void increment() {
+  dynamic getHortas() {
     final _$actionInfo = _$_ChatRoomControllerBaseActionController.startAction(
-        name: '_ChatRoomControllerBase.increment');
+        name: '_ChatRoomControllerBase.getHortas');
     try {
-      return super.increment();
+      return super.getHortas();
     } finally {
       _$_ChatRoomControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -41,7 +41,7 @@ mixin _$ChatRoomController on _ChatRoomControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+listaHortas: ${listaHortas}
     ''';
   }
 }

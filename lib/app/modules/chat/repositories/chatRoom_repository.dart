@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dash_chat/dash_chat.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dio/native_imp.dart';
-import 'package:horta/app/modules/chat/models/chatRoom_model.dart';
-import 'package:horta/app/shared/auth/auth_controller.dart';
+import 'package:horta/app/modules/perfil/models/horta_model.dart';
 
 class ChatRoomRepository {
-  final DioForNative client;
   final CollectionReference _collectionReference =
-      FirebaseFirestore.instance.collection('chatRoom');
-  final AuthController _authController = Modular.get();
-  ChatRoomRepository(this.client);
+      FirebaseFirestore.instance.collection('hortas');
+
+  Stream<List<HortaModel>> getHortas() {
+    return _collectionReference.snapshots().map((event) =>
+        event.docs.map((e) => HortaModel.fromJson(e.data())).toList());
+  }
 }
