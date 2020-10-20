@@ -50,7 +50,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                   InputDecoration.collapsed(hintText: "Escreva sua mensagem!"),
               dateFormat: DateFormat('yyyy-MMM-dd'),
               timeFormat: DateFormat('HH:mm'),
-              showUserAvatar: false,
+              showUserAvatar: true,
               showAvatarForEveryMessage: false,
               scrollToBottom: true,
               onPressAvatar: (ChatUser user) {
