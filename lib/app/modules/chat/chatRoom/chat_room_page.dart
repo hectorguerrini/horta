@@ -57,9 +57,7 @@ class _ChatRoomPageState
                   return ListTile(
                     title: Text(hortas.nomeHorta),
                     subtitle: Text(hortas.minhaHistoria),
-                    onTap: () {
-                      print(hortas.reference);
-                    },
+                    onTap: () {},
                   );
                 },
               ));
