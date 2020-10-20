@@ -23,6 +23,9 @@ abstract class _ChatControllerBase with Store {
     );
   }
 
+  //PARA FINS DE TESTE:
+  final sUid = 'rajFdW8hmkdL5uP4E55zNeNea863';
+
   @observable
   ObservableStream<List<ChatMessage>> chat;
 
@@ -40,7 +43,7 @@ abstract class _ChatControllerBase with Store {
 
   @action
   getMsg() {
-    chat = _repository.getChat().asObservable();
+    chat = _repository.getChat(sUid).asObservable();
   }
 
   @action

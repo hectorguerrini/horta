@@ -5,15 +5,13 @@ part 'chatRoom_model.g.dart';
 
 @JsonSerializable()
 class ChatRoom extends BaseModel {
-  final String fUid;
   final String sUid;
   final DateTime createAt;
 
-  ChatRoom({this.fUid, this.sUid, this.createAt});
+  ChatRoom({this.sUid, this.createAt});
 
   copyWith({String fUid, String sUid, DateTime createAt}) {
     return ChatRoom(
-      fUid: fUid ?? this.fUid,
       sUid: sUid ?? this.sUid,
       createAt: createAt ?? this.createAt,
     )..reference = this.reference;

@@ -13,6 +13,8 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends ModularState<ChatPage, ChatController> {
+  final ChatController _controller = new ChatController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,9 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection("chat")
+            .collection("chatRoom")
+            .doc(_controller.getUid)
+            .collection(_controller.sUid)
             .snapshots(), //_colectionReference,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

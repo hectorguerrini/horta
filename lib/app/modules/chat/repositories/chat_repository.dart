@@ -11,10 +11,10 @@ class ChatRepository {
   final AuthController _authController = Modular.get();
   ChatRepository(this.client);
 
-  Stream<List<ChatMessage>> getChat() {
+  Stream<List<ChatMessage>> getChat(String sUid) {
     return _collectionReference
         .doc(_authController.user.uid)
-        .collection('messages')
+        .collection(sUid)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => ChatMessage.fromJson(e.data())).toList());
@@ -22,9 +22,12 @@ class ChatRepository {
 
   void onSend(ChatMessage message) async {
     print(message.toJson());
+    //PARA TESTE!
+    String sUid = 'rajFdW8hmkdL5uP4E55zNeNea863';
+    //PARA TESTE!
     var documentReference = _collectionReference
         .doc(_authController.user.uid)
-        .collection('messages')
+        .collection(sUid)
         .doc(DateTime.now().millisecondsSinceEpoch.toString());
 
     await FirebaseFirestore.instance.runTransaction((transaction) async {
