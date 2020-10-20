@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,7 +13,6 @@ abstract class _ChatControllerBase with Store {
   final ChatRepository _repository = Modular.get();
   final AuthController _authController = Modular.get();
   final GlobalKey<DashChatState> chatViewKey = GlobalKey<DashChatState>();
-  String sUid; //Para teste
 
   ChatUser usuario() {
     return ChatUser(
@@ -24,15 +22,14 @@ abstract class _ChatControllerBase with Store {
     );
   }
 
-  _ChatControllerBase(String sUid) {
-    this.sUid = sUid;
-  }
-
   @observable
   ObservableStream<List<ChatMessage>> chat;
 
   @observable
   List<ChatMessage> messages = List<ChatMessage>();
+
+  @computed
+  String get getHortaUid => _repository.sUid;
 
   @computed
   String get getName => _authController.user.displayName;
@@ -45,7 +42,7 @@ abstract class _ChatControllerBase with Store {
 
   @action
   getMsg() {
-    chat = _repository.getChat(sUid).asObservable();
+    chat = _repository.getChat(getHortaUid).asObservable();
   }
 
   @action

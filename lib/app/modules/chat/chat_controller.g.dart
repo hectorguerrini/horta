@@ -9,6 +9,13 @@ part of 'chat_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ChatController on _ChatControllerBase, Store {
+  Computed<String> _$getHortaUidComputed;
+
+  @override
+  String get getHortaUid =>
+      (_$getHortaUidComputed ??= Computed<String>(() => super.getHortaUid,
+              name: '_ChatControllerBase.getHortaUid'))
+          .value;
   Computed<String> _$getNameComputed;
 
   @override
@@ -87,6 +94,7 @@ mixin _$ChatController on _ChatControllerBase, Store {
     return '''
 chat: ${chat},
 messages: ${messages},
+getHortaUid: ${getHortaUid},
 getName: ${getName},
 getUid: ${getUid},
 getAvatarUrl: ${getAvatarUrl}

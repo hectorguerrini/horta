@@ -25,7 +25,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
         stream: FirebaseFirestore.instance
             .collection("chatRoom")
             .doc(_controller.getUid)
-            .collection(_controller.sUid)
+            .collection(_controller.getHortaUid)
             .snapshots(), //_colectionReference,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
