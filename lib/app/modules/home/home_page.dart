@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
   //EXCLUIR DEPOIS DO TESTE
-  
+
   //EXCLUIR ACIMA
   @override
   Widget build(BuildContext context) {
@@ -38,8 +37,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               RouterOutlet(module: ClientesModule())
             ],
             if (!controller.getIsAgricultor)
-              Container(
-                child: Text('text'),
+              //TESTE!!
+              FlatButton(
+                child: Text('Chat List Page'),
+                onPressed: () => Modular.to.pushReplacementNamed('/chatRoom'),
               )
           ],
         );

@@ -14,7 +14,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/app/app_widget.dart';
 
-
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
@@ -31,6 +30,7 @@ class AppModule extends MainModule {
         ModularRouter('/login', module: LoginModule()),
         ModularRouter('/perfil', module: PerfilModule()),
         ModularRouter('/agricultor', module: AgricultorModule()),
+        ModularRouter('/chatRoom', module: ChatModule()),
       ];
 
   @override

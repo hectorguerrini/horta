@@ -1,3 +1,6 @@
+import 'package:horta/app/modules/chat/chatRoom/chat_room_controller.dart';
+import 'package:horta/app/modules/chat/chatRoom/chat_room_page.dart';
+
 import 'chat_controller.dart';
 import 'repositories/chat_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -8,13 +11,15 @@ class ChatModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => ChatController()),
+        Bind((i) => ChatRoomController()),
         Bind((i) => ChatRepository(Dio())),
         Bind((i) => ChatModule())
       ];
 
   @override
   List<ModularRouter> get routers => [
-        ModularRouter(Modular.initialRoute, child: (_, args) => ChatPage()),
+        ModularRouter(Modular.initialRoute, child: (_, args) => ChatRoomPage()),
+        ModularRouter('/chat', child: (_, args) => ChatPage()),
       ];
 
   static Inject get to => Inject<ChatModule>.of();
