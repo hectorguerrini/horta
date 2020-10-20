@@ -57,7 +57,10 @@ class _ChatRoomPageState
                   return ListTile(
                     title: Text(hortas.nomeHorta),
                     subtitle: Text(hortas.minhaHistoria),
-                    onTap: () {},
+                    onTap: () {
+                      final sUid = hortas.reference.id;
+                      Modular.to.pushNamed('/chatRoom/chat', arguments: sUid);
+                    },
                   );
                 },
               ));

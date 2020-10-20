@@ -14,6 +14,7 @@ abstract class _ChatControllerBase with Store {
   final ChatRepository _repository = Modular.get();
   final AuthController _authController = Modular.get();
   final GlobalKey<DashChatState> chatViewKey = GlobalKey<DashChatState>();
+  String sUid; //Para teste
 
   ChatUser usuario() {
     return ChatUser(
@@ -23,8 +24,9 @@ abstract class _ChatControllerBase with Store {
     );
   }
 
-  //PARA FINS DE TESTE:
-  final sUid = 'rajFdW8hmkdL5uP4E55zNeNea863';
+  _ChatControllerBase(String sUid) {
+    this.sUid = sUid;
+  }
 
   @observable
   ObservableStream<List<ChatMessage>> chat;

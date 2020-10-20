@@ -6,7 +6,8 @@ class ChatRoomRepository {
       FirebaseFirestore.instance.collection('hortas');
 
   Stream<List<HortaModel>> getHortas() {
-    return _collectionReference.snapshots().map((event) =>
-        event.docs.map((e) => HortaModel.fromJson(e.data())).toList());
+    return _collectionReference.snapshots().map((event) => event.docs
+        .map((e) => HortaModel.fromJson(e.data())..reference = e.reference)
+        .toList());
   }
 }

@@ -13,7 +13,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends ModularState<ChatPage, ChatController> {
-  final ChatController _controller = new ChatController();
+  final ChatController _controller = Modular.get();
 
   @override
   Widget build(BuildContext context) {

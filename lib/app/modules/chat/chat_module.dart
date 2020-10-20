@@ -11,7 +11,7 @@ import 'chat_page.dart';
 class ChatModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => ChatController()),
+        Bind((i) => ChatController(Modular.args.data)),
         Bind((i) => ChatRoomController()),
         Bind((i) => ChatRoomRepository()),
         Bind((i) => ChatRepository(Dio())),
