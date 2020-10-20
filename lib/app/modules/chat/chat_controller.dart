@@ -45,13 +45,6 @@ abstract class _ChatControllerBase with Store {
 
   @action
   onSend(ChatMessage message) async {
-    print(message.toJson());
-    var documentReference = FirebaseFirestore.instance
-        .collection('chat')
-        .doc(DateTime.now().millisecondsSinceEpoch.toString());
-
-    await FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.set(documentReference, message.toJson());
-    });
+    _repository.onSend(message);
   }
 }

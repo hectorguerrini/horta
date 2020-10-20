@@ -5,20 +5,10 @@ import 'package:dio/native_imp.dart';
 import 'package:horta/app/modules/chat/models/chatRoom_model.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
 
-class ChatRoomRepository{
+class ChatRoomRepository {
   final DioForNative client;
   final CollectionReference _collectionReference =
-    FirebaseFirestore.instance.collection('chatRoom');
+      FirebaseFirestore.instance.collection('chatRoom');
   final AuthController _authController = Modular.get();
   ChatRoomRepository(this.client);
- 
-  Future<ChatRoom> getChatRoom(ChatRoom chatRoom) async {
-    if(chatRoom.reference == null){
-      chatRoom.reference = await _collectionReference.add(chatRoom.toJson());
-      return chatRoom;
-    }
-    else{
-      return chatRoom;
-    }
-  }
 }
