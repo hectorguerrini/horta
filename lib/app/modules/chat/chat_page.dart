@@ -26,7 +26,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
             .collection("chatRoom")
             .doc(_controller.getUid)
             .collection(_controller.getHortaUid)
-            .snapshots(), //_colectionReference,
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -48,7 +48,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
               textInputAction: TextInputAction.send,
               inputDecoration:
                   InputDecoration.collapsed(hintText: "Escreva sua mensagem!"),
-              dateFormat: DateFormat('yyyy-MMM-dd'),
+              dateFormat: DateFormat('dd-MMM-yyyy'),
               timeFormat: DateFormat('HH:mm'),
               showUserAvatar: true,
               showAvatarForEveryMessage: false,
