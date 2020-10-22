@@ -59,7 +59,7 @@ class _MeuPerfilPageState
                 return FormFieldWidget(
                     labelText: 'Celular',
                     msgError: !controller.getCelularValid
-                        ? 'Numero de telefon invalido.'
+                        ? 'Numero de telefone invalido.'
                         : null,
                     controller: controller.celularCtrl,
                     onChanged: controller.changeCelular,

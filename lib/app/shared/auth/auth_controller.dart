@@ -21,6 +21,7 @@ abstract class _AuthControllerBase with Store {
   Future init() async {
     user = _repository.getUser();
     await getIsAgricultor();
+    // console.log(user.emailVerified);
   }
 
   @action

@@ -107,6 +107,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     borderRadius: BorderRadius.circular(24.0),
                   ),
                 ),
+                Container(height: 10),
+                RaisedButton(
+                    onPressed: () {
+                      Modular.to.pushNamed('/login/cadastro');
+                    },
+                    child: Text("Cadastro"),
+                    textColor: Colors.white,
+                    color: Theme.of(context).primaryColor,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0),
+                    )),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
                   children: <Widget>[
