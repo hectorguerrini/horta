@@ -33,22 +33,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   width: size.width * 0.5,
                 ),
                 Container(
-                  child: Text("Usuario"),
-                  height: 30,
-                ),
-                Container(
                   child: TextFormField(
                     validator: (val) =>
                         val.isEmpty ? 'Escreva seu email' : null,
                     onChanged: controller.setEmail,
                     decoration: InputDecoration(
-                        hintText: "Escreva seu nome de usuario",
+                        labelText: "Digite seu nome de usuario",
                         prefixIcon: Icon(Icons.person)),
                   ),
-                ),
-                Container(
-                  child: Text("Senha"),
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
                 ),
                 Container(
                   child: TextFormField(
@@ -59,7 +51,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     obscureText: true,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock),
-                        hintText: "Escreva sua senha"),
+                        labelText: "Escreva sua senha"),
                   ),
                 ),
                 Observer(builder: (_) {
