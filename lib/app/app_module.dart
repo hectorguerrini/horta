@@ -25,7 +25,7 @@ class AppModule extends MainModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, child: (_, args) => SplashScreen()),
-        ModularRouter('/home', module: HomeModule()),
+        ModularRouter('/home', module: LoginModule()),
         ModularRouter('/login', module: LoginModule()),
         ModularRouter('/perfil', module: PerfilModule()),
         ModularRouter('/agricultor', module: AgricultorModule()),

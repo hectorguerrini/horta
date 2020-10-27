@@ -19,7 +19,7 @@ class _RegisterPageState
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro'),
+        title: Text(widget.title),
       ),
       body: Center(
         child: Container(
