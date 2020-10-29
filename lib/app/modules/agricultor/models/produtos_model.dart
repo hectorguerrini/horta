@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:horta/app/enumeration/hortalicas_enum.dart';
 import 'package:horta/app/enumeration/produto_disponibilidade_enum.dart';
 import 'package:horta/app/enumeration/unidade_enum.dart';

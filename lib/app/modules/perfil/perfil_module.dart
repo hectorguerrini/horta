@@ -8,7 +8,6 @@ import 'package:horta/app/modules/perfil/repositories/minha_horta_repository.dar
 import 'perfil_controller.dart';
 import 'repositories/perfil_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dio/dio.dart';
 import 'perfil_page.dart';
 
 class PerfilModule extends ChildModule {
