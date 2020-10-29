@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:horta/app/modules/home/repositories/home_repository.dart';
+
 import 'package:horta/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 
