@@ -38,7 +38,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         val.isEmpty ? 'Escreva seu email' : null,
                     onChanged: controller.setEmail,
                     decoration: InputDecoration(
-                        labelText: "Digite seu nome de usuario",
+                        labelText: "Digite seu email",
                         prefixIcon: Icon(Icons.person)),
                   ),
                 ),
