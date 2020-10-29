@@ -2,7 +2,7 @@ import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/login/login_module.dart';
 import 'package:horta/app/modules/perfil/perfil_module.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
-import 'package:horta/app/shared/auth/repositories/auth_reposiroty_interface.dart';
+import 'package:horta/app/shared/auth/repositories/auth_repository_interface.dart';
 import 'package:horta/app/shared/auth/repositories/auth_repository.dart';
 import 'package:horta/app/shared/splash/splash_controller.dart';
 import 'package:horta/app/shared/splash/splash_screen.dart';

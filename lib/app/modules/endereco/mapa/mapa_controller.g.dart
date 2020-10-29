@@ -69,36 +69,6 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
-  final _$_latLngAtom = Atom(name: '_MapaControllerBase._latLng');
-
-  @override
-  LatLng get _latLng {
-    _$_latLngAtom.reportRead();
-    return super._latLng;
-  }
-
-  @override
-  set _latLng(LatLng value) {
-    _$_latLngAtom.reportWrite(value, super._latLng, () {
-      super._latLng = value;
-    });
-  }
-
-  final _$_addressAtom = Atom(name: '_MapaControllerBase._address');
-
-  @override
-  Placemark get _address {
-    _$_addressAtom.reportRead();
-    return super._address;
-  }
-
-  @override
-  set _address(Placemark value) {
-    _$_addressAtom.reportWrite(value, super._address, () {
-      super._address = value;
-    });
-  }
-
   final _$_markersAtom = Atom(name: '_MapaControllerBase._markers');
 
   @override
@@ -175,6 +145,21 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$enderecoModelAtom = Atom(name: '_MapaControllerBase.enderecoModel');
+
+  @override
+  EnderecoModel get enderecoModel {
+    _$enderecoModelAtom.reportRead();
+    return super.enderecoModel;
+  }
+
+  @override
+  set enderecoModel(EnderecoModel value) {
+    _$enderecoModelAtom.reportWrite(value, super.enderecoModel, () {
+      super.enderecoModel = value;
+    });
+  }
+
   final _$onCameraMoveAsyncAction =
       AsyncAction('_MapaControllerBase.onCameraMove');
 
@@ -223,6 +208,17 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
+  dynamic setComplementoCtrl(String value) {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.setComplementoCtrl');
+    try {
+      return super.setComplementoCtrl(value);
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onMapCreated(GoogleMapController controller) {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
         name: '_MapaControllerBase.onMapCreated');
@@ -261,6 +257,7 @@ mixin _$MapaController on _MapaControllerBase, Store {
 showContainer: ${showContainer},
 showColumn: ${showColumn},
 numero: ${numero},
+enderecoModel: ${enderecoModel},
 getInitialCameraPosition: ${getInitialCameraPosition},
 getMarker: ${getMarker},
 getLoading: ${getLoading},
