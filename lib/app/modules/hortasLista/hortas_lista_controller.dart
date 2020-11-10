@@ -1,22 +1,20 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:horta/app/modules/endereco/model/endereco_model.dart';
+import 'package:horta/app/modules/perfil/models/horta_model.dart';
 import 'package:mobx/mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'dart:math';
+import 'repositories/hortas_lista_repository.dart';
 
-import 'repositories/endereco_repository.dart';
+part 'hortas_lista_controller.g.dart';
 
-part 'endereco_controller.g.dart';
+@Injectable()
+class HortasListaController = _HortasListaControllerBase
+    with _$HortasListaController;
 
-class EnderecoController = _EnderecoControllerBase with _$EnderecoController;
-
-abstract class _EnderecoControllerBase with Store {
-  final EnderecoRepository _repository = Modular.get();
-
+abstract class _HortasListaControllerBase with Store {
+  final HortasListaRepository _repository = Modular.get();
   var hortas = [
     {
       "nome": "Horta do Miltão",
@@ -93,7 +91,7 @@ abstract class _EnderecoControllerBase with Store {
   @observable
   String name;
 
-  _EnderecoControllerBase() {
+  _HortasListaControllerBase() {
     getCurrentLocation();
     getEnderecos();
   }
@@ -104,32 +102,36 @@ abstract class _EnderecoControllerBase with Store {
   @observable
   var hortasAparecer = [];
 
-  /*double roundDouble(double value, int places) {
+  double roundDouble(double value, int places) {
     double mod = pow(10.0, places);
     return ((value * mod).round().toDouble() / mod);
-  }*/
+  }
+
+  @observable
+  ObservableStream<List<HortaModel>> listaHortas;
+
+  @action
+  getHortas() {
+    listaHortas = _repository.getHortas().asObservable();
+    this.aparecer = true;
+  }
 
   //EnderecoController enderecoController = new EnderecoController();
   @action
   todasDistancias() async {
     await getCurrentLocation().then((val) {
-      //print(currentPosition.latitude);
-      print(currentPosition);
       for (int i = 0; i < hortas.length; i++) {
-        double dist = Geolocator.distanceBetween(
-            currentPosition.latitude,
-            hortas[i]["latitude"],
-            currentPosition.longitude,
-            hortas[i]["longitude"]);
-
-        //hortas[i]["distancia"] = roundDouble(dist, 2);
-        if (dist > 0) {
+        double dist = distance(currentPosition.latitude, hortas[i]["latitude"],
+            currentPosition.longitude, hortas[i]["longitude"]);
+        print(dist);
+        hortas[i]["distancia"] = roundDouble(dist, 2);
+        if (dist < 15000) {
           hortasAparecer.add(hortas[i]);
         }
       }
     });
     //print(this.hortasAparecer);
-    this.aparecer = true;
+    //this.aparecer = true;
     //print(this.aparecer);
   }
 
@@ -145,8 +147,7 @@ abstract class _EnderecoControllerBase with Store {
   @action
   Future<void> chamarTodasDistancias() async {
     return await ObservableFuture(todasDistancias());
-    /*name = await asyncCallToRepository;
-    //print(hortasAparecer);*/
+    /*name = await asyncCallToRepository;*/
   }
 
   @action
@@ -175,7 +176,7 @@ abstract class _EnderecoControllerBase with Store {
     });
   }
 
-  /*static double toRadians(double angleIn10thofaDegree) {
+  static double toRadians(double angleIn10thofaDegree) {
     // Angle in 10th
     // of a degree
     return (angleIn10thofaDegree * pi) / 180;
@@ -206,7 +207,7 @@ abstract class _EnderecoControllerBase with Store {
 
     // calculate the result
     return (c * r);
-  }*/
+  }
 
   @action
   getCurrentLocation() async {
@@ -254,4 +255,8 @@ abstract class _EnderecoControllerBase with Store {
       : '';
   @computed
   bool get isSearching => _searching;
+
+  void irParaPerfil() {
+    Modular.to.pushNamed('/agricultorPagina');
+  }
 }

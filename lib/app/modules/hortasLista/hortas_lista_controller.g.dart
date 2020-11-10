@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'endereco_controller.dart';
+part of 'hortas_lista_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,31 +8,31 @@ part of 'endereco_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$EnderecoController on _EnderecoControllerBase, Store {
+mixin _$HortasListaController on _HortasListaControllerBase, Store {
   Computed<String> _$getUserLocationComputed;
 
   @override
   String get getUserLocation => (_$getUserLocationComputed ??= Computed<String>(
           () => super.getUserLocation,
-          name: '_EnderecoControllerBase.getUserLocation'))
+          name: '_HortasListaControllerBase.getUserLocation'))
       .value;
   Computed<String> _$getSelectedEnderecoComputed;
 
   @override
   String get getSelectedEndereco => (_$getSelectedEnderecoComputed ??=
           Computed<String>(() => super.getSelectedEndereco,
-              name: '_EnderecoControllerBase.getSelectedEndereco'))
+              name: '_HortasListaControllerBase.getSelectedEndereco'))
       .value;
   Computed<bool> _$isSearchingComputed;
 
   @override
   bool get isSearching =>
       (_$isSearchingComputed ??= Computed<bool>(() => super.isSearching,
-              name: '_EnderecoControllerBase.isSearching'))
+              name: '_HortasListaControllerBase.isSearching'))
           .value;
 
   final _$selectedEnderecoAtom =
-      Atom(name: '_EnderecoControllerBase.selectedEndereco');
+      Atom(name: '_HortasListaControllerBase.selectedEndereco');
 
   @override
   Placemark get selectedEndereco {
@@ -48,7 +48,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$locationEnderecoAtom =
-      Atom(name: '_EnderecoControllerBase.locationEndereco');
+      Atom(name: '_HortasListaControllerBase.locationEndereco');
 
   @override
   Location get locationEndereco {
@@ -64,7 +64,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$currentPositionAtom =
-      Atom(name: '_EnderecoControllerBase.currentPosition');
+      Atom(name: '_HortasListaControllerBase.currentPosition');
 
   @override
   Position get currentPosition {
@@ -80,7 +80,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$currentAddressAtom =
-      Atom(name: '_EnderecoControllerBase.currentAddress');
+      Atom(name: '_HortasListaControllerBase.currentAddress');
 
   @override
   Placemark get currentAddress {
@@ -95,7 +95,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
-  final _$_searchingAtom = Atom(name: '_EnderecoControllerBase._searching');
+  final _$_searchingAtom = Atom(name: '_HortasListaControllerBase._searching');
 
   @override
   bool get _searching {
@@ -110,7 +110,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
-  final _$nameAtom = Atom(name: '_EnderecoControllerBase.name');
+  final _$nameAtom = Atom(name: '_HortasListaControllerBase.name');
 
   @override
   String get name {
@@ -125,7 +125,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
-  final _$aparecerAtom = Atom(name: '_EnderecoControllerBase.aparecer');
+  final _$aparecerAtom = Atom(name: '_HortasListaControllerBase.aparecer');
 
   @override
   bool get aparecer {
@@ -141,7 +141,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$hortasAparecerAtom =
-      Atom(name: '_EnderecoControllerBase.hortasAparecer');
+      Atom(name: '_HortasListaControllerBase.hortasAparecer');
 
   @override
   List<dynamic> get hortasAparecer {
@@ -156,8 +156,24 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
+  final _$listaHortasAtom =
+      Atom(name: '_HortasListaControllerBase.listaHortas');
+
+  @override
+  ObservableStream<List<HortaModel>> get listaHortas {
+    _$listaHortasAtom.reportRead();
+    return super.listaHortas;
+  }
+
+  @override
+  set listaHortas(ObservableStream<List<HortaModel>> value) {
+    _$listaHortasAtom.reportWrite(value, super.listaHortas, () {
+      super.listaHortas = value;
+    });
+  }
+
   final _$asyncCallToRepositoryAtom =
-      Atom(name: '_EnderecoControllerBase.asyncCallToRepository');
+      Atom(name: '_HortasListaControllerBase.asyncCallToRepository');
 
   @override
   ObservableFuture<String> get asyncCallToRepository {
@@ -174,7 +190,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$todasDistanciasAsyncAction =
-      AsyncAction('_EnderecoControllerBase.todasDistancias');
+      AsyncAction('_HortasListaControllerBase.todasDistancias');
 
   @override
   Future todasDistancias() {
@@ -182,7 +198,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$chamarTodasDistanciasAsyncAction =
-      AsyncAction('_EnderecoControllerBase.chamarTodasDistancias');
+      AsyncAction('_HortasListaControllerBase.chamarTodasDistancias');
 
   @override
   Future<void> chamarTodasDistancias() {
@@ -191,7 +207,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$searchEnderecoAsyncAction =
-      AsyncAction('_EnderecoControllerBase.searchEndereco');
+      AsyncAction('_HortasListaControllerBase.searchEndereco');
 
   @override
   Future searchEndereco(String value) {
@@ -199,7 +215,7 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   final _$getCurrentLocationAsyncAction =
-      AsyncAction('_EnderecoControllerBase.getCurrentLocation');
+      AsyncAction('_HortasListaControllerBase.getCurrentLocation');
 
   @override
   Future getCurrentLocation() {
@@ -207,39 +223,50 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
         .run(() => super.getCurrentLocation());
   }
 
-  final _$_EnderecoControllerBaseActionController =
-      ActionController(name: '_EnderecoControllerBase');
+  final _$_HortasListaControllerBaseActionController =
+      ActionController(name: '_HortasListaControllerBase');
+
+  @override
+  dynamic getHortas() {
+    final _$actionInfo = _$_HortasListaControllerBaseActionController
+        .startAction(name: '_HortasListaControllerBase.getHortas');
+    try {
+      return super.getHortas();
+    } finally {
+      _$_HortasListaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic getEnderecos() {
-    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
-        name: '_EnderecoControllerBase.getEnderecos');
+    final _$actionInfo = _$_HortasListaControllerBaseActionController
+        .startAction(name: '_HortasListaControllerBase.getEnderecos');
     try {
       return super.getEnderecos();
     } finally {
-      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
+      _$_HortasListaControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic editAddress() {
-    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
-        name: '_EnderecoControllerBase.editAddress');
+    final _$actionInfo = _$_HortasListaControllerBaseActionController
+        .startAction(name: '_HortasListaControllerBase.editAddress');
     try {
       return super.editAddress();
     } finally {
-      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
+      _$_HortasListaControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setCurrentAddress() {
-    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
-        name: '_EnderecoControllerBase.setCurrentAddress');
+    final _$actionInfo = _$_HortasListaControllerBaseActionController
+        .startAction(name: '_HortasListaControllerBase.setCurrentAddress');
     try {
       return super.setCurrentAddress();
     } finally {
-      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
+      _$_HortasListaControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
@@ -253,6 +280,7 @@ currentAddress: ${currentAddress},
 name: ${name},
 aparecer: ${aparecer},
 hortasAparecer: ${hortasAparecer},
+listaHortas: ${listaHortas},
 asyncCallToRepository: ${asyncCallToRepository},
 getUserLocation: ${getUserLocation},
 getSelectedEndereco: ${getSelectedEndereco},

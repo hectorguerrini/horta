@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/clientes/clientes_module.dart';
-
+import 'package:horta/app/modules/hortasLista/hortas_lista_module.dart';
+import 'package:horta/app/modules/hortasLista/hortas_lista_page.dart';
 import 'home_controller.dart';
+import '../../shared/components/textos/titulo_widget.dart';
+import '../endereco/endereco_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -18,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
 
+  //HortaItem item = new HortaItem("nome", "foto", 1);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +42,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               RouterOutlet(module: ClientesModule())
             ],
             if (!controller.getIsAgricultor)
-              Container(
-                child: Text('text'),
-              )
+              RouterOutlet(module: HortasListaModule())
           ],
         );
       }),
@@ -73,3 +78,31 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     );
   }
 }
+/*
+class LocationPage extends StatefulWidget {
+  Position _position;
+  StreamSubscription<Position> _positionStream;
+  @override
+  _LocationPageState createState() => _LocationPageState();
+}
+
+class _LocationPageState extends State<LocationPage> {
+  @override
+  void initState() {
+    super.initState();
+    var locationOptions =
+        LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+        _positionStream = Geolocator().getPositionStream(locationOptions).listen((Position g)){});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    throw UnimplementedError();
+  }
+}
+*/

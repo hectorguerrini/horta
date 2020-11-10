@@ -1,4 +1,5 @@
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
+import 'package:horta/app/modules/agricultorPagina/agricultor_pagina_page.dart';
 import 'package:horta/app/modules/login/login_module.dart';
 import 'package:horta/app/modules/perfil/perfil_module.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:horta/app/app_widget.dart';
 import 'package:horta/app/modules/home/home_module.dart';
+
+import 'modules/AgricultorPagina/agricultor_pagina_module.dart';
 
 class AppModule extends MainModule {
   @override
@@ -29,6 +32,7 @@ class AppModule extends MainModule {
         ModularRouter('/login', module: LoginModule()),
         ModularRouter('/perfil', module: PerfilModule()),
         ModularRouter('/agricultor', module: AgricultorModule()),
+        ModularRouter('/agricultorPagina', module: AgricultorPaginaModule())
       ];
 
   @override
