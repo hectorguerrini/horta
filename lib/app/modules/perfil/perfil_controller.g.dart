@@ -31,6 +31,13 @@ mixin _$PerfilController on _PerfilControllerBase, Store {
               name: '_PerfilControllerBase.getIsAgricultor'))
           .value;
 
+  final _$logoutAsyncAction = AsyncAction('_PerfilControllerBase.logout');
+
+  @override
+  Future logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
+  }
+
   @override
   String toString() {
     return '''

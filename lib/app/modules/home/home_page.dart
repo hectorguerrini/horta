@@ -51,18 +51,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           items: <BottomNavigationBarItem>[
             if (controller.getIsAgricultor)
               BottomNavigationBarItem(
-                  icon: Icon(FontAwesome5.carrot), title: Text('Horta')),
+                  icon: Icon(FontAwesome5.carrot), label: 'Horta'),
             if (controller.getIsAgricultor)
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), title: Text('Clientes')),
+                  icon: Icon(Icons.person), label: 'Clientes'),
             if (!controller.getIsAgricultor)
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), title: Text('Home')),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             !(controller.isLogged)
                 ? BottomNavigationBarItem(
-                    icon: Icon(FontAwesome5.sign_in_alt), title: Text('Login'))
+                    icon: Icon(FontAwesome5.sign_in_alt), label: 'Login')
                 : BottomNavigationBarItem(
-                    icon: Icon(Icons.account_circle), title: Text('Perfil'))
+                    icon: Icon(Icons.account_circle), label: 'Perfil')
           ],
           onTap: (value) {
             controller.bottomTapped(value);

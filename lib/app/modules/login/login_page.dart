@@ -88,7 +88,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     ),
                   ),
                 ),
-
                 Observer(builder: (_) {
                   return Text(
                     controller.msg,
@@ -108,13 +107,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     borderRadius: BorderRadius.circular(24.0),
                   ),
                 ),
-                // FlatButton(
-                //     onPressed: () {
-                //       widget.toggleView();
-                //     },
-                //     textColor: Colors.green,
-                //     child:
-                //         Text('Criar Conta', style: TextStyle(fontSize: 16.0))),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
                   children: <Widget>[

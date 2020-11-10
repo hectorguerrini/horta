@@ -16,13 +16,6 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
           () => super.getUserLocation,
           name: '_EnderecoControllerBase.getUserLocation'))
       .value;
-  Computed<String> _$getSelectedEnderecoComputed;
-
-  @override
-  String get getSelectedEndereco => (_$getSelectedEnderecoComputed ??=
-          Computed<String>(() => super.getSelectedEndereco,
-              name: '_EnderecoControllerBase.getSelectedEndereco'))
-      .value;
   Computed<bool> _$isSearchingComputed;
 
   @override
@@ -30,70 +23,6 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
       (_$isSearchingComputed ??= Computed<bool>(() => super.isSearching,
               name: '_EnderecoControllerBase.isSearching'))
           .value;
-
-  final _$selectedEnderecoAtom =
-      Atom(name: '_EnderecoControllerBase.selectedEndereco');
-
-  @override
-  Placemark get selectedEndereco {
-    _$selectedEnderecoAtom.reportRead();
-    return super.selectedEndereco;
-  }
-
-  @override
-  set selectedEndereco(Placemark value) {
-    _$selectedEnderecoAtom.reportWrite(value, super.selectedEndereco, () {
-      super.selectedEndereco = value;
-    });
-  }
-
-  final _$locationEnderecoAtom =
-      Atom(name: '_EnderecoControllerBase.locationEndereco');
-
-  @override
-  Location get locationEndereco {
-    _$locationEnderecoAtom.reportRead();
-    return super.locationEndereco;
-  }
-
-  @override
-  set locationEndereco(Location value) {
-    _$locationEnderecoAtom.reportWrite(value, super.locationEndereco, () {
-      super.locationEndereco = value;
-    });
-  }
-
-  final _$currentPositionAtom =
-      Atom(name: '_EnderecoControllerBase.currentPosition');
-
-  @override
-  Position get currentPosition {
-    _$currentPositionAtom.reportRead();
-    return super.currentPosition;
-  }
-
-  @override
-  set currentPosition(Position value) {
-    _$currentPositionAtom.reportWrite(value, super.currentPosition, () {
-      super.currentPosition = value;
-    });
-  }
-
-  final _$currentAddressAtom =
-      Atom(name: '_EnderecoControllerBase.currentAddress');
-
-  @override
-  Placemark get currentAddress {
-    _$currentAddressAtom.reportRead();
-    return super.currentAddress;
-  }
-
-  @override
-  set currentAddress(Placemark value) {
-    _$currentAddressAtom.reportWrite(value, super.currentAddress, () {
-      super.currentAddress = value;
-    });
-  }
 
   final _$_searchingAtom = Atom(name: '_EnderecoControllerBase._searching');
 
@@ -107,6 +36,38 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   set _searching(bool value) {
     _$_searchingAtom.reportWrite(value, super._searching, () {
       super._searching = value;
+    });
+  }
+
+  final _$currentPositionAtom =
+      Atom(name: '_EnderecoControllerBase.currentPosition');
+
+  @override
+  EnderecoModel get currentPosition {
+    _$currentPositionAtom.reportRead();
+    return super.currentPosition;
+  }
+
+  @override
+  set currentPosition(EnderecoModel value) {
+    _$currentPositionAtom.reportWrite(value, super.currentPosition, () {
+      super.currentPosition = value;
+    });
+  }
+
+  final _$listEnderecosAtom =
+      Atom(name: '_EnderecoControllerBase.listEnderecos');
+
+  @override
+  ObservableStream<List<EnderecoModel>> get listEnderecos {
+    _$listEnderecosAtom.reportRead();
+    return super.listEnderecos;
+  }
+
+  @override
+  set listEnderecos(ObservableStream<List<EnderecoModel>> value) {
+    _$listEnderecosAtom.reportWrite(value, super.listEnderecos, () {
+      super.listEnderecos = value;
     });
   }
 
@@ -190,22 +151,11 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   }
 
   @override
-  dynamic editAddress() {
+  dynamic editAddress(EnderecoModel enderecoModel) {
     final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
         name: '_EnderecoControllerBase.editAddress');
     try {
-      return super.editAddress();
-    } finally {
-      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setCurrentAddress() {
-    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
-        name: '_EnderecoControllerBase.setCurrentAddress');
-    try {
-      return super.setCurrentAddress();
+      return super.editAddress(enderecoModel);
     } finally {
       _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -214,15 +164,9 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   @override
   String toString() {
     return '''
-selectedEndereco: ${selectedEndereco},
-locationEndereco: ${locationEndereco},
 currentPosition: ${currentPosition},
-currentAddress: ${currentAddress},
-name: ${name},
-hortasAparecer: ${hortasAparecer},
-asyncCallToRepository: ${asyncCallToRepository},
+listEnderecos: ${listEnderecos},
 getUserLocation: ${getUserLocation},
-getSelectedEndereco: ${getSelectedEndereco},
 isSearching: ${isSearching}
     ''';
   }

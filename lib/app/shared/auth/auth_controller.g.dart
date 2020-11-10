@@ -79,6 +79,13 @@ mixin _$AuthController on _AuthControllerBase, Store {
         .run(() => super.registerWithEmail(nome, email, senha));
   }
 
+  final _$logoutAsyncAction = AsyncAction('_AuthControllerBase.logout');
+
+  @override
+  Future<dynamic> logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
+  }
+
   final _$getIsAgricultorAsyncAction =
       AsyncAction('_AuthControllerBase.getIsAgricultor');
 

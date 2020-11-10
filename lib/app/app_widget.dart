@@ -29,10 +29,10 @@ class AppWidget extends StatelessWidget {
               ),
             );
           }
-          return Center(
-            child: Container(
-                decoration: BoxDecoration(color: Colors.white),
-                child: CircularProgressIndicator()),
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
           );
         });
   }

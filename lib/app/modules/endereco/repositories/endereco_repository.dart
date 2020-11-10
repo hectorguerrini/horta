@@ -11,15 +11,24 @@ class EnderecoRepository {
   EnderecoRepository();
 
   Future updateEnderecoHorta(EnderecoModel enderecoModel) async {
-    return await _hortaCollection
-        .doc(_authController.user.uid)
-        .set(enderecoModel.toJson(), SetOptions(merge: true));
+    if (enderecoModel.reference != null) {
+      await enderecoModel.reference.update(enderecoModel.toJson());
+    } else {
+      await _hortaCollection
+          .doc(_authController.user.uid)
+          .collection('endereco')
+          .add(enderecoModel.toJson());
+    }
   }
 
-  getEnderecoHorta() async {
-    _hortaCollection
+  Stream<List<EnderecoModel>> getEnderecoHorta() {
+    return _hortaCollection
         .doc(_authController.user.uid)
-        .get()
-        .then((value) => print(EnderecoModel.fromJson(value.data())));
+        .collection('endereco')
+        .snapshots()
+        .map((value) => value.docs
+            .map((e) =>
+                EnderecoModel.fromJson(e.data())..reference = e.reference)
+            .toList());
   }
 }
