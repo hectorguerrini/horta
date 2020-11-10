@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:horta/app/modules/endereco/model/endereco_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'repositories/endereco_repository.dart';

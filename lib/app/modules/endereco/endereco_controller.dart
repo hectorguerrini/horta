@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -76,7 +75,6 @@ abstract class _EnderecoControllerBase with Store {
           break;
         default:
       }
-
     }
   }
 

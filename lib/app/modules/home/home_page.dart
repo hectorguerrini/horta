@@ -1,17 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/clientes/clientes_module.dart';
 import 'package:horta/app/modules/hortasLista/hortas_lista_module.dart';
-import 'package:horta/app/modules/hortasLista/hortas_lista_page.dart';
+
 import 'home_controller.dart';
-import '../../shared/components/textos/titulo_widget.dart';
-import '../endereco/endereco_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;

@@ -1,5 +1,4 @@
 import 'agricultor_pagina_controller.dart';
-import 'package:dio/dio.dart';
 import 'repositories/agricultor_pagina_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:horta/app/modules/perfil/models/horta_model.dart';
 import 'hortas_lista_controller.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 
 import '../hortasLista/horta_item.dart';
 import '../../shared/components/textos/titulo_widget.dart';
-import '../agricultorPagina/agricultor_pagina_controller.dart';
 
 class HortasListaPage extends StatefulWidget {
   final String title;
