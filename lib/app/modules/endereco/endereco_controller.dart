@@ -17,65 +17,6 @@ class EnderecoController = _EnderecoControllerBase with _$EnderecoController;
 abstract class _EnderecoControllerBase with Store {
   final EnderecoRepository _repository = Modular.get();
 
-  var hortas = [
-    {
-      "nome": "Horta do Miltão",
-      "fazendeiro": "Milton Assis",
-      "foto": "assets/fotos_perfil/milton.jpg",
-      "latitude": 34.4219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-    {
-      "nome": "Cantinho do Jerson",
-      "fazendeiro": "Jerson Amado",
-      "foto": "assets/fotos_perfil/jerson.png",
-      "latitude": 36.4219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-    {
-      "nome": "Gracefield House",
-      "fazendeiro": "Isabella",
-      "foto": "assets/fotos_perfil/horta.jpg",
-      "latitude": 34.4219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-    {
-      "nome": "Stardew Valley",
-      "fazendeiro": "Abigail",
-      "foto": "assets/fotos_perfil/horta2.jpg",
-      "latitude": 35.4219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-    {
-      "nome": "Cantinho do Dante",
-      "fazendeiro": "Dante o do Inferno",
-      "foto": "assets/fotos_perfil/dante.jpg",
-      "latitude": 34.7219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-    {
-      "nome": "Colheita Feliz",
-      "fazendeiro": "Maria Sorriso",
-      "foto": "assets/fotos_perfil/horta3.jpg",
-      "latitude": 34.4219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-    {
-      "nome": "Franciscana",
-      "fazendeiro": "Francisco Filho",
-      "foto": "assets/fotos_perfil/franciso.jpg",
-      "latitude": 35.4219983,
-      "longitude": -122.084,
-      "distancia": null
-    },
-  ];
-
   @observable
   Placemark selectedEndereco;
   @observable
@@ -99,39 +40,7 @@ abstract class _EnderecoControllerBase with Store {
   }
 
   @observable
-  bool aparecer = false;
-
-  @observable
   var hortasAparecer = [];
-
-  /*double roundDouble(double value, int places) {
-    double mod = pow(10.0, places);
-    return ((value * mod).round().toDouble() / mod);
-  }*/
-
-  //EnderecoController enderecoController = new EnderecoController();
-  @action
-  todasDistancias() async {
-    await getCurrentLocation().then((val) {
-      //print(currentPosition.latitude);
-      print(currentPosition);
-      for (int i = 0; i < hortas.length; i++) {
-        double dist = Geolocator.distanceBetween(
-            currentPosition.latitude,
-            hortas[i]["latitude"],
-            currentPosition.longitude,
-            hortas[i]["longitude"]);
-
-        //hortas[i]["distancia"] = roundDouble(dist, 2);
-        if (dist > 0) {
-          hortasAparecer.add(hortas[i]);
-        }
-      }
-    });
-    //print(this.hortasAparecer);
-    this.aparecer = true;
-    //print(this.aparecer);
-  }
 
   Future<String> fetchData() async {
     await Future.delayed(Duration(seconds: 4));
@@ -141,13 +50,6 @@ abstract class _EnderecoControllerBase with Store {
 
   @observable
   ObservableFuture<String> asyncCallToRepository;
-
-  @action
-  Future<void> chamarTodasDistancias() async {
-    return await ObservableFuture(todasDistancias());
-    /*name = await asyncCallToRepository;
-    //print(hortasAparecer);*/
-  }
 
   @action
   getEnderecos() {
@@ -174,39 +76,6 @@ abstract class _EnderecoControllerBase with Store {
       'address': selectedEndereco
     });
   }
-
-  /*static double toRadians(double angleIn10thofaDegree) {
-    // Angle in 10th
-    // of a degree
-    return (angleIn10thofaDegree * pi) / 180;
-  }
-
-  double distance(double lat1, double lat2, double lon1, double lon2) {
-    // The math module contains
-    // a function named toRadians
-    // which converts from degrees
-    // to radians.
-    lon1 = toRadians(lon1);
-    lon2 = toRadians(lon2);
-    lat1 = toRadians(lat1);
-    lat2 = toRadians(lat2);
-
-    // Haversine formula
-    double dlon = lon2 - lon1;
-    double dlat = lat2 - lat1;
-    double a =
-        pow(sin(dlat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(dlon / 2), 2);
-
-    double c = 2 * asin(sqrt(a));
-
-    // Radius of earth in
-    // kilometers. Use 3956
-    // for miles
-    double r = 6371;
-
-    // calculate the result
-    return (c * r);
-  }*/
 
   @action
   getCurrentLocation() async {

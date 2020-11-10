@@ -26,7 +26,7 @@ class _AgricultorPaginaPageState
     HortaModel horta = ModalRoute.of(context).settings.arguments;
     String pagamentos = "Aceitamos ";
     Text horario;
-    if (horta.minhaHistoria != "SS") {
+    if (horta.minhaHistoria == "SS") {
       horario = Text(
         horta.fechamento.toString(),
         //distancia.toString() + " km",
@@ -45,7 +45,7 @@ class _AgricultorPaginaPageState
         ),
       );
     }
-    if (horta.cartaoCredito) pagamentos += "crédito ";
+    if (horta.cartaoCredito) pagamentos += "crédito, ";
     if (horta.cartaoDebito) pagamentos = "débito, ";
     if (horta.dinheiro) pagamentos = "dinheiro";
     return Scaffold(

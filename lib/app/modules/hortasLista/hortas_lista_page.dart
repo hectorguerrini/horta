@@ -9,7 +9,6 @@ import 'package:mobx/mobx.dart';
 
 import '../hortasLista/horta_item.dart';
 import '../../shared/components/textos/titulo_widget.dart';
-import '../endereco/endereco_controller.dart';
 import '../agricultorPagina/agricultor_pagina_controller.dart';
 
 class HortasListaPage extends StatefulWidget {

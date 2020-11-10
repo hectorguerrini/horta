@@ -125,21 +125,6 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
-  final _$aparecerAtom = Atom(name: '_EnderecoControllerBase.aparecer');
-
-  @override
-  bool get aparecer {
-    _$aparecerAtom.reportRead();
-    return super.aparecer;
-  }
-
-  @override
-  set aparecer(bool value) {
-    _$aparecerAtom.reportWrite(value, super.aparecer, () {
-      super.aparecer = value;
-    });
-  }
-
   final _$hortasAparecerAtom =
       Atom(name: '_EnderecoControllerBase.hortasAparecer');
 
@@ -171,23 +156,6 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
         () {
       super.asyncCallToRepository = value;
     });
-  }
-
-  final _$todasDistanciasAsyncAction =
-      AsyncAction('_EnderecoControllerBase.todasDistancias');
-
-  @override
-  Future todasDistancias() {
-    return _$todasDistanciasAsyncAction.run(() => super.todasDistancias());
-  }
-
-  final _$chamarTodasDistanciasAsyncAction =
-      AsyncAction('_EnderecoControllerBase.chamarTodasDistancias');
-
-  @override
-  Future<void> chamarTodasDistancias() {
-    return _$chamarTodasDistanciasAsyncAction
-        .run(() => super.chamarTodasDistancias());
   }
 
   final _$searchEnderecoAsyncAction =
@@ -251,7 +219,6 @@ locationEndereco: ${locationEndereco},
 currentPosition: ${currentPosition},
 currentAddress: ${currentAddress},
 name: ${name},
-aparecer: ${aparecer},
 hortasAparecer: ${hortasAparecer},
 asyncCallToRepository: ${asyncCallToRepository},
 getUserLocation: ${getUserLocation},
