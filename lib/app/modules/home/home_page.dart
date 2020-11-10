@@ -5,7 +5,9 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 
 import 'package:horta/app/modules/agricultor/agricultor_module.dart';
 import 'package:horta/app/modules/clientes/clientes_module.dart';
+
 import 'package:horta/app/modules/hortasLista/hortas_lista_module.dart';
+
 
 import 'home_controller.dart';
 
@@ -18,9 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  //use 'controller' variable to access controller
 
-  //HortaItem item = new HortaItem("nome", "foto", 1);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               RouterOutlet(module: ClientesModule())
             ],
             if (!controller.getIsAgricultor)
+
               RouterOutlet(module: HortasListaModule())
+
           ],
         );
       }),

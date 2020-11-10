@@ -22,6 +22,7 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        
       ),
       body: Container(
           padding:
