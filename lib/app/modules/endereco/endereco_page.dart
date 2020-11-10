@@ -18,7 +18,7 @@ class EnderecoPage extends StatefulWidget {
 class _EnderecoPageState
     extends ModularState<EnderecoPage, EnderecoController> {
   //use 'controller' variable to access controller
-
+  FutureBuilder() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -71,6 +71,54 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     });
   }
 
+  final _$nameAtom = Atom(name: '_EnderecoControllerBase.name');
+
+  @override
+  String get name {
+    _$nameAtom.reportRead();
+    return super.name;
+  }
+
+  @override
+  set name(String value) {
+    _$nameAtom.reportWrite(value, super.name, () {
+      super.name = value;
+    });
+  }
+
+  final _$hortasAparecerAtom =
+      Atom(name: '_EnderecoControllerBase.hortasAparecer');
+
+  @override
+  List<dynamic> get hortasAparecer {
+    _$hortasAparecerAtom.reportRead();
+    return super.hortasAparecer;
+  }
+
+  @override
+  set hortasAparecer(List<dynamic> value) {
+    _$hortasAparecerAtom.reportWrite(value, super.hortasAparecer, () {
+      super.hortasAparecer = value;
+    });
+  }
+
+  final _$asyncCallToRepositoryAtom =
+      Atom(name: '_EnderecoControllerBase.asyncCallToRepository');
+
+  @override
+  ObservableFuture<String> get asyncCallToRepository {
+    _$asyncCallToRepositoryAtom.reportRead();
+    return super.asyncCallToRepository;
+  }
+
+  @override
+  set asyncCallToRepository(ObservableFuture<String> value) {
+    _$asyncCallToRepositoryAtom.reportWrite(value, super.asyncCallToRepository,
+        () {
+      super.asyncCallToRepository = value;
+    });
+  }
+
   final _$searchEnderecoAsyncAction =
       AsyncAction('_EnderecoControllerBase.searchEndereco');
 
@@ -118,6 +166,9 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
     return '''
 currentPosition: ${currentPosition},
 listEnderecos: ${listEnderecos},
+name: ${name},
+hortasAparecer: ${hortasAparecer},
+asyncCallToRepository: ${asyncCallToRepository},
 getUserLocation: ${getUserLocation},
 isSearching: ${isSearching}
     ''';

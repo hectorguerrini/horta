@@ -27,12 +27,27 @@ abstract class _EnderecoControllerBase with Store {
   @observable
   ObservableStream<List<EnderecoModel>> listEnderecos;
 
+  @observable
+  String name;
+
   _EnderecoControllerBase() {
     getCurrentLocation();
     if (listEnderecos == null) {
       getEnderecos();
     }
   }
+
+  @observable
+  var hortasAparecer = [];
+
+  Future<String> fetchData() async {
+    await Future.delayed(Duration(seconds: 4));
+    //print("2");
+    return "Paulo Kogos";
+  }
+
+  @observable
+  ObservableFuture<String> asyncCallToRepository;
 
   @action
   getEnderecos() {
@@ -53,6 +68,7 @@ abstract class _EnderecoControllerBase with Store {
       _searching = false;
     } on PlatformException catch (e) {
       _searching = false;
+
       print(e);
       switch (e.code) {
         case 'NOT_FOUND':
@@ -76,11 +92,10 @@ abstract class _EnderecoControllerBase with Store {
 
       var _address = (await placemarkFromCoordinates(
           _position.latitude, _position.longitude))[0];
-
       currentPosition = currentPosition.fromPlacemarkandGeoPoint(
           _address, LatLng(_position.latitude, _position.longitude));
     } catch (e) {
-      print(e);
+      //print(e);
     }
   }
 
