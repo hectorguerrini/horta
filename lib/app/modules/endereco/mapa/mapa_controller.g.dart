@@ -45,6 +45,12 @@ mixin _$MapaController on _MapaControllerBase, Store {
           Computed<String>(() => super.getSelectedLocal,
               name: '_MapaControllerBase.getSelectedLocal'))
       .value;
+  Computed<bool> _$isValidComputed;
+
+  @override
+  bool get isValid => (_$isValidComputed ??= Computed<bool>(() => super.isValid,
+          name: '_MapaControllerBase.isValid'))
+      .value;
 
   final _$_initialCameraPositionAtom =
       Atom(name: '_MapaControllerBase._initialCameraPosition');
@@ -60,36 +66,6 @@ mixin _$MapaController on _MapaControllerBase, Store {
     _$_initialCameraPositionAtom
         .reportWrite(value, super._initialCameraPosition, () {
       super._initialCameraPosition = value;
-    });
-  }
-
-  final _$_latLngAtom = Atom(name: '_MapaControllerBase._latLng');
-
-  @override
-  LatLng get _latLng {
-    _$_latLngAtom.reportRead();
-    return super._latLng;
-  }
-
-  @override
-  set _latLng(LatLng value) {
-    _$_latLngAtom.reportWrite(value, super._latLng, () {
-      super._latLng = value;
-    });
-  }
-
-  final _$_addressAtom = Atom(name: '_MapaControllerBase._address');
-
-  @override
-  Placemark get _address {
-    _$_addressAtom.reportRead();
-    return super._address;
-  }
-
-  @override
-  set _address(Placemark value) {
-    _$_addressAtom.reportWrite(value, super._address, () {
-      super._address = value;
     });
   }
 
@@ -124,6 +100,75 @@ mixin _$MapaController on _MapaControllerBase, Store {
     });
   }
 
+  final _$showContainerAtom = Atom(name: '_MapaControllerBase.showContainer');
+
+  @override
+  bool get showContainer {
+    _$showContainerAtom.reportRead();
+    return super.showContainer;
+  }
+
+  @override
+  set showContainer(bool value) {
+    _$showContainerAtom.reportWrite(value, super.showContainer, () {
+      super.showContainer = value;
+    });
+  }
+
+  final _$showColumnAtom = Atom(name: '_MapaControllerBase.showColumn');
+
+  @override
+  bool get showColumn {
+    _$showColumnAtom.reportRead();
+    return super.showColumn;
+  }
+
+  @override
+  set showColumn(bool value) {
+    _$showColumnAtom.reportWrite(value, super.showColumn, () {
+      super.showColumn = value;
+    });
+  }
+
+  final _$numeroAtom = Atom(name: '_MapaControllerBase.numero');
+
+  @override
+  String get numero {
+    _$numeroAtom.reportRead();
+    return super.numero;
+  }
+
+  @override
+  set numero(String value) {
+    _$numeroAtom.reportWrite(value, super.numero, () {
+      super.numero = value;
+    });
+  }
+
+  final _$enderecoModelAtom = Atom(name: '_MapaControllerBase.enderecoModel');
+
+  @override
+  EnderecoModel get enderecoModel {
+    _$enderecoModelAtom.reportRead();
+    return super.enderecoModel;
+  }
+
+  @override
+  set enderecoModel(EnderecoModel value) {
+    _$enderecoModelAtom.reportWrite(value, super.enderecoModel, () {
+      super.enderecoModel = value;
+    });
+  }
+
+  final _$onCameraMoveAsyncAction =
+      AsyncAction('_MapaControllerBase.onCameraMove');
+
+  @override
+  Future onCameraMove(CameraPosition cameraPosition) {
+    return _$onCameraMoveAsyncAction
+        .run(() => super.onCameraMove(cameraPosition));
+  }
+
   final _$onCameraIdleAsyncAction =
       AsyncAction('_MapaControllerBase.onCameraIdle');
 
@@ -132,15 +177,46 @@ mixin _$MapaController on _MapaControllerBase, Store {
     return _$onCameraIdleAsyncAction.run(() => super.onCameraIdle());
   }
 
-  final _$setNumberAsyncAction = AsyncAction('_MapaControllerBase.setNumber');
+  final _$searchNumberAsyncAction =
+      AsyncAction('_MapaControllerBase.searchNumber');
 
   @override
-  Future setNumber(String value) {
-    return _$setNumberAsyncAction.run(() => super.setNumber(value));
+  Future searchNumber() {
+    return _$searchNumberAsyncAction.run(() => super.searchNumber());
+  }
+
+  final _$salvarEnderecoAsyncAction =
+      AsyncAction('_MapaControllerBase.salvarEndereco');
+
+  @override
+  Future salvarEndereco() {
+    return _$salvarEnderecoAsyncAction.run(() => super.salvarEndereco());
   }
 
   final _$_MapaControllerBaseActionController =
       ActionController(name: '_MapaControllerBase');
+
+  @override
+  dynamic setNumberCtrl(String value) {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.setNumberCtrl');
+    try {
+      return super.setNumberCtrl(value);
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setComplementoCtrl(String value) {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.setComplementoCtrl');
+    try {
+      return super.setComplementoCtrl(value);
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic onMapCreated(GoogleMapController controller) {
@@ -154,11 +230,22 @@ mixin _$MapaController on _MapaControllerBase, Store {
   }
 
   @override
-  dynamic onCameraMove(CameraPosition cameraPosition) {
+  dynamic openConfirmAddress() {
     final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
-        name: '_MapaControllerBase.onCameraMove');
+        name: '_MapaControllerBase.openConfirmAddress');
     try {
-      return super.onCameraMove(cameraPosition);
+      return super.openConfirmAddress();
+    } finally {
+      _$_MapaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic closeAddress() {
+    final _$actionInfo = _$_MapaControllerBaseActionController.startAction(
+        name: '_MapaControllerBase.closeAddress');
+    try {
+      return super.closeAddress();
     } finally {
       _$_MapaControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -167,11 +254,16 @@ mixin _$MapaController on _MapaControllerBase, Store {
   @override
   String toString() {
     return '''
+showContainer: ${showContainer},
+showColumn: ${showColumn},
+numero: ${numero},
+enderecoModel: ${enderecoModel},
 getInitialCameraPosition: ${getInitialCameraPosition},
 getMarker: ${getMarker},
 getLoading: ${getLoading},
 getSelectedEndereco: ${getSelectedEndereco},
-getSelectedLocal: ${getSelectedLocal}
+getSelectedLocal: ${getSelectedLocal},
+isValid: ${isValid}
     ''';
   }
 }

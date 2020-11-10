@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:horta/app/shared/auth/auth_controller.dart';
 import 'perfil_controller.dart';
 
 class PerfilPage extends StatefulWidget {
@@ -110,16 +109,25 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
             ListTile(
               leading: Icon(FontAwesome5.map_marker_alt),
               title: Text(
-                'Editar endereço',
+                'Endereço',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                'endereço',
+                'Atualizar Endereço',
                 style: TextStyle(fontSize: 18, color: Colors.black54),
               ),
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () => Modular.to.pushNamed('/perfil/endereco'),
             ),
+            Divider(),
+            ListTile(
+              leading: Icon(FontAwesome5.sign_out_alt),
+              title: Text(
+                'Sair da conta',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              onTap: controller.logout,
+            )
           ])),
     );
   }

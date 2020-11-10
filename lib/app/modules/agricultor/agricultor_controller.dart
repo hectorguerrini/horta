@@ -33,12 +33,16 @@ abstract class _AgricultorControllerBase with Store {
 
   @action
   changeDisponibilidade(bool value, ProdutosModel item) async {
-    item = item.copyWith(disponibilidade: value);
-    await _repository.updateMeusProdutos(item);
-    showToastWidget(
-        ToastWidget(
-          msg: 'Alterado com sucesso',
-        ),
-        duration: Duration(seconds: 2));
+    try {
+      item = item.copyWith(disponibilidade: value);
+      await _repository.updateMeusProdutos(item);
+      showToastWidget(
+          ToastWidget(
+            msg: 'Alterado com sucesso',
+          ),
+          duration: Duration(seconds: 2));
+    } catch (e) {
+      print(e);
+    }
   }
 }

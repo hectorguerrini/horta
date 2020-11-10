@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:horta/app/enumeration/hortalicas_enum.dart';
@@ -64,7 +63,7 @@ abstract class _CadastroProdutoControllerBase with Store {
   @action
   changeDisponibilidade(bool value, ProdutosModel item) {
     item = item.copyWith(disponibilidade: value);
-    item.reference.updateData(item.toJson());
+    item.reference.update(item.toJson());
   }
 
   @action

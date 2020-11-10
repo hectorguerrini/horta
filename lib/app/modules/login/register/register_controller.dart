@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:horta/app/modules/login/models/register_model.dart';
 import 'package:horta/app/shared/auth/auth_controller.dart';

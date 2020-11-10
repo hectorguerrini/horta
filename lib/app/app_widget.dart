@@ -20,17 +20,19 @@ class AppWidget extends StatelessWidget {
                 navigatorKey: Modular.navigatorKey,
                 title: 'É da Horta',
                 theme: ThemeData(
-                  primarySwatch: Colors.green,
-                ),
+                    primaryColor: Color.fromRGBO(71, 127, 32, 1),
+                    primaryColorDark: Color.fromRGBO(21, 82, 0, 1),
+                    primaryColorLight: Color.fromRGBO(119, 175, 77, 1),
+                    accentColor: Color.fromRGBO(241, 136, 37, 1)),
                 initialRoute: '/',
                 onGenerateRoute: Modular.generateRoute,
               ),
             );
           }
-          return Center(
-            child: Container(
-                decoration: BoxDecoration(color: Colors.white),
-                child: CircularProgressIndicator()),
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
           );
         });
   }

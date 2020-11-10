@@ -46,25 +46,9 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
               onCameraIdle: controller.onCameraIdle,
               markers: Set<Marker>.of(controller.getMarker),
               myLocationEnabled: true,
-              liteModeEnabled: true,
-              
-              padding: EdgeInsets.only( bottom: 54),
+              padding: EdgeInsets.only(bottom: 54),
             );
           }),
-          Positioned(
-            bottom: 16,
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal:16.0),
-              child: RaisedButton(
-                  color: Colors.orange,
-                  child: Text(
-                    'Confirmar Endereço',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {}),
-            ),
-          ),
           Positioned(
             top: 0,
             width: MediaQuery.of(context).size.width,
@@ -76,11 +60,9 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
               }
               return ListTile(
                 dense: true,
-                title: Text(
-                  controller.getSelectedEndereco,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16,color: Colors.orange)
-                ),
+                title: Text(controller.getSelectedEndereco,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.orange)),
                 subtitle: Text(
                   controller.getSelectedLocal,
                   textAlign: TextAlign.center,
@@ -88,7 +70,87 @@ class _MapaPageState extends ModularState<MapaPage, MapaController> {
                 ),
               );
             }),
-          )
+          ),
+          Positioned(
+            bottom: 16,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: RaisedButton(
+                  color: Colors.orange,
+                  child: Text(
+                    'Confirmar Endereço',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: controller.openConfirmAddress),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Observer(builder: (_) {
+              return ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(32),
+                    topRight: Radius.circular(32)),
+                child: AnimatedContainer(
+                  decoration: BoxDecoration(color: Colors.white),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  height: controller.showContainer ? 250 : 0,
+                  width: MediaQuery.of(context).size.width,
+                  duration: Duration(seconds: 1),
+                  curve: Curves.fastOutSlowIn,
+                  child: controller.showColumn
+                      ? Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                  color: Theme.of(context).accentColor,
+                                  icon: Icon(
+                                    Icons.close,
+                                    size: 32,
+                                  ),
+                                  onPressed: controller.closeAddress),
+                            ),
+                            TextFormField(
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.search,
+                              onFieldSubmitted: (value) =>
+                                  controller.searchNumber(),
+                              controller: controller.numeroCtrl,
+                              decoration: InputDecoration(
+                                  labelText: 'Numero',
+                                  suffixIcon: IconButton(
+                                      icon: Icon(Icons.search),
+                                      onPressed: controller.searchNumber)),
+                            ),
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.search,
+                              controller: controller.complementoCtrl,
+                              decoration:
+                                  InputDecoration(labelText: 'Complemento'),
+                            ),
+                            Observer(builder: (_) {
+                              return RaisedButton(
+                                  child: Text(
+                                    'Salvar Endereço',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  color: Theme.of(context).accentColor,
+                                  onPressed: controller.isValid
+                                      ? controller.salvarEndereco
+                                      : null);
+                            }),
+                          ],
+                        )
+                      : null,
+                ),
+              );
+            }),
+          ),
         ],
       ),
     );

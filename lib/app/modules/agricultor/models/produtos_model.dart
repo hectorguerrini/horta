@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:horta/app/enumeration/hortalicas_enum.dart';
 import 'package:horta/app/enumeration/produto_disponibilidade_enum.dart';
 import 'package:horta/app/enumeration/unidade_enum.dart';
@@ -17,7 +16,7 @@ class ProdutosModel extends BaseModel {
   ProdutosModel(
       {this.produto, this.preco, this.unidade, this.disponibilidade = false});
 
-  copyWith(
+  ProdutosModel copyWith(
       {Hortalicas produto,
       double preco,
       Unidade unidade,
