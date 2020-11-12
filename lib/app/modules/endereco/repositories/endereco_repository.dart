@@ -21,15 +21,14 @@ class EnderecoRepository {
     }
   }
 
-  getEnderecoHorta() async {
-    _hortaCollection
+  Stream<List<EnderecoModel>> getEnderecoHorta() {
+    return _hortaCollection
         .doc(_authController.user.uid)
         .collection('endereco')
-        .doc()
-        .get()
-        .then((value) => value.exists
-            ? print(EnderecoModel.fromJson(value.data())
-              ..reference = value.reference)
-            : print('not exists'));
+        .snapshots()
+        .map((value) => value.docs
+            .map((e) =>
+                EnderecoModel.fromJson(e.data())..reference = e.reference)
+            .toList());
   }
 }

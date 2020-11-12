@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:horta/app/shared/auth/auth_controller.dart';
 import 'perfil_controller.dart';
 
 class PerfilPage extends StatefulWidget {
@@ -23,6 +22,7 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        
       ),
       body: Container(
           padding:
