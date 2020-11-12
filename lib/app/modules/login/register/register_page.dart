@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'register_controller.dart';
 
@@ -19,7 +20,7 @@ class _RegisterPageState
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro'),
+        title: Text(widget.title),
       ),
       body: Center(
         child: Container(
@@ -30,15 +31,17 @@ class _RegisterPageState
               children: <Widget>[
                 Image(
                   image: AssetImage('assets/logo.png'),
-                  width: size.width * 0.50,
+                  width: size.width * 0.5,
                 ),
                 TextFormField(
                   validator: (val) => val.isEmpty ? 'Escreva seu nome' : null,
+                  obscureText: true,
                   onChanged: controller.setNome,
                   decoration: InputDecoration(labelText: 'Nome Completo'),
                 ),
                 TextFormField(
                   validator: (val) => val.isEmpty ? 'Escreva seu email' : null,
+                  obscureText: true,
                   onChanged: controller.setEmail,
                   decoration: InputDecoration(labelText: 'Email'),
                 ),
@@ -52,20 +55,27 @@ class _RegisterPageState
                     labelText: 'Senha',
                   ),
                 ),
+                Observer(builder: (_) {
+                  return Text(
+                    controller.msg,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                  );
+                }),
+                Container(height: 10),
                 RaisedButton(
-                  onPressed: controller.registerWithEmailAndPassword,
-                  elevation: 5.0,
+                  onPressed: controller.isValid
+                      ? controller.registerWithEmailAndPassword
+                      : null,
                   textColor: Colors.white,
-                  color: Colors.green,
+                  color: Theme.of(context).primaryColor,
                   child: Text('Criar Conta', style: TextStyle(fontSize: 16.0)),
+                  padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
+                      borderRadius: BorderRadius.circular(24.0)),
                 ),
-                // FlatButton(
-                //   onPressed: () {},
-                //   child: Text('Login', style: TextStyle(fontSize: 16.0)),
-                //   textColor: Colors.green,
-                // )
+                Container(
+                  height: 50,
+                )
               ],
             ),
           ),

@@ -10,8 +10,16 @@ class RegisterController = _RegisterControllerBase with _$RegisterController;
 
 abstract class _RegisterControllerBase with Store {
   final AuthController _authController = Modular.get();
+
   @observable
   RegisterModel registerModel;
+
+  @observable
+  String msg = '';
+
+  _RegisterControllerBase() {
+    registerModel = new RegisterModel(nome: '', email: '', senha: '');
+  }
 
   @action
   setNome(String value) => registerModel = registerModel.copyWith(nome: value);
@@ -35,4 +43,11 @@ abstract class _RegisterControllerBase with Store {
       print(e);
     }
   }
+
+  @computed
+  bool get isValid =>
+      registerModel.nome.isNotEmpty &&
+      registerModel.email.isNotEmpty &&
+      registerModel.senha.isNotEmpty &&
+      registerModel.senha.length >= 6;
 }
