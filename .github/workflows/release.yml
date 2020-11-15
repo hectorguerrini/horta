@@ -17,7 +17,7 @@ jobs:
         with:
           flutter-version: '1.22.3'
       - run: flutter pub get
-      - run: flutter build apk --debug --split-per-abi   
+      - run: flutter build apk --split-per-abi   
       - run: flutter build appbundle
       - name: Push APP Bundle to Releases
         uses: ncipollo/release-action@v1
