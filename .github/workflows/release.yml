@@ -24,6 +24,3 @@ jobs:
         with:
           artifacts: "build/app/outputs/bundle/release/app-release.aab,build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit: master
-          tag: ${{github.event.ref}}
-          name: Release ${{github.ref}}
