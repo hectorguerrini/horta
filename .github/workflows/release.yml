@@ -3,7 +3,7 @@ name: Trigger Build Release APK and APP Bundle
 on:     
   push:
     tags: 
-      - 'v*.*.*'
+      - 'v*.*.*+'
 jobs:
   buildBundle:
     name: Build APP Bundle
