@@ -24,7 +24,7 @@ jobs:
       - name: Push APK to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*.apk"
+          artifacts: "build/app/outputs/bundle/release/app-release.aab"          
           token: ${{ secrets.GITHUB_TOKEN }}
           commit: master
           tag: ${{github.event.inputs.version}}
