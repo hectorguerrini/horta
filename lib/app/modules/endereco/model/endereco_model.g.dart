@@ -15,8 +15,7 @@ EnderecoModel _$EnderecoModelFromJson(Map<String, dynamic> json) {
     cidade: json['cidade'] as String,
     estado: json['estado'] as String,
     cep: json['cep'] as String,
-    geoPoint: EnderecoModel._geoPointFromJson(
-        json['geoPoint'] as Map<String, dynamic>),
+    geoPoint: EnderecoModel._geoPointFromJson(json['geoPoint'] as GeoPoint),
   );
 }
 

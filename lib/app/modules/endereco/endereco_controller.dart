@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:horta/app/modules/endereco/model/endereco_model.dart';
 import 'package:mobx/mobx.dart';
 
@@ -18,40 +19,56 @@ abstract class _EnderecoControllerBase with Store {
   final EnderecoRepository _repository = Modular.get();
 
   @observable
-  Placemark selectedEndereco;
-
-  @observable
-  Location locationEndereco;
-
-  @observable
-  Position currentPosition;
-
-  @observable
-  Placemark currentAddress;
-
-  @observable
   bool _searching = false;
+
+  @observable
+  EnderecoModel currentPosition;
+
+  @observable
+  ObservableStream<List<EnderecoModel>> listEnderecos;
+
+  @observable
+  String name;
 
   _EnderecoControllerBase() {
     getCurrentLocation();
-    getEnderecos();
+    if (listEnderecos == null) {
+      getEnderecos();
+    }
   }
+
+  @observable
+  var hortasAparecer = [];
+
+  Future<String> fetchData() async {
+    await Future.delayed(Duration(seconds: 4));
+    //print("2");
+    return "Paulo Kogos";
+  }
+
+  @observable
+  ObservableFuture<String> asyncCallToRepository;
 
   @action
   getEnderecos() {
-    _repository.getEnderecoHorta();
+    listEnderecos = _repository.getEnderecoHorta().asObservable();
   }
 
   @action
   searchEndereco(String value) async {
     try {
       _searching = true;
-      locationEndereco = (await locationFromAddress(value))[0];
-      selectedEndereco = (await placemarkFromCoordinates(
+      var locationEndereco = (await locationFromAddress(value))[0];
+      var selectedEndereco = (await placemarkFromCoordinates(
           locationEndereco.latitude, locationEndereco.longitude))[0];
+      currentPosition = currentPosition.fromPlacemarkandGeoPoint(
+          selectedEndereco,
+          LatLng(locationEndereco.latitude, locationEndereco.longitude));
+      editAddress(currentPosition);
       _searching = false;
     } on PlatformException catch (e) {
       _searching = false;
+
       print(e);
       switch (e.code) {
         case 'NOT_FOUND':
@@ -62,56 +79,38 @@ abstract class _EnderecoControllerBase with Store {
   }
 
   @action
-  editAddress() {
-    Modular.to.pushNamed('/perfil/endereco/mapa', arguments: {
-      'latLng': LatLng(locationEndereco.latitude, locationEndereco.longitude),
-      'address': selectedEndereco
-    });
+  editAddress(EnderecoModel enderecoModel) {
+    Modular.to.pushNamed('/perfil/endereco/mapa',
+        arguments: {'endereco': enderecoModel});
   }
 
   @action
   getCurrentLocation() async {
     try {
-      currentPosition =
-          await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      var _position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
 
-      currentAddress = (await placemarkFromCoordinates(
-          currentPosition.latitude, currentPosition.longitude))[0];
+      var _address = (await placemarkFromCoordinates(
+          _position.latitude, _position.longitude))[0];
+      currentPosition = currentPosition.fromPlacemarkandGeoPoint(
+          _address, LatLng(_position.latitude, _position.longitude));
     } catch (e) {
-      print(e);
+      //print(e);
     }
   }
 
-  @action
-  setCurrentAddress() {
-    selectedEndereco = currentAddress;
-    locationEndereco = Location(
-        latitude: currentPosition.latitude,
-        longitude: currentPosition.longitude,
-        timestamp: currentPosition.timestamp);
-    editAddress();
-  }
-
   @computed
-  String get getUserLocation => currentAddress != null
-      ? (currentAddress.thoroughfare +
-          (currentAddress.name != null ? ', ' + currentAddress.name : '') +
+  String get getUserLocation => currentPosition != null
+      ? (currentPosition.logradouro +
+          (currentPosition.numero != null
+              ? ', ' + currentPosition.numero
+              : '') +
           ' - ' +
-          currentAddress.subLocality +
+          currentPosition.bairro +
           ', ' +
-          currentAddress.subAdministrativeArea +
+          currentPosition.cidade +
           ', ' +
-          currentAddress.postalCode)
-      : '';
-  @computed
-  String get getSelectedEndereco => selectedEndereco != null
-      ? (selectedEndereco.thoroughfare +
-          ' - ' +
-          selectedEndereco.subLocality +
-          ', ' +
-          selectedEndereco.subAdministrativeArea +
-          ', ' +
-          selectedEndereco.postalCode)
+          currentPosition.cep)
       : '';
 
   @computed

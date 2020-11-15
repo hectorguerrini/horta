@@ -1,0 +1,7 @@
+analyzer:
+    errors:
+      
+    exclude:      
+      - test/**
+
+        

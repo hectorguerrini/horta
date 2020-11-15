@@ -4,7 +4,7 @@ import 'package:horta/app/modules/agricultor/cadastro-produto/cadastro_produto_p
 import 'repositories/agricultor_repository.dart';
 import 'agricultor_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dio/dio.dart';
+
 import 'agricultor_page.dart';
 
 class AgricultorModule extends ChildModule {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:horta/app/modules/endereco/model/endereco_model.dart';
 import 'package:horta/app/shared/components/formfield_widget.dart';
 import 'endereco_controller.dart';
 
@@ -17,7 +18,7 @@ class EnderecoPage extends StatefulWidget {
 class _EnderecoPageState
     extends ModularState<EnderecoPage, EnderecoController> {
   //use 'controller' variable to access controller
-
+  FutureBuilder() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +29,7 @@ class _EnderecoPageState
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -60,26 +62,29 @@ class _EnderecoPageState
                         width: 16,
                         child: CircularProgressIndicator(strokeWidth: 1),
                       ),
-                onTap: controller.getUserLocation != ''
-                    ? controller.setCurrentAddress
+                onTap: () => controller.getUserLocation != ''
+                    ? controller.editAddress(controller.currentPosition)
                     : null,
               );
             }),
             Divider(),
             Observer(builder: (_) {
-              if (controller.getSelectedEndereco == '') {
+              if (controller.listEnderecos.data == null)
                 return Text('Nenhum Endereço cadastrado');
-              }
-              return ListTile(
-                leading: Icon(
-                  FontAwesome5.map_marker_alt,
-                  color: Colors.green,
-                ),
-                title: Text(controller.getSelectedEndereco),
-                trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: controller.editAddress,
-              );
-            })
+              List<EnderecoModel> lista = controller.listEnderecos.data;
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: lista.length,
+                  itemBuilder: (context, index) => ListTile(
+                        leading: Icon(
+                          FontAwesome5.map_marker_alt,
+                          color: Colors.green,
+                        ),
+                        title: Text(lista[index].enderecoFormat()),
+                        trailing: Icon(Icons.keyboard_arrow_right),
+                        onTap: () => controller.editAddress(lista[index]),
+                      ));
+            }),
           ],
         ),
       ),

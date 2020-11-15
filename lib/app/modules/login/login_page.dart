@@ -23,45 +23,26 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       ),
       body: Center(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: EdgeInsets.symmetric(horizontal: 70),
           child: Form(
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
-                Container(
-                  child: Image(
-                    image: AssetImage('assets/logo.png'),
-                    width: size.width * 0.5,
-                  ),
+                Image(
+                  image: AssetImage('assets/logo.png'),
+                  width: size.width * 0.5,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 8),
                   child: TextFormField(
                     validator: (val) =>
                         val.isEmpty ? 'Escreva seu email' : null,
                     onChanged: controller.setEmail,
                     decoration: InputDecoration(
-                      hintText: "Usuario",
-                      hintStyle:
-                          TextStyle(color: Theme.of(context).primaryColor),
-                      fillColor:
-                          Theme.of(context).primaryColor.withOpacity(0.3),
-                      filled: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 2),
-                          borderRadius: BorderRadius.circular(32)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Theme.of(context).primaryColor),
-                          borderRadius: BorderRadius.circular(32)),
-                    ),
+                        labelText: "Digite seu email",
+                        prefixIcon: Icon(Icons.person)),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 8),
                   child: TextFormField(
                     validator: (val) => val.length < 6
                         ? 'Escreva sua senha com mais de 6 caracteres'
@@ -69,23 +50,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     onChanged: controller.setSenha,
                     obscureText: true,
                     decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor, width: 2),
-                          borderRadius: BorderRadius.circular(32)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Theme.of(context).primaryColor),
-                          borderRadius: BorderRadius.circular(32)),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                      hintText: "Senha",
-                      hintStyle:
-                          TextStyle(color: Theme.of(context).primaryColor),
-                      fillColor:
-                          Theme.of(context).primaryColor.withOpacity(0.3),
-                      filled: true,
-                    ),
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: "Escreva sua senha"),
                   ),
                 ),
                 Observer(builder: (_) {
@@ -106,6 +72,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24.0),
                   ),
+                ),
+                Container(height: 10),
+                FlatButton(
+                  onPressed: () {
+                    Modular.to.pushNamed('/login/cadastro');
+                  },
+                  child: Text("Cadastre-se aqui!"),
                 ),
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
