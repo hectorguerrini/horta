@@ -1,19 +1,34 @@
-name: Dart CI
+name: Test & Build APK
 
 on:
   push:
-    branches: [ master, desenvolvimento ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, desenvolvimento ]
-
+    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        default: v1.0.0
+        required: true
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
-    container:
-      image:  cirrusci/flutter:latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: flutter pub get
- 
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.22.3'
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build appbundle
+      - name: Push APK to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*.apk"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
