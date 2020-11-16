@@ -1,4 +1,4 @@
-name: Manual Build Release APK and APP Bundle
+name: Manual Build Release IOS
 
 on:     
   workflow_dispatch:
