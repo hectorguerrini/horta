@@ -1,0 +1,23 @@
+name: Manual Build Release APK and APP Bundle
+
+on:     
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        default: v1.0.0
+        required: true
+jobs:
+  build:
+    name: Build IOS 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.22.3'
+      - run: flutter pub get      
+      - run: flutter build ios --release --no-codesign     
