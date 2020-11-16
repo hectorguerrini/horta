@@ -1,7 +1,7 @@
 name: Trigger Build Release APK and APP Bundle
 
 on:     
-  push:
+  pull_request:
     tags: 
       - 'v*.*.*'
 jobs:
@@ -19,7 +19,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --split-per-abi   
       - run: flutter build appbundle
-      - name: Push APP Bundle to Releases
+      - name: Push APP Bundle and APK to Releases
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/bundle/release/app-release.aab,build/app/outputs/apk/release/*.apk"

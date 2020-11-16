@@ -22,10 +22,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build appbundle
       - run: flutter build apk --split-per-abi         
-      - name: Push APP Bundle to Releases
+      - name: Push APP Bundle and APK to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
+          artifacts: "build/app/outputs/bundle/release/app-release.aab,build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{github.event.inputs.version}}
           name: Release ${{github.event.inputs.version}}
