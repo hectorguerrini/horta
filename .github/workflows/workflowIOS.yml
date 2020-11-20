@@ -20,11 +20,14 @@ jobs:
         with:
           flutter-version: '1.22.3'
       - run: flutter pub get      
-      - run: |
-          flutter build ios --release --no-codesign
-          cd ios
-          xcodebuild -workspace YOUR_WORKSPACE.xcworkspace -scheme YOUR_SCHEME -sdk iphoneos -configuration AppStoreDistribution archive -archivePath $PWD/build/MY_APP.xcarchive
-          xcodebuild -exportArchive -archivePath $PWD/build/MY_APP.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $PWD/build -allowProvisioningUpdates
-          rm -fr Runner.xcarchive
-          cd ..
-          ls
+      - name: iOS Build Action
+        uses: yukiarrr/ios-build-action@v1.3.0
+        with:
+          project-path: ios/Runner.xcodeproj
+          workspace-path: ios/Runner.xcworkspace
+          p12-key-base64: ${{ secrets.P12_KEY_BASE64 }}
+          p12-cer-base64: ${{ secrets.P12_CER_BASE64 }}
+          mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+          code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+          team-id: ${{ secrets.TEAM_ID }}
+          
